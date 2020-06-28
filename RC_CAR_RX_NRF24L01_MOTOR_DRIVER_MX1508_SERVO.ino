@@ -10,7 +10,8 @@ const uint64_t pipeIn = 0xE8E8F0F0E1LL; //Remember that this code is the same as
 RF24 radio(8, 14); //Set CE and CSN pins (14 aka A0)
 
 //******** The sizeof this struct should not exceed 32 bytes ******************************************************************
-struct Received_data {
+struct Received_data
+{
   byte ch1;
   byte ch2;
   byte ch3;
@@ -32,8 +33,8 @@ Received_data data;
   int motA_value = 0;
   int motB_value = 0;
 
-void resetData() {
-
+void resetData()
+{
   data.ch1 = 127; //0-127-255     
   data.ch2 = 127;
   data.ch3 = 127;
@@ -53,8 +54,8 @@ ServoTimer2 servo5;
 ServoTimer2 servo6;
 
 //**************************************************************************************************************************
-void attachServoPins() {
-  
+void attachServoPins()
+{
   servo1.attach(2);
   servo2.attach(3);
   servo3.attach(4);
@@ -64,8 +65,8 @@ void attachServoPins() {
 }
 
 //**************************************************************************************************************************
-void outputServo() {
-
+void outputServo()
+{
   servo1.write(ch1_value);   
   servo2.write(ch2_value); 
   servo3.write(ch3_value);
@@ -82,8 +83,8 @@ void outputServo() {
 }
 
 //**************************************************************************************************************************
-void outputPWM() {
-    
+void outputPWM()
+{  
 /******************************************************************************************
    The base frequency for pins 3, 9, 10, 11 is 31250Hz.
    The base frequency for pins 5, 6 is 62500Hz.
@@ -114,17 +115,20 @@ void outputPWM() {
 
 //----------------------------- MotorA ----------------------------- 
 
-  if (data.ch7 < 125) {
+  if (data.ch7 < 125)
+  {
     motA_value = map(data.ch7, 125, 0, 0, 255);
     analogWrite(5, motA_value); 
     digitalWrite(6, LOW);
-    }
-  else if (data.ch7 > 129) { 
+  }
+  else if (data.ch7 > 129)
+  {
     motA_value = map(data.ch7, 129, 255, 0, 255);
     analogWrite(6, motA_value); 
     digitalWrite(5, LOW);
-    }
-  else {
+  }
+  else
+  {
     digitalWrite(5, LOW); //"HIGH" brake, "LOW" no brake
     digitalWrite(6, LOW); //"HIGH" brake, "LOW" no brake
 //    analogWrite(5, motA_value = 127); //adjustable brake (0-255)
@@ -133,17 +137,20 @@ void outputPWM() {
   
 //----------------------------- MotorB -----------------------------
 
-  if (data.ch8 < 125) {
+  if (data.ch8 < 125)
+  {
     motB_value = map(data.ch8, 125, 0, 0, 255); 
     analogWrite(9, motB_value); 
     digitalWrite(10, LOW);
-    }
-  else if (data.ch8 > 129) {
+  }
+  else if (data.ch8 > 129)
+  {
     motB_value = map(data.ch8, 129, 255, 0, 255); 
     analogWrite(10, motB_value); 
     digitalWrite(9, LOW);
-    }
-  else {
+  }
+  else
+  {
 //    digitalWrite(9, HIGH);  //"HIGH" brake, "LOW" no brake
 //    digitalWrite(10, HIGH); //"HIGH" brake, "LOW" no brake
     analogWrite(9,  motB_value = 127);  //adjustable brake (0-255)
@@ -152,8 +159,9 @@ void outputPWM() {
 }
 
 //*****************************************************************
-void setup() {
-Serial.begin(9600);
+void setup()
+{
+  Serial.begin(9600);
 
   pinMode(5, OUTPUT);
   pinMode(6, OUTPUT);
@@ -180,31 +188,33 @@ Serial.begin(9600);
 unsigned long lastRecvTime = 0;
 
 //We create the function that will read the data each certain time
-void receive_the_data() {
-  
-  while (radio.available()) {
-  radio.read(&data, sizeof(Received_data));
-  lastRecvTime = millis(); //Here we receive the data
- }
+void receive_the_data()
+{
+  while (radio.available())
+  {
+    radio.read(&data, sizeof(Received_data));
+    lastRecvTime = millis(); //Here we receive the data
+  }
 }
 
 //**************************************************************************************************************************
-void loop() {
-  
+void loop()
+{
   receive_the_data();
 
   //This small if will reset the data if signal is lost for 1 sec.
   unsigned long now = millis();
-  if (now - lastRecvTime > 1000) {
+  if (now - lastRecvTime > 1000)
+  {
     // signal lost?
     resetData();
     //Go up and change the initial values if you want depending on
     //your aplications. Put 0 for throttle in case of drones so it won't
     //fly away
-    }
+  }
 
-    outputServo();
-    outputPWM(); 
+  outputServo();
+  outputPWM(); 
 
-Serial.println(ch1_value);   
+//  Serial.println(ch1_value);   
 }
