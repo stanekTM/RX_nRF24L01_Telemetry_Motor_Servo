@@ -5,7 +5,7 @@
 #include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
 #include "ServoTimer2.h"  //https://github.com/nabontra/ServoTimer2 
 
-const uint64_t pipeIn = 0xE8E8F0F0E1LL; //Remember that this code is the same as in the transmitter
+const uint64_t my_radio_pipe = 0xE8E8F0F0E1LL; //The receiver address must be the same as the transmitter address
 
 RF24 radio(8, 14); //Set CE and CSN pins (14 aka A0)
 
@@ -168,20 +168,19 @@ void setup()
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
   
-  //We reset the received values
+  //Reset each channel value
   resetData();
 
   //Once again, begin and radio configuration
   radio.begin();
   radio.setAutoAck(false);
   radio.setDataRate(RF24_250KBPS);  
-  radio.openReadingPipe(1, pipeIn);
+  radio.openReadingPipe(1, my_radio_pipe);
   
   //We start the radio comunication
   radio.startListening();
 
   attachServoPins();
-//  outputPWM();
 }
 
 //**************************************************************************************************************************
@@ -212,5 +211,5 @@ void loop()
   outputServo();
   outputPWM(); 
 
-//  Serial.println(ch1_value);   
+  Serial.println(motA_value);   
 }
