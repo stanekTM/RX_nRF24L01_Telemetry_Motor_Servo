@@ -1,7 +1,7 @@
 
-#include <SPI.h>
-#include <nRF24L01.h>
-#include <RF24.h>
+#include <SPI.h>          //https://github.com/arduino/ArduinoCore-avr/tree/master/libraries/SPI
+#include <nRF24L01.h>     //https://github.com/nRF24/RF24
+#include <RF24.h>         //https://github.com/nRF24/RF24
 #include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
 #include "ServoTimer2.h"  //https://github.com/nabontra/ServoTimer2 
 
