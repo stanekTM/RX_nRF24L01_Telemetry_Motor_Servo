@@ -22,7 +22,7 @@ struct Received_data
   byte ch8;
 };
 
-Received_data data;
+Received_data data; //Create a variable with the above structure
 
 //We will create variables with an initial integer *************************************************************************
 int ch1_value = 0;
@@ -168,17 +168,16 @@ void setup()
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
   
-  //Reset each channel value
-  resetData();
+  resetData(); //Reset each channel value
 
-  //Once again, begin and radio configuration
+  //Define the radio communication
   radio.begin();
   radio.setAutoAck(false);
-  radio.setDataRate(RF24_250KBPS);  
+  radio.setDataRate(RF24_250KBPS);
+//  radio.setPALevel(RF24_PA_LOW);  
   radio.openReadingPipe(1, my_radio_pipe);
   
-  //We start the radio comunication
-  radio.startListening();
+  radio.startListening(); //Set the module as receiver
 
   attachServoPins();
 }
@@ -189,10 +188,10 @@ unsigned long lastRecvTime = 0;
 //Reading data at a specific time
 void receive_the_data()
 {
-  while (radio.available())
+  while (radio.available()) //Check whether there is data to be received
   {
-    radio.read(&data, sizeof(Received_data));
-    lastRecvTime = millis(); //Here we receive the data
+    radio.read(&data, sizeof(Received_data)); //Read the whole data and store it into the 'data' structure
+    lastRecvTime = millis(); //At this moment we have received the data
   }
 }
 
@@ -201,15 +200,15 @@ void loop()
 {
   receive_the_data();
 
-  //If the signal is lost, reset the data after 1 second
+  //Check whether we keep receving data, or we have a connection between the two modules
   unsigned long now = millis();
-  if (now - lastRecvTime > 1000)
+  if (now - lastRecvTime > 1000) //If the signal is lost, reset the data after 1 second
   {
-    resetData();
+    resetData(); //If connection is lost, reset the data
   }
 
   outputServo();
   outputPWM(); 
 
-  Serial.println(motA_value);   
+  Serial.println(motB_value);   
 }
