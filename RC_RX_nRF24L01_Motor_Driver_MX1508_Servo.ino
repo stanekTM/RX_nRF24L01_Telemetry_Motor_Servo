@@ -7,10 +7,12 @@
 
 const uint64_t my_radio_pipe = 0xE8E8F0F0E1LL; //The receiver address must be the same as the transmitter address
 
+unsigned long lastReceiveTime = 0;
+
 RF24 radio(8, 14); //Set CE and CSN pins (14 aka A0)
 
 //Structure size max 32 bytes **********************************************************************************************
-struct Received_data
+struct received_data
 {
   byte ch1;
   byte ch2;
@@ -22,7 +24,7 @@ struct Received_data
   byte ch8;
 };
 
-Received_data data; //Create a variable with the above structure
+received_data data; //Create a variable with the above structure
 
 //We will create variables with an initial integer *************************************************************************
 int ch1_value = 0;
@@ -88,8 +90,10 @@ void outputPWM()
 /*
  * The base frequency for pins 3, 9, 10, 11 is 31250Hz.
  * The base frequency for pins 5, 6 is 62500Hz.
+ * 
  * The divisors available on pins 5, 6, 9, 10 are: 1, 8, 64, 256, and 1024.
  * The divisors available on pins 3, 11       are: 1, 8, 32, 64, 128, 256, and 1024.
+ * 
  * Pins 5, 6  are paired on timer0
  * Pins 9, 10 are paired on timer1
  * Pins 3, 11 are paired on timer2
@@ -167,6 +171,7 @@ void setup()
   pinMode(6, OUTPUT);
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
+  pinMode(A1, OUTPUT);
   
   resetData(); //Reset each channel value
 
@@ -182,19 +187,6 @@ void setup()
   attachServoPins();
 }
 
-//**************************************************************************************************************************
-unsigned long lastRecvTime = 0;
-
-//Reading data at a specific time
-void receive_the_data()
-{
-  while (radio.available()) //Check whether there is data to be received
-  {
-    radio.read(&data, sizeof(Received_data)); //Read the whole data and store it into the 'data' structure
-    lastRecvTime = millis(); //At this moment we have received the data
-  }
-}
-
 //Program loop *************************************************************************************************************
 void loop()
 {
@@ -202,13 +194,37 @@ void loop()
 
   //Check whether we keep receving data, or we have a connection between the two modules
   unsigned long now = millis();
-  if (now - lastRecvTime > 1000) //If the signal is lost, reset the data after 1 second
+  if (now - lastReceiveTime > 1000) //If the signal is lost, reset the data after 1 second
   {
     resetData(); //If connection is lost, reset the data
   }
 
   outputServo();
-  outputPWM(); 
+  outputPWM();
+  led_RF(); 
 
   Serial.println(motB_value);   
 }
+
+//Reading data at a specific time ******************************************************************************************
+void receive_the_data()
+{
+  if (radio.available()) //Check whether there is data to be received //while
+  {
+    radio.read(&data, sizeof(received_data)); //Read the whole data and store it into the 'data' structure
+    lastReceiveTime = millis(); //At this moment we have received the data
+  }
+}  
+
+//RF connection signaling **************************************************************************************************
+void led_RF()
+{
+  if (radio.available())
+  {
+    digitalWrite(A1, LOW);
+  }
+  else
+  {
+    digitalWrite(A1, HIGH);
+  }
+}  
