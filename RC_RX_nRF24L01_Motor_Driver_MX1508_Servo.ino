@@ -171,7 +171,7 @@ void setup()
   pinMode(6, OUTPUT);
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
-  pinMode(A1, OUTPUT);
+  pinMode(A1, OUTPUT); //led RF
   
   resetData(); //Reset each channel value
 
@@ -197,13 +197,13 @@ void loop()
   if (now - lastReceiveTime > 1000) //If the signal is lost, reset the data after 1 second
   {
     resetData(); //If connection is lost, reset the data
+    digitalWrite(A1, HIGH); //Led RF off signal
   }
 
   outputServo();
   outputPWM();
-  led_RF(); 
 
-  Serial.println(motB_value);   
+//  Serial.println(motB_value); //Print value ​​on a serial monitor   
 }
 
 //Reading data at a specific time ******************************************************************************************
@@ -213,18 +213,7 @@ void receive_the_data()
   {
     radio.read(&data, sizeof(received_data)); //Read the whole data and store it into the 'data' structure
     lastReceiveTime = millis(); //At this moment we have received the data
+    digitalWrite(A1, LOW); //Led RF on signal
   }
 }  
-
-//RF connection signaling **************************************************************************************************
-void led_RF()
-{
-  if (radio.available())
-  {
-    digitalWrite(A1, LOW);
-  }
-  else
-  {
-    digitalWrite(A1, HIGH);
-  }
-}  
+ 
