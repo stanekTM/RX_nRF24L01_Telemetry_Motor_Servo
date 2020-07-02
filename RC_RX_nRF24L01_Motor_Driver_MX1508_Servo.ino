@@ -5,14 +5,18 @@
 #include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
 #include "ServoTimer2.h"  //https://github.com/nabontra/ServoTimer2 
 
-const uint64_t my_radio_pipe = 0xE8E8F0F0E1LL; //The receiver address must be the same as the transmitter address
+RF24 radio(8, A0); //set CE and CSN pins
 
 unsigned long lastReceiveTime = 0;
 
-RF24 radio(8, 14); //Set CE and CSN pins (14 aka A0)
+const byte addresses[][6] = {"tx001", "rx002"};
 
-//Structure size max 32 bytes **********************************************************************************************
-struct received_data
+boolean buttonState = 0;
+
+//**************************************************************************************************************************
+//structure size max 32 bytes **********************************************************************************************
+//**************************************************************************************************************************
+struct rx_data
 {
   byte ch1;
   byte ch2;
@@ -24,9 +28,11 @@ struct received_data
   byte ch8;
 };
 
-received_data data; //Create a variable with the above structure
+rx_data rc_data; //create a variable with the above structure
 
-//We will create variables with an initial integer *************************************************************************
+//**************************************************************************************************************************
+//we will create variables with an initial integer *************************************************************************
+//**************************************************************************************************************************
 int ch1_value = 0;
 int ch2_value = 0;
 int ch3_value = 0;
@@ -36,20 +42,24 @@ int ch6_value = 0;
 int motA_value = 0;
 int motB_value = 0;
 
-//Reset values ​​(min = 0, mid = 127, max = 255) *****************************************************************************
+//**************************************************************************************************************************
+//reset values ​​(min = 0, mid = 127, max = 255) *****************************************************************************
+//**************************************************************************************************************************
 void resetData()
 {
-  data.ch1 = 127;     
-  data.ch2 = 127;
-  data.ch3 = 127;
-  data.ch4 = 127;
-  data.ch5 = 0;
-  data.ch6 = 0;
-  data.ch7 = 127;
-  data.ch8 = 127;
+  rc_data.ch1 = 127;     
+  rc_data.ch2 = 127;
+  rc_data.ch3 = 127;
+  rc_data.ch4 = 127;
+  rc_data.ch5 = 0;
+  rc_data.ch6 = 0;
+  rc_data.ch7 = 127;
+  rc_data.ch8 = 127;
 }
 
-//Create servo object ******************************************************************************************************
+//**************************************************************************************************************************
+//create servo object ******************************************************************************************************
+//**************************************************************************************************************************
 ServoTimer2 servo1;
 ServoTimer2 servo2;
 ServoTimer2 servo3;
@@ -76,15 +86,17 @@ void outputServo()
   servo5.write(ch5_value);
   servo6.write(ch6_value);
 
-  ch1_value = map(data.ch1,0,255,1000,2000); //linear
-  ch2_value = map(data.ch2,0,255,1000,2000);
-  ch3_value = map(data.ch3,0,255,1000,2000);
-  ch4_value = map(data.ch4,0,255,1000,2000);
-  ch5_value = map(data.ch5,0,1,1000,2000);
-  ch6_value = map(data.ch6,0,1,1000,2000);
+  ch1_value = map(rc_data.ch1,0,255,1000,2000); //linear
+  ch2_value = map(rc_data.ch2,0,255,1000,2000);
+  ch3_value = map(rc_data.ch3,0,255,1000,2000);
+  ch4_value = map(rc_data.ch4,0,255,1000,2000);
+  ch5_value = map(rc_data.ch5,0,1,1000,2000);
+  ch6_value = map(rc_data.ch6,0,1,1000,2000);
 }
 
-//Frequencies and motors control *******************************************************************************************
+//**************************************************************************************************************************
+//frequencies and motors control *******************************************************************************************
+//**************************************************************************************************************************
 void outputPWM()
 {  
 /*
@@ -117,17 +129,17 @@ void outputPWM()
 //MotorB (pin D9 or pin D10, prescaler 8)  
   setPWMPrescaler(9, 8);
 
-//MotorA -------------------------------------------------------------- 
+//MotorA ------------------------------------------------------------------------------------ 
 
-  if (data.ch7 < 125)
+  if (rc_data.ch7 < 125)
   {
-    motA_value = map(data.ch7, 125, 0, 0, 255);
+    motA_value = map(rc_data.ch7, 125, 0, 0, 255);
     analogWrite(5, motA_value); 
     digitalWrite(6, LOW);
   }
-  else if (data.ch7 > 129)
+  else if (rc_data.ch7 > 129)
   {
-    motA_value = map(data.ch7, 129, 255, 0, 255);
+    motA_value = map(rc_data.ch7, 129, 255, 0, 255);
     analogWrite(6, motA_value); 
     digitalWrite(5, LOW);
   }
@@ -139,17 +151,17 @@ void outputPWM()
 //    analogWrite(6, motA_value = 127); //adjustable brake (0-255)
   }
   
-//MotorB --------------------------------------------------------------
+//MotorB ------------------------------------------------------------------------------------
 
-  if (data.ch8 < 125)
+  if (rc_data.ch8 < 125)
   {
-    motB_value = map(data.ch8, 125, 0, 0, 255); 
+    motB_value = map(rc_data.ch8, 125, 0, 0, 255); 
     analogWrite(9, motB_value); 
     digitalWrite(10, LOW);
   }
-  else if (data.ch8 > 129)
+  else if (rc_data.ch8 > 129)
   {
-    motB_value = map(data.ch8, 129, 255, 0, 255); 
+    motB_value = map(rc_data.ch8, 129, 255, 0, 255); 
     analogWrite(10, motB_value); 
     digitalWrite(9, LOW);
   }
@@ -162,7 +174,9 @@ void outputPWM()
   }
 }
 
-//Initial main settings ****************************************************************************************************
+//**************************************************************************************************************************
+//initial main settings ****************************************************************************************************
+//**************************************************************************************************************************
 void setup()
 {
   Serial.begin(9600);
@@ -172,48 +186,61 @@ void setup()
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
   pinMode(A1, OUTPUT); //led RF
+  pinMode(A3, INPUT_PULLUP);
   
-  resetData(); //Reset each channel value
+  resetData(); //reset each channel value
 
-  //Define the radio communication
+  //define the radio communication
   radio.begin();
   radio.setAutoAck(false);
   radio.setDataRate(RF24_250KBPS);
-//  radio.setPALevel(RF24_PA_LOW);  
-  radio.openReadingPipe(1, my_radio_pipe);
+  radio.setPALevel(RF24_PA_LOW);  
+
+  radio.openWritingPipe(addresses[0]); // tx001
+  radio.openReadingPipe(1, addresses[1]); // rx002
   
-  radio.startListening(); //Set the module as receiver
+//  radio.startListening(); //set the module as receiver
 
   attachServoPins();
 }
 
-//Program loop *************************************************************************************************************
+//**************************************************************************************************************************
+//program loop *************************************************************************************************************
+//**************************************************************************************************************************
 void loop()
 {
   receive_the_data();
 
-  //Check whether we keep receving data, or we have a connection between the two modules
+  //check whether we keep receving data, or we have a connection between the two modules
   unsigned long now = millis();
-  if (now - lastReceiveTime > 1000) //If the signal is lost, reset the data after 1 second
+  if (now - lastReceiveTime > 1000) //if the signal is lost, reset the data after 1 second
   {
-    resetData(); //If connection is lost, reset the data
-    digitalWrite(A1, HIGH); //Led RF off signal
+    resetData(); //if connection is lost, reset the data
+    digitalWrite(A1, HIGH); //led RF off signal
   }
 
   outputServo();
   outputPWM();
 
-//  Serial.println(motB_value); //Print value ​​on a serial monitor   
+//  Serial.println(motB_value); //print value ​​on a serial monitor   
 }
 
-//Reading data at a specific time ******************************************************************************************
+//**************************************************************************************************************************
+//reading data at a specific time ******************************************************************************************
+//**************************************************************************************************************************
 void receive_the_data()
 {
-  if (radio.available()) //Check whether there is data to be received //while
+//  delay(5);
+  radio.startListening(); //set the module as receiver
+  if (radio.available()) //check whether there is data to be received //while
   {
-    radio.read(&data, sizeof(received_data)); //Read the whole data and store it into the 'data' structure
-    lastReceiveTime = millis(); //At this moment we have received the data
-    digitalWrite(A1, LOW); //Led RF on signal
+    radio.read(&rc_data, sizeof(rx_data)); //read the whole data and store it into the 'data' structure
+    lastReceiveTime = millis(); //at this moment we have received the data
+    digitalWrite(A1, LOW); //led RF on signal
   }
+    delay(5);
+    radio.stopListening(); //set the module as transmitter
+    buttonState = digitalRead(A3);
+    radio.write(&buttonState, sizeof(buttonState));
 }  
  
