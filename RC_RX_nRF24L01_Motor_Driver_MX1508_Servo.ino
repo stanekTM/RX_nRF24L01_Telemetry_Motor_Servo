@@ -186,7 +186,7 @@ void setup()
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
   pinMode(A1, OUTPUT); //led RF
-  pinMode(A3, INPUT_PULLUP);
+  pinMode(A3, INPUT_PULLUP); //telemetry
   
   resetData(); //reset each channel value
 
@@ -196,10 +196,10 @@ void setup()
   radio.setDataRate(RF24_250KBPS);
   radio.setPALevel(RF24_PA_LOW);  
 
-  radio.openWritingPipe(addresses[0]); // tx001
+  radio.openWritingPipe(addresses[0]);    // tx001
   radio.openReadingPipe(1, addresses[1]); // rx002
   
-//  radio.startListening(); //set the module as receiver
+  radio.startListening(); //*set the module as receiver
 
   attachServoPins();
 }
@@ -215,32 +215,35 @@ void loop()
   unsigned long now = millis();
   if (now - lastReceiveTime > 1000) //if the signal is lost, reset the data after 1 second
   {
-    resetData(); //if connection is lost, reset the data
+    resetData();            //if connection is lost, reset the data
     digitalWrite(A1, HIGH); //led RF off signal
   }
 
   outputServo();
   outputPWM();
 
-//  Serial.println(motB_value); //print value ​​on a serial monitor   
-}
+//  Serial.println(motB_value); //print value ​​on a serial monitor  
+} //end program loop
 
 //**************************************************************************************************************************
 //reading data at a specific time ******************************************************************************************
 //**************************************************************************************************************************
 void receive_the_data()
 {
-//  delay(5);
+  delay(5); //5
   radio.startListening(); //set the module as receiver
-  if (radio.available()) //check whether there is data to be received //while
+  if (radio.available())  //check whether there is data to be received //while
   {
-    radio.read(&rc_data, sizeof(rx_data)); //read the whole data and store it into the 'data' structure
-    lastReceiveTime = millis(); //at this moment we have received the data
-    digitalWrite(A1, LOW); //led RF on signal
-  }
+    while (radio.available())
+    {
+      radio.read(&rc_data, sizeof(rx_data)); //read the whole data and store it into the 'data' structure
+      lastReceiveTime = millis();            //at this moment we have received the data
+      digitalWrite(A1, LOW);                 //led RF on signal
+    }
     delay(5);
     radio.stopListening(); //set the module as transmitter
-    buttonState = digitalRead(A3);
     radio.write(&buttonState, sizeof(buttonState));
+    buttonState = digitalRead(A3);
+  }
 }  
  
