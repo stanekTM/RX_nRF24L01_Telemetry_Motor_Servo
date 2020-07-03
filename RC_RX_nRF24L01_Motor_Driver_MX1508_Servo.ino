@@ -11,7 +11,7 @@ unsigned long lastReceiveTime = 0;
 
 const byte addresses[][6] = {"tx001", "rx002"};
 
-boolean buttonState = 0;
+boolean buttonState = 0; //test telemetry
 
 //**************************************************************************************************************************
 //structure size max 32 bytes **********************************************************************************************
@@ -186,20 +186,25 @@ void setup()
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
   pinMode(A1, OUTPUT); //led RF
-  pinMode(A3, INPUT_PULLUP); //telemetry
+  pinMode(A3, INPUT_PULLUP); //test telemetry
   
   resetData(); //reset each channel value
 
   //define the radio communication
   radio.begin();
-  radio.setAutoAck(false);
-  radio.setDataRate(RF24_250KBPS);
-  radio.setPALevel(RF24_PA_LOW);  
-
-  radio.openWritingPipe(addresses[0]);    // tx001
-  radio.openReadingPipe(1, addresses[1]); // rx002
   
-  radio.startListening(); //*set the module as receiver
+  radio.setAutoAck(1);           //ensure autoACK is enabled
+  radio.enableAckPayload();      //allow optional ack payloads
+  radio.enableDynamicPayloads();
+  radio.setRetries(5, 5);                  // 5x250us delay (blocking!!), max. 5 retries
+  
+  radio.setDataRate(RF24_250KBPS);
+  radio.setPALevel(RF24_PA_LOW); //set power amplifier(PA): RF24_PA_MIN, RF24_PA_LOW, RF24_PA_HIGH and RF24_PA_MAX  
+
+  radio.openWritingPipe(addresses[0]);    //tx001
+  radio.openReadingPipe(1, addresses[1]); //rx002
+  
+  radio.startListening(); //set the module as receiver
 
   attachServoPins();
 }
@@ -230,20 +235,16 @@ void loop()
 //**************************************************************************************************************************
 void receive_the_data()
 {
-  delay(5); //5
-  radio.startListening(); //set the module as receiver
-  if (radio.available())  //check whether there is data to be received //while
+  byte pipeNo;
+  
+  if (radio.available(&pipeNo))  //check whether there is data to be received //while
   {
-    while (radio.available())
-    {
-      radio.read(&rc_data, sizeof(rx_data)); //read the whole data and store it into the 'data' structure
-      lastReceiveTime = millis();            //at this moment we have received the data
-      digitalWrite(A1, LOW);                 //led RF on signal
-    }
-    delay(5);
-    radio.stopListening(); //set the module as transmitter
-    radio.write(&buttonState, sizeof(buttonState));
-    buttonState = digitalRead(A3);
-  }
+    radio.writeAckPayload(pipeNo, &buttonState, sizeof(buttonState)); // prepare the ACK payload
+    buttonState = digitalRead(A3); //test telemetry
+    
+    radio.read(&rc_data, sizeof(rx_data)); //read the whole data and store it into the 'data' structure
+    lastReceiveTime = millis();            //at this moment we have received the data
+    digitalWrite(A1, LOW);                 //led RF on signal
+  } 
 }  
  
