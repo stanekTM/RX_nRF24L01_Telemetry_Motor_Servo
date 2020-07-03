@@ -193,15 +193,15 @@ void setup()
   //define the radio communication
   radio.begin();
   
-  radio.setAutoAck(1);           //ensure autoACK is enabled
-  radio.enableAckPayload();      //allow optional ack payloads
+  radio.setAutoAck(1);             //ensure autoACK is enabled
+  radio.enableAckPayload();        //allow optional ack payloads
   radio.enableDynamicPayloads();
-  radio.setRetries(5, 5);                  // 5x250us delay (blocking!!), max. 5 retries
+  radio.setRetries(5, 5);          //minimum time between retries(5x 250 us delay (blocking !), max. 5 retries)
   
   radio.setDataRate(RF24_250KBPS);
-  radio.setPALevel(RF24_PA_LOW); //set power amplifier(PA): RF24_PA_MIN, RF24_PA_LOW, RF24_PA_HIGH and RF24_PA_MAX  
+  radio.setPALevel(RF24_PA_LOW);   //set power amplifier(PA): RF24_PA_MIN, RF24_PA_LOW, RF24_PA_HIGH and RF24_PA_MAX  
 
-  radio.openWritingPipe(addresses[0]);    //tx001
+  radio.openWritingPipe(addresses[0]);    //tx001, both radios listen on the same pipes by default, and switch when writing
   radio.openReadingPipe(1, addresses[1]); //rx002
   
   radio.startListening(); //set the module as receiver
@@ -237,12 +237,12 @@ void receive_the_data()
 {
   byte pipeNo;
   
-  if (radio.available(&pipeNo))  //check whether there is data to be received //while
+  if (radio.available(&pipeNo)) //check whether there is data to be received
   {
-    radio.writeAckPayload(pipeNo, &buttonState, sizeof(buttonState)); // prepare the ACK payload
+    radio.writeAckPayload(pipeNo, &buttonState, sizeof(buttonState)); //prepare the ACK payload
     buttonState = digitalRead(A3); //test telemetry
     
-    radio.read(&rc_data, sizeof(rx_data)); //read the whole data and store it into the 'data' structure
+    radio.read(&rc_data, sizeof(rx_data)); //read the radia data and send out the ACK payload
     lastReceiveTime = millis();            //at this moment we have received the data
     digitalWrite(A1, LOW);                 //led RF on signal
   } 
