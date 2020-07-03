@@ -7,8 +7,6 @@
 
 RF24 radio(8, A0); //set CE and CSN pins
 
-unsigned long lastReceiveTime = 0;
-
 const byte addresses[][6] = {"tx001", "rx002"};
 
 boolean buttonState = 0; //test telemetry
@@ -214,15 +212,8 @@ void setup()
 //**************************************************************************************************************************
 void loop()
 {
-  receive_the_data();
-
-  //check whether we keep receving data, or we have a connection between the two modules
-  unsigned long now = millis();
-  if (now - lastReceiveTime > 1000) //if the signal is lost, reset the data after 1 second
-  {
-    resetData();            //if connection is lost, reset the data
-    digitalWrite(A1, HIGH); //led RF off signal
-  }
+  receive_time();
+  send_and_receive_data();
 
   outputServo();
   outputPWM();
@@ -231,9 +222,25 @@ void loop()
 } //end program loop
 
 //**************************************************************************************************************************
-//reading data at a specific time ******************************************************************************************
+//get time and reset data **************************************************************************************************
 //**************************************************************************************************************************
-void receive_the_data()
+unsigned long lastReceiveTime = 0; //last receive time
+
+void receive_time()
+{
+  //check whether we keep receving data, or we have a connection between the two modules
+  unsigned long now = millis();
+  if (now - lastReceiveTime > 1000) //if the signal is lost, reset the data after 1 second
+  {
+    resetData();            //if connection is lost, reset the data
+    digitalWrite(A1, HIGH); //led RF off signal
+  }
+}
+
+//**************************************************************************************************************************
+//send and receive data ****************************************************************************************************
+//**************************************************************************************************************************
+void send_and_receive_data()
 {
   byte pipeNo;
   
