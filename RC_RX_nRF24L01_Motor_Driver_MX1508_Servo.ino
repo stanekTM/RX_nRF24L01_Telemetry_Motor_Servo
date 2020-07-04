@@ -9,7 +9,7 @@ RF24 radio(8, A0); //set CE and CSN pins
 
 const byte addresses[][6] = {"tx001", "rx002"};
 
-boolean buttonState = 0; //test telemetry
+float vcc; //analog telemetry
 
 //**************************************************************************************************************************
 //structure size max 32 bytes **********************************************************************************************
@@ -184,7 +184,7 @@ void setup()
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
   pinMode(A1, OUTPUT); //led RF
-  pinMode(A3, INPUT_PULLUP); //test telemetry
+  pinMode(A3, INPUT); //analog telemetry
   
   resetData(); //reset each channel value
 
@@ -217,8 +217,10 @@ void loop()
 
   outputServo();
   outputPWM();
+  
+  battery_voltage();
 
-//  Serial.println(motB_value); //print value ​​on a serial monitor  
+//  Serial.println(motA_value); //print value ​​on a serial monitor  
 } //end program loop
 
 //**************************************************************************************************************************
@@ -246,12 +248,21 @@ void send_and_receive_data()
   
   if (radio.available(&pipeNo)) //check whether there is data to be received
   {
-    radio.writeAckPayload(pipeNo, &buttonState, sizeof(buttonState)); //prepare the ACK payload
-    buttonState = digitalRead(A3); //test telemetry
+    radio.writeAckPayload(pipeNo, &vcc, sizeof(vcc)); //prepare the ACK payload
+    
     
     radio.read(&rc_data, sizeof(rx_data)); //read the radia data and send out the ACK payload
     lastReceiveTime = millis();            //at this moment we have received the data
     digitalWrite(A1, LOW);                 //led RF on signal
   } 
-}  
- 
+}
+
+//**************************************************************************************************************************
+//analog telemetry with undervoltage detection *****************************************************************************
+//**************************************************************************************************************************
+void battery_voltage()
+{
+  //********************* vcc *********** detected voltage
+  vcc = analogRead(A3) * (4.6 / 1023.0) < 3.3; 
+}
+  
