@@ -9,8 +9,6 @@ RF24 radio(8, A0); //set CE and CSN pins
 
 const byte addresses[][6] = {"tx001", "rx002"};
 
-float vcc; //analog telemetry
-
 //**************************************************************************************************************************
 //structure size max 32 bytes **********************************************************************************************
 //**************************************************************************************************************************
@@ -25,8 +23,16 @@ struct rx_data
   byte ch7;
   byte ch8;
 };
-
 rx_data rc_data; //create a variable with the above structure
+
+//**************************************************************************************************************************
+//this struct defines data, which are embedded inside the ACK payload ******************************************************
+//**************************************************************************************************************************
+struct ackPayload
+{
+  float vcc; //analog telemetry
+};
+ackPayload payload;
 
 //**************************************************************************************************************************
 //we will create variables with an initial integer *************************************************************************
@@ -248,7 +254,7 @@ void send_and_receive_data()
   
   if (radio.available(&pipeNo)) //check whether there is data to be received
   {
-    radio.writeAckPayload(pipeNo, &vcc, sizeof(vcc)); //prepare the ACK payload
+    radio.writeAckPayload(pipeNo, &payload, sizeof(ackPayload)); //prepare the ACK payload
     
     
     radio.read(&rc_data, sizeof(rx_data)); //read the radia data and send out the ACK payload
@@ -262,7 +268,7 @@ void send_and_receive_data()
 //**************************************************************************************************************************
 void battery_voltage()
 {
-  //********************* vcc *********** detected voltage
-  vcc = analogRead(A3) * (4.6 / 1023.0) < 3.3; 
+  //***************************** vcc *********** detected voltage
+  payload.vcc = analogRead(A3) * (4.6 / 1023.0) < 3.3; 
 }
   
