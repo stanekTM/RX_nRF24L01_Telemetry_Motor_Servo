@@ -3,9 +3,36 @@
 #include <nRF24L01.h>     //https://github.com/nRF24/RF24
 #include <RF24.h>         //https://github.com/nRF24/RF24
 #include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
-#include "ServoTimer2.h"  //https://github.com/nabontra/ServoTimer2 
+#include "ServoTimer2.h"  //https://github.com/nabontra/ServoTimer2
 
-RF24 radio(8, A0); //set CE and CSN pins
+//pins for servos
+#define serv1  2
+#define serv2  3
+#define serv3  4
+#define serv4  7
+#define serv5  A4
+#define serv6  A5
+ 
+//pwm pins for motor
+#define pwm5   5
+#define pwm6   6
+#define pwm9   9
+#define pwm10  10
+
+//led RF on/off signal
+#define ledRF  A1
+
+//analog telemetry
+#define inVCC  A3
+
+//pins for nRF24L01
+#define CE     8
+#define CSN    A0
+//***** MOSI   11
+//***** MISO   12
+//***** SCK    13
+
+RF24 radio(CE, CSN); //set CE and CSN pins
 
 const byte addresses[][6] = {"tx001", "rx002"};
 
@@ -37,12 +64,12 @@ ackPayload payload;
 //**************************************************************************************************************************
 //we will create variables with an initial integer *************************************************************************
 //**************************************************************************************************************************
-int ch1_value = 0;
-int ch2_value = 0;
-int ch3_value = 0;
-int ch4_value = 0;
-int ch5_value = 0;
-int ch6_value = 0;
+int ch1_value  = 0;
+int ch2_value  = 0;
+int ch3_value  = 0;
+int ch4_value  = 0;
+int ch5_value  = 0;
+int ch6_value  = 0;
 int motA_value = 0;
 int motB_value = 0;
 
@@ -73,12 +100,12 @@ ServoTimer2 servo6;
 
 void attachServoPins()
 {
-  servo1.attach(2);
-  servo2.attach(3);
-  servo3.attach(4);
-  servo4.attach(7);
-  servo5.attach(A4);
-  servo6.attach(A5);
+  servo1.attach(serv1);
+  servo2.attach(serv2);
+  servo3.attach(serv3);
+  servo4.attach(serv4);
+  servo5.attach(serv5);
+  servo6.attach(serv6);
 }
 
 void outputServo()
@@ -127,32 +154,32 @@ void outputPWM()
  
 //PWM frequency pin D5 or pin D6:  1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default)
 //MotorA (pin D5 or pin D6, prescaler 64)  
-  setPWMPrescaler(5, 64);
+  setPWMPrescaler(pwm5, 64);
   
 //PWM frequency pin D9 or pin D10: 1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
 //MotorB (pin D9 or pin D10, prescaler 8)  
-  setPWMPrescaler(9, 8);
+  setPWMPrescaler(pwm9, 8);
 
 //MotorA ------------------------------------------------------------------------------------ 
 
   if (rc_data.ch7 < 125)
   {
     motA_value = map(rc_data.ch7, 125, 0, 0, 255);
-    analogWrite(5, motA_value); 
-    digitalWrite(6, LOW);
+    analogWrite(pwm5, motA_value); 
+    digitalWrite(pwm6, LOW);
   }
   else if (rc_data.ch7 > 129)
   {
     motA_value = map(rc_data.ch7, 129, 255, 0, 255);
-    analogWrite(6, motA_value); 
-    digitalWrite(5, LOW);
+    analogWrite(pwm6, motA_value); 
+    digitalWrite(pwm5, LOW);
   }
   else
   {
-    digitalWrite(5, LOW); //"HIGH" brake, "LOW" no brake
-    digitalWrite(6, LOW); //"HIGH" brake, "LOW" no brake
-//    analogWrite(5, motA_value = 127); //adjustable brake (0-255)
-//    analogWrite(6, motA_value = 127); //adjustable brake (0-255)
+    digitalWrite(pwm5, LOW); //"HIGH" brake, "LOW" no brake
+    digitalWrite(pwm6, LOW); //"HIGH" brake, "LOW" no brake
+//    analogWrite(pwm5, motA_value = 127); //adjustable brake (0-255)
+//    analogWrite(pwm6, motA_value = 127); //adjustable brake (0-255)
   }
   
 //MotorB ------------------------------------------------------------------------------------
@@ -160,21 +187,21 @@ void outputPWM()
   if (rc_data.ch8 < 125)
   {
     motB_value = map(rc_data.ch8, 125, 0, 0, 255); 
-    analogWrite(9, motB_value); 
-    digitalWrite(10, LOW);
+    analogWrite(pwm9, motB_value); 
+    digitalWrite(pwm10, LOW);
   }
   else if (rc_data.ch8 > 129)
   {
     motB_value = map(rc_data.ch8, 129, 255, 0, 255); 
-    analogWrite(10, motB_value); 
-    digitalWrite(9, LOW);
+    analogWrite(pwm10, motB_value); 
+    digitalWrite(pwm9, LOW);
   }
   else
   {
-//    digitalWrite(9, HIGH);  //"HIGH" brake, "LOW" no brake
-//    digitalWrite(10, HIGH); //"HIGH" brake, "LOW" no brake
-    analogWrite(9,  motB_value = 127);  //adjustable brake (0-255)
-    analogWrite(10, motB_value = 127);  //adjustable brake (0-255)
+//    digitalWrite(pwm9,  HIGH); //"HIGH" brake, "LOW" no brake
+//    digitalWrite(pwm10, HIGH); //"HIGH" brake, "LOW" no brake
+    analogWrite(pwm9,  motB_value = 127); //adjustable brake (0-255)
+    analogWrite(pwm10, motB_value = 127); //adjustable brake (0-255)
   }
 }
 
@@ -189,8 +216,8 @@ void setup()
   pinMode(6, OUTPUT);
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
-  pinMode(A1, OUTPUT); //led RF
-  pinMode(A3, INPUT); //analog telemetry
+  pinMode(ledRF, OUTPUT); //led RF
+  pinMode(inVCC, INPUT);  //analog telemetry
   
   resetData(); //reset each channel value
 
@@ -240,8 +267,8 @@ void receive_time()
   unsigned long now = millis();
   if (now - lastReceiveTime > 1000) //if the signal is lost, reset the data after 1 second
   {
-    resetData();            //if connection is lost, reset the data
-    digitalWrite(A1, HIGH); //led RF off signal
+    resetData(); //if connection is lost, reset the data
+    digitalWrite(ledRF, HIGH); //led RF off signal
   }
 }
 
@@ -259,7 +286,7 @@ void send_and_receive_data()
     
     radio.read(&rc_data, sizeof(rx_data)); //read the radia data and send out the ACK payload
     lastReceiveTime = millis();            //at this moment we have received the data
-    digitalWrite(A1, LOW);                 //led RF on signal
+    digitalWrite(ledRF, LOW);              //led RF on signal
   } 
 }
 
@@ -268,7 +295,7 @@ void send_and_receive_data()
 //**************************************************************************************************************************
 void battery_voltage()
 {
-  //***************************** vcc *********** detected voltage
-  payload.vcc = analogRead(A3) * (4.6 / 1023.0) < 3.3; 
+  //******************************** vcc *********** detected voltage
+  payload.vcc = analogRead(inVCC) * (4.6 / 1023.0) < 3.3; 
 }
   
