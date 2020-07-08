@@ -117,12 +117,12 @@ void outputServo()
   servo5.write(ch5_value);
   servo6.write(ch6_value);
 
-  ch1_value = map(rc_data.ch1,0,255,1000,2000); //linear
-  ch2_value = map(rc_data.ch2,0,255,1000,2000);
-  ch3_value = map(rc_data.ch3,0,255,1000,2000);
-  ch4_value = map(rc_data.ch4,0,255,1000,2000);
-  ch5_value = map(rc_data.ch5,0,1,1000,2000);
-  ch6_value = map(rc_data.ch6,0,1,1000,2000);
+  ch1_value = map(rc_data.ch1, 0, 255, 1000, 2000); //linear
+  ch2_value = map(rc_data.ch2, 0, 255, 1000, 2000);
+  ch3_value = map(rc_data.ch3, 0, 255, 1000, 2000);
+  ch4_value = map(rc_data.ch4, 0, 255, 1000, 2000);
+  ch5_value = map(rc_data.ch5, 0,   1, 1000, 2000);
+  ch6_value = map(rc_data.ch6, 0,   1, 1000, 2000);
 }
 
 //**************************************************************************************************************************
@@ -220,24 +220,27 @@ void setup()
   pinMode(inVCC, INPUT);  //analog telemetry
   
   resetData(); //reset each channel value
+  attachServoPins();
 
   //define the radio communication
   radio.begin();
   
-  radio.setAutoAck(1);             //ensure autoACK is enabled
-  radio.enableAckPayload();        //allow optional ack payloads
-  radio.enableDynamicPayloads();
-  radio.setRetries(5, 5);          //minimum time between retries(5x 250 us delay (blocking !), max. 5 retries)
+  radio.setAutoAck(1);             //ensure autoACK is enabled (address 1, tx001)
+  radio.enableAckPayload();        //enable custom ack payloads on the acknowledge packets
+  radio.enableDynamicPayloads();   //enable dynamically-sized payloads
+  radio.setRetries(5, 5);          //set the number and delay of retries on failed submit (max. 15 x 250us delay (blocking !), max. 15 retries)
   
-  radio.setDataRate(RF24_250KBPS);
-  radio.setPALevel(RF24_PA_LOW);   //set power amplifier(PA): RF24_PA_MIN, RF24_PA_LOW, RF24_PA_HIGH and RF24_PA_MAX  
+  radio.setChannel(76);            //which RF channel to communicate on (0-125, default 76) 
+  radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
+  radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm) 
 
-  radio.openWritingPipe(addresses[0]);    //tx001, both radios listen on the same pipes by default, and switch when writing
-  radio.openReadingPipe(1, addresses[1]); //rx002
-  
-  radio.startListening(); //set the module as receiver
+//  radio.openWritingPipe(addresses[0]);  //(address 1, tx001) open a pipe for writing via byte array. Call "stopListening" first 
 
-  attachServoPins();
+  radio.openReadingPipe(1, addresses[1]); //(address 2, rx002) open all the required reading pipes, and then call "startListening"
+                                          //which number pipe to open (0-5)
+                                          //the 24, 32 or 40 bit address of the pipe to open
+                                          
+  radio.startListening(); //set the module as receiver. Start listening on the pipes opened for reading
 }
 
 //**************************************************************************************************************************
@@ -282,8 +285,8 @@ void send_and_receive_data()
   if (radio.available(&pipeNo)) //check whether there is data to be received
   {
     radio.writeAckPayload(pipeNo, &payload, sizeof(ackPayload)); //prepare the ACK payload
-    
-    
+
+     
     radio.read(&rc_data, sizeof(rx_data)); //read the radia data and send out the ACK payload
     lastReceiveTime = millis();            //at this moment we have received the data
     digitalWrite(ledRF, LOW);              //led RF on signal
