@@ -162,46 +162,46 @@ void outputPWM()
 
 //MotorA ------------------------------------------------------------------------------------ 
 
-  if (rc_data.ch7 < 125)
+  if (rc_data.ch7 < 120) // < 127, dead band of poor quality joysticks
   {
-    motA_value = map(rc_data.ch7, 125, 0, 0, 255);
+    motA_value = map(rc_data.ch7, 120, 0, 0, 255);
     analogWrite(pwm5, motA_value); 
     digitalWrite(pwm6, LOW);
   }
-  else if (rc_data.ch7 > 129)
+  else if (rc_data.ch7 > 127) // > 127, dead band of poor quality joysticks
   {
-    motA_value = map(rc_data.ch7, 129, 255, 0, 255);
+    motA_value = map(rc_data.ch7, 127, 255, 0, 255);
     analogWrite(pwm6, motA_value); 
     digitalWrite(pwm5, LOW);
   }
   else
   {
-    digitalWrite(pwm5, LOW); //"HIGH" brake, "LOW" no brake
-    digitalWrite(pwm6, LOW); //"HIGH" brake, "LOW" no brake
-//    analogWrite(pwm5, motA_value = 127); //adjustable brake (0-255)
-//    analogWrite(pwm6, motA_value = 127); //adjustable brake (0-255)
+//    digitalWrite(pwm5, LOW); //"HIGH" brake, "LOW" no brake
+//    digitalWrite(pwm6, LOW); //"HIGH" brake, "LOW" no brake
+    analogWrite(pwm5, motA_value = 255); //adjustable brake (0-255)
+    analogWrite(pwm6, motA_value = 255); //adjustable brake (0-255)
   }
   
 //MotorB ------------------------------------------------------------------------------------
 
-  if (rc_data.ch8 < 125)
+  if (rc_data.ch8 < 120) // < 127, dead band of poor quality joysticks
   {
-    motB_value = map(rc_data.ch8, 125, 0, 0, 255); 
+    motB_value = map(rc_data.ch8, 120, 0, 0, 255); 
     analogWrite(pwm9, motB_value); 
     digitalWrite(pwm10, LOW);
   }
-  else if (rc_data.ch8 > 129)
+  else if (rc_data.ch8 > 127) // > 127, dead band of poor quality joysticks
   {
-    motB_value = map(rc_data.ch8, 129, 255, 0, 255); 
+    motB_value = map(rc_data.ch8, 127, 255, 0, 255); 
     analogWrite(pwm10, motB_value); 
     digitalWrite(pwm9, LOW);
   }
   else
   {
-//    digitalWrite(pwm9,  HIGH); //"HIGH" brake, "LOW" no brake
-//    digitalWrite(pwm10, HIGH); //"HIGH" brake, "LOW" no brake
-    analogWrite(pwm9,  motB_value = 127); //adjustable brake (0-255)
-    analogWrite(pwm10, motB_value = 127); //adjustable brake (0-255)
+    digitalWrite(pwm9,  HIGH); //"HIGH" brake, "LOW" no brake
+    digitalWrite(pwm10, HIGH); //"HIGH" brake, "LOW" no brake
+//    analogWrite(pwm9,  motB_value = 127); //adjustable brake (0-255)
+//    analogWrite(pwm10, motB_value = 127); //adjustable brake (0-255)
   }
 }
 
@@ -255,7 +255,7 @@ void loop()
   
   battery_voltage();
 
-//  Serial.println(motA_value); //print value ​​on a serial monitor  
+  Serial.println(motA_value); //print value ​​on a serial monitor  
 } //end program loop
 
 //**************************************************************************************************************************
