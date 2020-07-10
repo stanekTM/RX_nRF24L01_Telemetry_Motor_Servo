@@ -264,13 +264,12 @@ void loop()
 //**************************************************************************************************************************
 //get time and reset data **************************************************************************************************
 //**************************************************************************************************************************
-unsigned long lastReceiveTime = 0; //last receive time
+unsigned long lastReceiveTime = 0;
 
 void receive_time()
 {
   //check whether we keep receving data, or we have a connection between the two modules
-  unsigned long now = millis();
-  if (now - lastReceiveTime > 1000) //if the signal is lost, reset the data after 1 second
+  if(millis() >= lastReceiveTime + 1000) //1000 (1second)
   {
     resetData(); //if connection is lost, reset the data
     digitalWrite(ledRF, HIGH); //led RF off signal
@@ -300,7 +299,7 @@ void send_and_receive_data()
 //**************************************************************************************************************************
 void battery_voltage()
 {
-  //************************************ vcc *********** detected voltage
-  payload.RXvcc = analogRead(inRXvcc) * (4.6 / 1023.0) < 3.3; 
+  //------------------------------------ vcc ------------ detected voltage
+  payload.RXvcc = analogRead(inRXvcc) * (4.5 / 1023.0) <= 3.3; 
 }
   
