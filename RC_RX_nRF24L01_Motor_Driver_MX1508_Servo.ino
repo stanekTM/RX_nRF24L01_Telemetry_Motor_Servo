@@ -6,31 +6,31 @@
 #include "ServoTimer2.h"  //https://github.com/nabontra/ServoTimer2
 
 //pins for servos
-#define serv1  2
-#define serv2  3
-#define serv3  4
-#define serv4  7
-#define serv5  A4
-#define serv6  A5
+#define serv1   2
+#define serv2   3
+#define serv3   4
+#define serv4   7
+#define serv5   A4
+#define serv6   A5
  
 //pwm pins for motor
-#define pwm5   5
-#define pwm6   6
-#define pwm9   9
-#define pwm10  10
+#define pwm5    5
+#define pwm6    6
+#define pwm9    9
+#define pwm10   10
 
 //led RF on/off signal
-#define ledRF  A1
+#define ledRF   A1
 
 //analog telemetry
-#define inVCC  A3
+#define inRXvcc A3
 
 //pins for nRF24L01
-#define CE     8
-#define CSN    A0
-//***** MOSI   11
-//***** MISO   12
-//***** SCK    13
+#define CE      8
+#define CSN     A0
+//***** MOSI    11
+//***** MISO    12
+//***** SCK     13
 
 RF24 radio(CE, CSN); //set CE and CSN pins
 
@@ -57,7 +57,7 @@ rx_data rc_data; //create a variable with the above structure
 //**************************************************************************************************************************
 struct ackPayload
 {
-  float vcc; //analog telemetry
+  float RXvcc; //analog telemetry
 };
 ackPayload payload;
 
@@ -123,6 +123,8 @@ void outputServo()
   ch4_value = map(rc_data.ch4, 0, 255, 1000, 2000);
   ch5_value = map(rc_data.ch5, 0,   1, 1000, 2000);
   ch6_value = map(rc_data.ch6, 0,   1, 1000, 2000);
+
+//  Serial.println(rc_data.ch1); //print value ​​on a serial monitor 
 }
 
 //**************************************************************************************************************************
@@ -181,6 +183,8 @@ void outputPWM()
     analogWrite(pwm5, motA_value = 255); //adjustable brake (0-255)
     analogWrite(pwm6, motA_value = 255); //adjustable brake (0-255)
   }
+
+//  Serial.println(motA_value); //print value ​​on a serial monitor
   
 //MotorB ------------------------------------------------------------------------------------
 
@@ -217,7 +221,7 @@ void setup()
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
   pinMode(ledRF, OUTPUT); //led RF
-  pinMode(inVCC, INPUT);  //analog telemetry
+  pinMode(inRXvcc, INPUT);  //analog telemetry
   
   resetData(); //reset each channel value
   attachServoPins();
@@ -254,8 +258,7 @@ void loop()
   outputPWM();
   
   battery_voltage();
-
-  Serial.println(motA_value); //print value ​​on a serial monitor  
+ 
 } //end program loop
 
 //**************************************************************************************************************************
@@ -297,7 +300,7 @@ void send_and_receive_data()
 //**************************************************************************************************************************
 void battery_voltage()
 {
-  //******************************** vcc *********** detected voltage
-  payload.vcc = analogRead(inVCC) * (4.6 / 1023.0) < 3.3; 
+  //************************************ vcc *********** detected voltage
+  payload.RXvcc = analogRead(inRXvcc) * (4.6 / 1023.0) < 3.3; 
 }
   
