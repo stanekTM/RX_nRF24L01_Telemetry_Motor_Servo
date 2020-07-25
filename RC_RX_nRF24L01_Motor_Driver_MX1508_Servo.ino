@@ -286,8 +286,7 @@ void send_and_receive_data()
   if (radio.available(&pipeNo)) //check whether there is data to be received
   {
     radio.writeAckPayload(pipeNo, &payload, sizeof(ackPayload)); //prepare the ACK payload
-
-     
+   
     radio.read(&rc_data, sizeof(rx_data)); //read the radia data and send out the ACK payload
     lastReceiveTime = millis();            //at this moment we have received the data
     digitalWrite(ledRF, LOW);              //led RF on signal
