@@ -220,8 +220,8 @@ void setup()
   pinMode(6, OUTPUT);
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
-  pinMode(ledRF, OUTPUT); //led RF
-  pinMode(inRXvcc, INPUT);  //analog telemetry
+  pinMode(ledRF, OUTPUT);  //led RF
+  pinMode(inRXvcc, INPUT); //analog telemetry
   
   resetData(); //reset each channel value
   attachServoPins();
@@ -271,7 +271,7 @@ void receive_time()
   //check whether we keep receving data, or we have a connection between the two modules
   if(millis() >= lastReceiveTime + 1000) //1000 (1second)
   {
-    resetData(); //if connection is lost, reset the data
+    resetData();               //if connection is lost, reset the data
     digitalWrite(ledRF, HIGH); //led RF off signal
   }
 }
