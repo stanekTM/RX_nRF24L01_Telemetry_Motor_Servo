@@ -19,8 +19,8 @@
 #define pwm9    9
 #define pwm10   10
 
-//led RX vcc/RF data off
-#define ledRX   A1
+//led RX vcc, RF on/off
+#define led     A1
 
 //input vcc analog telemetry
 #define inRXvcc A3
@@ -216,11 +216,11 @@ void setup()
 {
   Serial.begin(9600);
 
-  pinMode(5, OUTPUT);
-  pinMode(6, OUTPUT);
-  pinMode(9, OUTPUT);
-  pinMode(10, OUTPUT);
-  pinMode(ledRX, OUTPUT);  //led RX vcc/RF data off
+  pinMode(pwm5, OUTPUT);
+  pinMode(pwm6, OUTPUT);
+  pinMode(pwm9, OUTPUT);
+  pinMode(pwm10, OUTPUT);
+  pinMode(led, OUTPUT);    //led RX vcc, RF on/off
   pinMode(inRXvcc, INPUT); //input vcc analog telemetry
   
   resetData(); //reset each channel value
@@ -322,9 +322,9 @@ void RFon_indication()
     {
       ledState = HIGH;
     }   
-    digitalWrite(ledRX, ledState);
+    digitalWrite(led, ledState);
       
-//    digitalWrite(ledRX, payload.RXvcc); //LED indication without flashing
+//    digitalWrite(led, payload.RXvcc); //LED indication without flashing
   }
 }
 
@@ -345,7 +345,7 @@ void RFoff_indication()
     {
       ledState = HIGH;
     }   
-    digitalWrite(ledRX, ledState);
+    digitalWrite(led, ledState);
   }
 }
    
