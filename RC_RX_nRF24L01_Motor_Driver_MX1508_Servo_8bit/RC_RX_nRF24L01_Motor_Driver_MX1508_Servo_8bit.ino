@@ -1,33 +1,39 @@
 
-#include <SPI.h>          //https://github.com/arduino/ArduinoCore-avr/tree/master/libraries/SPI
-#include <nRF24L01.h>     //https://github.com/nRF24/RF24
 #include <RF24.h>         //https://github.com/nRF24/RF24
-#include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
+#include <nRF24L01.h>     //https://github.com/nRF24/RF24
+#include <SPI.h>          //https://github.com/arduino/ArduinoCore-avr/tree/master/libraries/SPI
 #include "ServoTimer2.h"  //https://github.com/nabontra/ServoTimer2
+#include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
 
 //pins for servos
 #define serv1   2
 #define serv2   3
 #define serv3   4
 #define serv4   7
-#define serv5   A4
-#define serv6   A5
+#define serv5   8
+#define serv6   A2
+
+//free pins     A3
+//free pins     A6
+//free pins     A7
  
 //pwm pins for motor
-#define pwm5    5
-#define pwm6    6
-#define pwm9    9
-#define pwm10   10
+#define pwm1    5
+#define pwm2    6
+#define pwm3    9
+#define pwm4    10
 
 //led RX vcc, RF on/off
-#define led     A1
+#define led     A4
 
 //input vcc analog telemetry
-#define inRXvcc A3
+#define inRXvcc A5
 
 //pins for nRF24L01
-#define CE      8
-#define CSN     A0
+#define CE      A0
+#define CSN     A1
+
+//hardware SPI
 //***** MOSI    11
 //***** MISO    12
 //***** SCK     13
@@ -140,48 +146,48 @@ void outputPWM()
  * The divisors available on pins 3, 11       are: 1, 8, 32, 64, 128, 256, and 1024.
  * 
  * Pins 5, 6  are paired on timer0
- * Pins 9, 10 are paired on timer1
- * Pins 3, 11 are paired on timer2
+ * Pins 9, 10 are paired on timer1, Servo library
+ * Pins 3, 11 are paired on timer2, ServoTimer2 library
  *  
- * PWM frequency (default)
- * D3  //pwm 488Hz, timer2, 8-bit
- * D11 //pwm 488Hz, timer2, 8-bit, SPI MOSI
-   
+ * PWM frequency (default)  
  * D5  //pwm 976Hz, timer0, 8-bit
  * D6  //pwm 976Hz, timer0, 8-bit
  *
- * D9  //pwm 488Hz, timer1, 16-bit
- * D10 //pwm 488Hz, timer1, 16-bit     
+ * D9  //pwm 488Hz, timer1, 16-bit, Servo library
+ * D10 //pwm 488Hz, timer1, 16-bit, Servo library     
+ * 
+ * D3  //pwm 488Hz, timer2, 8-bit, ServoTimer2 library
+ * D11 //pwm 488Hz, timer2, 8-bit, ServoTimer2 library, SPI MOSI hardware
 */
  
 //PWM frequency pin D5 or pin D6:  1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default)
 //MotorA (pin D5 or pin D6, prescaler 64)  
-  setPWMPrescaler(pwm5, 64);
+  setPWMPrescaler(pwm1, 64);
   
 //PWM frequency pin D9 or pin D10: 1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
 //MotorB (pin D9 or pin D10, prescaler 8)  
-  setPWMPrescaler(pwm9, 8);
+  setPWMPrescaler(pwm3, 8);
 
 //MotorA ------------------------------------------------------------------------------------ 
 
   if (rc_data.ch7 < 120) // < 127, dead band of poor quality joysticks
   {
     motA_value = map(rc_data.ch7, 120, 0, 0, 255);
-    analogWrite(pwm5, motA_value); 
-    digitalWrite(pwm6, LOW);
+    analogWrite(pwm1, motA_value); 
+    digitalWrite(pwm2, LOW);
   }
   else if (rc_data.ch7 > 127) // > 127, dead band of poor quality joysticks
   {
     motA_value = map(rc_data.ch7, 127, 255, 0, 255);
-    analogWrite(pwm6, motA_value); 
-    digitalWrite(pwm5, LOW);
+    analogWrite(pwm2, motA_value); 
+    digitalWrite(pwm1, LOW);
   }
   else
   {
-//    digitalWrite(pwm5, LOW); //"HIGH" brake, "LOW" no brake
-//    digitalWrite(pwm6, LOW); //"HIGH" brake, "LOW" no brake
-    analogWrite(pwm5, motA_value = 255); //adjustable brake (0-255)
-    analogWrite(pwm6, motA_value = 255); //adjustable brake (0-255)
+//    digitalWrite(pwm1, LOW); //"HIGH" brake, "LOW" no brake
+//    digitalWrite(pwm2, LOW); //"HIGH" brake, "LOW" no brake
+    analogWrite(pwm1, motA_value = 255); //adjustable brake (0-255)
+    analogWrite(pwm2, motA_value = 255); //adjustable brake (0-255)
   }
 
 //  Serial.println(motA_value); //print value ​​on a serial monitor
@@ -191,21 +197,21 @@ void outputPWM()
   if (rc_data.ch8 < 120) // < 127, dead band of poor quality joysticks
   {
     motB_value = map(rc_data.ch8, 120, 0, 0, 255); 
-    analogWrite(pwm9, motB_value); 
-    digitalWrite(pwm10, LOW);
+    analogWrite(pwm3, motB_value); 
+    digitalWrite(pwm4, LOW);
   }
   else if (rc_data.ch8 > 127) // > 127, dead band of poor quality joysticks
   {
     motB_value = map(rc_data.ch8, 127, 255, 0, 255); 
-    analogWrite(pwm10, motB_value); 
-    digitalWrite(pwm9, LOW);
+    analogWrite(pwm4, motB_value); 
+    digitalWrite(pwm3, LOW);
   }
   else
   {
-    digitalWrite(pwm9,  HIGH); //"HIGH" brake, "LOW" no brake
-    digitalWrite(pwm10, HIGH); //"HIGH" brake, "LOW" no brake
-//    analogWrite(pwm9,  motB_value = 127); //adjustable brake (0-255)
-//    analogWrite(pwm10, motB_value = 127); //adjustable brake (0-255)
+    digitalWrite(pwm3, HIGH); //"HIGH" brake, "LOW" no brake
+    digitalWrite(pwm4, HIGH); //"HIGH" brake, "LOW" no brake
+//    analogWrite(pwm3, motB_value = 127); //adjustable brake (0-255)
+//    analogWrite(pwm4, motB_value = 127); //adjustable brake (0-255)
   }
 }
 
@@ -216,10 +222,11 @@ void setup()
 {
   Serial.begin(9600);
 
-  pinMode(pwm5, OUTPUT);
-  pinMode(pwm6, OUTPUT);
-  pinMode(pwm9, OUTPUT);
-  pinMode(pwm10, OUTPUT);
+  pinMode(pwm1, OUTPUT);
+  pinMode(pwm2, OUTPUT);
+  pinMode(pwm3, OUTPUT);
+  pinMode(pwm4, OUTPUT);
+  
   pinMode(led, OUTPUT);    //led RX vcc, RF on/off
   pinMode(inRXvcc, INPUT); //input vcc analog telemetry
   
