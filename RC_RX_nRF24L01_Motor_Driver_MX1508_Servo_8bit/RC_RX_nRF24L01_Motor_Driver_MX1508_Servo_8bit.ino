@@ -6,44 +6,44 @@
 #include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
 
 //pins for servos
-#define serv1   2
-#define serv2   3
-#define serv3   4
-#define serv4   7
-#define serv5   8
-#define serv6   A2
+#define serv1    2
+#define serv2    3
+#define serv3    4
+#define serv4    7
+#define serv5    8
+#define serv6    A2
 
-//free pins     A3
-//free pins     A6
-//free pins     A7
+//free pins      A3
+//free pins      A6
+//free pins      A7
  
 //pwm pins for motor
-#define pwm1    5
-#define pwm2    6
-#define pwm3    9
-#define pwm4    10
+#define pwm1     5
+#define pwm2     6
+#define pwm3     9
+#define pwm4     10
 
-//led RX vcc, RF on/off
-#define led     A4
+//RX vcc, RF on/off RX LED
+#define led      A4
 
 //input vcc analog telemetry
-#define inRXvcc A5
+#define inRXvcc  A5
 
 //pins for nRF24L01
-#define CE      A0
-#define CSN     A1
+#define CE       A0
+#define CSN      A1
 
 //hardware SPI
-//***** MOSI    11
-//***** MISO    12
-//***** SCK     13
+//----- MOSI     11 
+//----- MISO     12 
+//----- SCK      13
 
-RF24 radio(CE, CSN); //set CE and CSN pins
+RF24 radio(CE, CSN); //setup CE and CSN pins
 
 const byte addresses[][6] = {"tx001", "rx002"};
 
 //************************************************************************************************************************************************************************
-//structure size max 32 bytes ********************************************************************************************************************************************
+//this structure defines the received data in bytes (structure size max. 32 bytes) ***************************************************************************************
 //************************************************************************************************************************************************************************
 struct rx_data
 {
@@ -134,7 +134,7 @@ void outputServo()
 }
 
 //************************************************************************************************************************************************************************
-//frequencies and motors control *****************************************************************************************************************************************
+//setup frequencies and motors control ***********************************************************************************************************************************
 //************************************************************************************************************************************************************************
 void outputPWM()
 {  
@@ -227,7 +227,7 @@ void setup()
   pinMode(pwm3, OUTPUT);
   pinMode(pwm4, OUTPUT);
   
-  pinMode(led, OUTPUT);    //led RX vcc, RF on/off
+  pinMode(led, OUTPUT);    //RX vcc, RF on/off RX LED
   pinMode(inRXvcc, INPUT); //input vcc analog telemetry
   
   resetData(); //reset each channel value
@@ -245,7 +245,7 @@ void setup()
   radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm) 
 
-  radio.openWritingPipe(addresses[0]);    //(address 1, tx001) open a pipe for writing via byte array. Call "stopListening" first 
+  radio.openWritingPipe(addresses[0]);    //(address 1, tx001) open a pipe for writing via byte array
   radio.openReadingPipe(1, addresses[1]); //(address 2, rx002) open all the required reading pipes, and then call "startListening"
                                           //which number pipe to open (0-5)
                                           //the 24, 32 or 40 bit address of the pipe to open
@@ -279,7 +279,7 @@ void receive_time()
   if(millis() >= lastReceiveTime + 1000) //1000 (1second)
   {
     resetData();        //if connection is lost, reset the data
-    RFoff_indication(); //led RF off signal
+    RFoff_indication();
   }
 }
 
@@ -296,7 +296,7 @@ void send_and_receive_data()
    
     radio.read(&rc_data, sizeof(rx_data)); //read the radia data and send out the ACK payload
     lastReceiveTime = millis();            //at this moment we have received the data
-    RFon_indication();                     //led RF on signal
+    RFon_indication();                    
   } 
 }
 
@@ -305,7 +305,7 @@ void send_and_receive_data()
 //************************************************************************************************************************************************************************
 void battery_voltage()
 {
-  //------------------------------------ vcc ------------ detected voltage
+  //------------------------------------ vcc ------------ monitored voltage
   payload.RXvcc = analogRead(inRXvcc) * (4.5 / 1023.0) <= 3.3; 
 }
 
