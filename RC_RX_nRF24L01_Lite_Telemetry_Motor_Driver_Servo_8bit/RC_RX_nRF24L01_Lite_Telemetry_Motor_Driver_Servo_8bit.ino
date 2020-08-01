@@ -13,9 +13,10 @@
 #define serv5    8
 #define serv6    A2
 
-//free pins      A3
-//free pins      A6
-//free pins      A7
+//free pins
+//pin            A3
+//pin            A6
+//pin            A7
  
 //pwm pins for motor
 #define pwm1     5
