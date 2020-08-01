@@ -310,7 +310,7 @@ void battery_voltage()
 }
 
 //************************************************************************************************************************************************************************
-//after receiving the RF data, it activates telemetry with the detection of the set undervoltage RX by means of the LED flashing indication ******************************
+//after receiving the RF data, it activates the telemetry of the monitored voltage RX vcc by means of a flashing LED indication ******************************************
 //************************************************************************************************************************************************************************
 unsigned long ledTime = 0;
 int ledState;
