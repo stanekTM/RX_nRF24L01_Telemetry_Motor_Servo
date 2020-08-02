@@ -87,24 +87,22 @@ void outputPWM()
 {  
 /*
  * The base frequency for pins 3, 9, 10, 11 is 31250Hz.
- * The base frequency for pins 5, 6 is 62500Hz.
+ * The base frequency for pins 5, 6         is 62500Hz.
  * 
  * The divisors available on pins 5, 6, 9, 10 are: 1, 8, 64, 256, and 1024.
  * The divisors available on pins 3, 11       are: 1, 8, 32, 64, 128, 256, and 1024.
+ *    
+ * Pins 5, 6  are paired on timer0, functions delay(), millis() and micros()
+ * D5   pwm 976Hz(default), timer0, 8-bit 
+ * D6   pwm 976Hz(default), timer0, 8-bit
  * 
- * Pins 5, 6  are paired on timer0
  * Pins 9, 10 are paired on timer1, Servo library
- * Pins 3, 11 are paired on timer2, ServoTimer2 library
- *  
- * PWM frequency (default)  
- * D5  //pwm 976Hz, timer0, 8-bit
- * D6  //pwm 976Hz, timer0, 8-bit
- *
- * D9  //pwm 488Hz, timer1, 16-bit, Servo library
- * D10 //pwm 488Hz, timer1, 16-bit, Servo library     
+ * D9   pwm 488Hz(default), timer1, 16-bit
+ * D10  pwm 488Hz(default), timer1, 16-bit    
  * 
- * D3  //pwm 488Hz, timer2, 8-bit, ServoTimer2 library
- * D11 //pwm 488Hz, timer2, 8-bit, ServoTimer2 library, SPI MOSI hardware
+ * Pins 3, 11 are paired on timer2, ServoTimer2 library
+ * D3   pwm 488Hz(default), timer2, 8-bit
+ * D11  pwm 488Hz(default), timer2, 8-bit, SPI MOSI hardware
 */
 
 //PWM frequency pin D9 or pin D10: 1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
