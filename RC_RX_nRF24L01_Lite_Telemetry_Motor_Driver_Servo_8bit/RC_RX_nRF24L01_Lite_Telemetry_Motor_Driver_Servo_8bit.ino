@@ -5,6 +5,11 @@
 #include "ServoTimer2.h"  //https://github.com/nabontra/ServoTimer2
 #include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
 
+//free pins
+//pin            A3
+//pin            A6
+//pin            A7
+
 //pins for servos
 #define serv1    2
 #define serv2    3
@@ -12,11 +17,6 @@
 #define serv4    7
 #define serv5    8
 #define serv6    A2
-
-//free pins
-//pin            A3
-//pin            A6
-//pin            A7
  
 //pwm pins for motor
 #define pwm1     5
