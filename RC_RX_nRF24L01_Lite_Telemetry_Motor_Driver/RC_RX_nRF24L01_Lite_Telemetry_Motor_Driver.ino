@@ -249,14 +249,16 @@ void send_and_receive_data()
 void battery_voltage()
 {
   //------------------------------------ vcc ------------ monitored voltage
-  payload.RXvcc = analogRead(inRXvcc) * (4.5 / 1023.0) <= 3.3; 
+  payload.RXvcc = analogRead(inRXvcc) * (4.5 / 1023.0) <= 3.3;
+
+//  Serial.println(payload.RXvcc); //print value ​​on a serial monitor
 }
 
 //************************************************************************************************************************************************************************
 //after receiving the RF data, it activates the telemetry of the monitored voltage RX vcc by means of a flashing LED indication ******************************************
 //************************************************************************************************************************************************************************
-unsigned long ledTime = 0;
 int ledState;
+unsigned long ledTime = 0;
 
 void RFon_indication()
 {
