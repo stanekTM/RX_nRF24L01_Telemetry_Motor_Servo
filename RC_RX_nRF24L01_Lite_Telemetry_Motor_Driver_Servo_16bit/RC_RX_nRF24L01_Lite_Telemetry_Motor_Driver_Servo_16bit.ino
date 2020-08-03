@@ -5,6 +5,11 @@
 #include <Servo.h>        //https://github.com/arduino-libraries/Servo
 #include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
 
+//free pins
+//pin           12
+//pin           A6
+//pin           A7
+
 //pins for servos
 #define serv1   2
 #define serv2   4
@@ -12,11 +17,6 @@
 #define serv4   8
 #define serv5   9
 #define serv6   10
-
-//free pins
-//pin           12
-//pin           A6
-//pin           A7
  
 //pwm pins for motor
 #define pwm1    5
