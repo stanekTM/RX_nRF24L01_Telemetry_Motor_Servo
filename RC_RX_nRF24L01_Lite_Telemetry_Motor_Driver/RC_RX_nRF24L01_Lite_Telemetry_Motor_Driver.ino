@@ -10,8 +10,8 @@
 //pin            6
 //pin            7
 //pin            8
-//pin            12 - MISO 
-//pin            13 - SCK
+//pin            12 //MISO 
+//pin            13 //SCK
 //pin            A5
 //pin            A6
  
@@ -19,7 +19,7 @@
 #define pwm1     9
 #define pwm2     10
 #define pwm3     3
-#define pwm4     11
+#define pwm4     11 //MOSI
 
 //LED RX battery and RF on/off
 #define led      2
