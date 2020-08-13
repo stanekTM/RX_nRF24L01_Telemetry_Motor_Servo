@@ -1,22 +1,22 @@
 
 #include <RF24.h>         //https://github.com/nRF24/RF24
 #include <nRF24L01.h>     //https://github.com/nRF24/RF24
-#include <SPI.h>          //https://github.com/arduino/ArduinoCore-avr/tree/master/libraries/SPI
+#include <DigitalIO.h>    //https://github.com/greiman/DigitalIO
 #include "ServoTimer2.h"  //https://github.com/nabontra/ServoTimer2
 #include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
 
 //free pins
-//pin            A3
+//pin            3
+//pin            A5
 //pin            A6
-//pin            A7
 
 //pins for servos
-#define serv1    2
-#define serv2    3
-#define serv3    4
-#define serv4    7
-#define serv5    8
-#define serv6    A2
+#define serv1    4
+#define serv2    7
+#define serv3    8
+#define serv4    11 //MOSI
+#define serv5    12 //MISO
+#define serv6    13 //SCK
  
 //pwm pins for motor
 #define pwm1     5
@@ -25,19 +25,19 @@
 #define pwm4     10
 
 //LED RX battery and RF on/off
-#define led      A4
+#define led      2
 
 //input RX battery
-#define inRxBat  A5
+#define inRxBat  A7
 
 //pins for nRF24L01
-#define CE       A0
-#define CSN      A1
+#define CE       A4 
+#define CSN      A3 
 
-//hardware SPI
-//----- MOSI     11 
-//----- MISO     12 
-//----- SCK      13
+//software SPI http://tmrh20.github.io/RF24/Arduino.html
+//----- MOSI     15 - A1
+//----- MISO     14 - A0
+//----- SCK      16 - A2
 
 RF24 radio(CE, CSN); //setup CE and CSN pins
 
