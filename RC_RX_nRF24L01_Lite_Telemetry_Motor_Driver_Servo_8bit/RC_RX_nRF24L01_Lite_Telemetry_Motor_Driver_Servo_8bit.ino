@@ -24,11 +24,11 @@
 #define pwm3     9
 #define pwm4     10
 
-//RX vcc, RF on/off RX LED
+//LED RX battery and RF on/off
 #define led      A4
 
-//input vcc analog telemetry
-#define inRXvcc  A5
+//input RX battery
+#define inRxBat  A5
 
 //pins for nRF24L01
 #define CE       A0
@@ -64,7 +64,7 @@ rx_data rc_data; //create a variable with the above structure
 //************************************************************************************************************************************************************************
 struct ackPayload
 {
-  float RXvcc; //analog telemetry
+  float RxBat;
 };
 ackPayload payload;
 
@@ -226,8 +226,8 @@ void setup()
   pinMode(pwm3, OUTPUT);
   pinMode(pwm4, OUTPUT);
   
-  pinMode(led, OUTPUT);    //RX vcc, RF on/off RX LED
-  pinMode(inRXvcc, INPUT); //input vcc analog telemetry
+  pinMode(led, OUTPUT);    //LED RX battery and RF on/off
+  pinMode(inRxBat, INPUT); //input RX battery
   
   resetData(); //reset each channel value
   attachServoPins();
@@ -300,18 +300,18 @@ void send_and_receive_data()
 }
 
 //************************************************************************************************************************************************************************
-//analog telemetry with undervoltage detection ***************************************************************************************************************************
+//input RX battery with undervoltage detection ***************************************************************************************************************************
 //************************************************************************************************************************************************************************
 void battery_voltage()
 {
-  //------------------------------------ vcc ------------ monitored voltage
-  payload.RXvcc = analogRead(inRXvcc) * (4.5 / 1023.0) <= 3.3;
+  //------------------------------------ RX battery ----- monitored voltage
+  payload.RxBat = analogRead(inRxBat) * (4.5 / 1023.0) <= 3.3;
 
-//  Serial.println(payload.RXvcc); //print value ​​on a serial monitor   
+//  Serial.println(payload.RxBat); //print value ​​on a serial monitor   
 }
 
 //************************************************************************************************************************************************************************
-//after receiving the RF data, it activates the telemetry of the monitored voltage RX vcc by means of a flashing LED indication ******************************************
+//after receiving the RF data, it activates of the monitored RX battery by means of a flashing LED indication ************************************************************
 //************************************************************************************************************************************************************************
 int ledState;
 unsigned long ledTime = 0;
@@ -322,7 +322,7 @@ void RFon_indication()
   {
     ledTime = millis();
     
-    if (ledState >= !payload.RXvcc + HIGH)
+    if (ledState >= !payload.RxBat + HIGH)
     {
       ledState = LOW;
     }
@@ -332,7 +332,7 @@ void RFon_indication()
     }   
     digitalWrite(led, ledState);
       
-//    digitalWrite(led, payload.RXvcc); //LED indication without flashing
+//    digitalWrite(led, payload.RxBat); //LED indication without flashing
   }
 }
 
