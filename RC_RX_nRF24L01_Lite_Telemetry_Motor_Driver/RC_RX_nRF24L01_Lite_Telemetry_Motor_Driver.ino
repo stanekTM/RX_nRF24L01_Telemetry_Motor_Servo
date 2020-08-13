@@ -5,36 +5,36 @@
 #include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
 
 //free pins
-//pin           2
-//pin           4
-//pin           5
-//pin           6
-//pin           7
-//pin           8
-//pin           12
-//pin           A6
-//pin           A7
+//pin            4
+//pin            5
+//pin            6
+//pin            7
+//pin            8
+//pin            12 - MISO 
+//pin            13 - SCK
+//pin            A5
+//pin            A6
  
 //pwm pins for motor
-#define pwm1    9
-#define pwm2    10
-#define pwm3    3
-#define pwm4    11
+#define pwm1     9
+#define pwm2     10
+#define pwm3     3
+#define pwm4     11
 
-//RX vcc, RF on/off RX LED
-#define led     A4 
+//LED RX battery and RF on/off
+#define led      2
 
-//input vcc analog telemetry
-#define inRXvcc A5
+//input RX battery
+#define inRxBat  A7
 
 //pins for nRF24L01
-#define CE      A3 
-#define CSN     A2 
+#define CE       A4 
+#define CSN      A3 
 
 //software SPI http://tmrh20.github.io/RF24/Arduino.html
-//----- MOSI    15 //A1
-//----- MISO    14 //A0
-//----- SCK     13
+//----- MOSI     15 - A1
+//----- MISO     14 - A0
+//----- SCK      16 - A2
 
 RF24 radio(CE, CSN); //setup CE and CSN pins
 
@@ -61,7 +61,7 @@ rx_data rc_data; //create a variable with the above structure
 //************************************************************************************************************************************************************************
 struct ackPayload
 {
-  float RXvcc; //analog telemetry
+  float RxBat;
 };
 ackPayload payload;
 
@@ -172,8 +172,8 @@ void setup()
   pinMode(pwm3, OUTPUT);
   pinMode(pwm4, OUTPUT);
   
-  pinMode(led, OUTPUT);    //RX vcc, RF on/off RX LED
-  pinMode(inRXvcc, INPUT); //input vcc analog telemetry
+  pinMode(led, OUTPUT);    //LED RX battery and RF on/off
+  pinMode(inRxBat, INPUT); //input RX battery
   
   resetData(); //reset each channel value
 
@@ -244,18 +244,18 @@ void send_and_receive_data()
 }
 
 //************************************************************************************************************************************************************************
-//analog telemetry with undervoltage detection ***************************************************************************************************************************
+//input RX battery with undervoltage detection ***************************************************************************************************************************
 //************************************************************************************************************************************************************************
 void battery_voltage()
 {
-  //------------------------------------ vcc ------------ monitored voltage
-  payload.RXvcc = analogRead(inRXvcc) * (4.5 / 1023.0) <= 3.3;
+  //------------------------------------ RX battery ----- monitored voltage
+  payload.RxBat = analogRead(inRxBat) * (4.5 / 1023.0) <= 3.3;
 
-//  Serial.println(payload.RXvcc); //print value ​​on a serial monitor
+//  Serial.println(payload.RxBat); //print value ​​on a serial monitor
 }
 
 //************************************************************************************************************************************************************************
-//after receiving the RF data, it activates the telemetry of the monitored voltage RX vcc by means of a flashing LED indication ******************************************
+//after receiving the RF data, it activates of the monitored RX battery by means of a flashing LED indication ************************************************************
 //************************************************************************************************************************************************************************
 int ledState;
 unsigned long ledTime = 0;
@@ -266,7 +266,7 @@ void RFon_indication()
   {
     ledTime = millis();
     
-    if (ledState >= !payload.RXvcc + HIGH)
+    if (ledState >= !payload.RxBat + HIGH)
     {
       ledState = LOW;
     }
@@ -276,7 +276,7 @@ void RFon_indication()
     }   
     digitalWrite(led, ledState);
       
-//    digitalWrite(led, payload.RXvcc); //LED indication without flashing
+//    digitalWrite(led, payload.Rxbat); //LED indication without flashing
   }
 }
 
