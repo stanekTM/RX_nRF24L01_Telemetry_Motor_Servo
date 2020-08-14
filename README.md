@@ -7,8 +7,8 @@ After editing the code, it can control tanks and aircraft.
 The possibility of setting the brake is in the code.
 Telemetry sends the monitored voltage RX to TX. When the minimum voltage is exceeded, both RX and TX LEDs start flashing at a frequency of 500ms. 
 
-# Lite telemetry, motor driver, no servos
+# RC receiver with motor drivers (no servos)
 
-![Screen01](https://github.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver.PNG)
+![screen1](https://github.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver.PNG)
 
 George StanekTM
