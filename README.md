@@ -13,8 +13,8 @@ This RC receiver works with a simple RC transmitter from my repository https://g
 The motor driver IC is based on MX1508, MX1208, MX1515, MX1616, TC1508S and others similar, using 4x pwm input control signals.
 
 ### Function:
-1. Motor A (pwm 1, 2) = 3.9 kHz (steering) 
-2. Motor B (pwm 3, 4) = 3.9 kHz (throttle)
+1. Motor A (steering) = 3.9kHz (pwm 1, 2)
+2. Motor B (throttle) = 3.9kHz (pwm 3, 4)
 3. Brake = on, off or adjustable effect 
 4. Normal mode = LED RX is lit
 5. Battery voltage 1S LiPo (4.2V) < 3.3V = RX, TX LEDs flash at a frequency of 500ms
