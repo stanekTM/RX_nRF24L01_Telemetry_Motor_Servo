@@ -17,8 +17,8 @@ The motor driver IC is based on MX1508, MX1208, MX1515, MX1616, TC1508S and othe
 2. Motor B (throttle) = 3.9kHz (pwm 3, 4)
 3. Brake = on, off or adjustable effect 
 4. Normal mode = LED RX is lit
-5. Battery voltage 1S LiPo (4.2V) < 3.3V = RX, TX LEDs flash at a frequency of 500ms
-6. TX transmitter off or signal loss = RX LED flash at a frequency of 100ms 
+5. Battery voltage 1S LiPo (4.2V) < 3.3V = RX, TX LEDs flash at a interval of 500ms
+6. TX transmitter off or signal loss = RX LED flash at a interval of 100ms 
 7. Fail-safe = Motor A and B stopped
 
 ### Schema:
