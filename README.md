@@ -5,7 +5,7 @@ Other versions of the RX firmware include servo outputs with 8 and 16 bit timers
 The firmware will be used for racing micro cars and boats.
 After editing the code, it can control tanks and aircraft.
 The possibility of setting the brake is in the code.
-Telemetry sends the monitored voltage RX to TX. When the minimum voltage is exceeded, both RX and TX LEDs start flashing at a frequency of 500ms. 
+Telemetry sends the monitored voltage RX to TX.  
 
 ## RC receiver with motor drivers (no servos)
 1. Motor A (pwm 1, 2) = 3.9 kHz (steering) 
