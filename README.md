@@ -8,20 +8,20 @@ The possibility of setting the brake is in the code.
 Telemetry sends the monitored voltage RX to TX using LED states. 
 The motor driver IC is based on MX1508, MX1208, MX1515, MX1616, TC1508S and others similar, using 4x pwm input control signals.
 
-This RC receiver works with a simple RC transmitter from my repository https://github.com/stanekTM/RC_TX_nRF24L01_Lite_Telemetry_LED
+This RC receiver works with a simple RC transmitter from my repository [RC_TX_nRF24L01_Lite_Telemetry_LED](https://github.com/stanekTM/RC_TX_nRF24L01_Lite_Telemetry_LED)
 
 ## RC receiver with motor drivers (no servos)
 ### Code:
-https://github.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver
+[RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver](https://github.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver)
 
 ### Function:
-1. Motor A (steering) = 3.9kHz (pwm 1, 2)
-2. Motor B (throttle) = 3.9kHz (pwm 3, 4)
-3. Brake = on, off or adjustable effect 
-4. Normal mode = LED RX is lit
-5. Battery voltage 1S LiPo (4.2V) < 3.3V = RX, TX LEDs flash at a interval of 500ms
-6. TX transmitter off or signal loss = RX LED flash at a interval of 100ms 
-7. Fail-safe = Motor A and B stopped
+* Motor A (steering) = 3.9kHz (pwm 1, 2)
+* Motor B (throttle) = 3.9kHz (pwm 3, 4)
+* Brake = on, off or adjustable effect 
+* Normal mode = LED RX is lit
+* Battery voltage 1S LiPo (4.2V) < 3.3V = RX, TX LEDs flash at a interval of 500ms
+* TX transmitter off or signal loss = RX LED flash at a interval of 100ms 
+* Fail-safe = Motor A and B stopped
 
 ### Schema:
 ![screen1](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver.PNG)
