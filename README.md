@@ -11,6 +11,7 @@ Telemetry sends the monitored voltage RX to TX. When the minimum voltage is exce
 1. Motor A (pwm 1, 2) = 3.9 kHz (steering) 
 2. Motor B (pwm 3, 4) = 3.9 kHz (throttle)
 3. Battery voltage 1S LiPo (4.2V) < 3.3V = RX, TX LEDs flash at a frequency of 500ms
+4. TX transmitter off or signal loss = RX LED flash at a frequency of 100ms
 
 ![screen1](https://github.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver.PNG)
 
