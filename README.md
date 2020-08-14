@@ -21,7 +21,7 @@ The motor driver IC is based on MX1508, MX1208, MX1515, MX1616, TC1508S and othe
 6. TX transmitter off or signal loss = RX LED flash at a frequency of 100ms 
 7. Fail-safe = Motor A and B stopped
 
-### Schema
+### Schema:
 ![screen1](https://github.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver.PNG)
 
 Gerber files in processing ...
