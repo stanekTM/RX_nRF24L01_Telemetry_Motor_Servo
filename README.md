@@ -15,8 +15,7 @@ This RC receiver works with a simple RC transmitter from my repository [RC_TX_nR
 [RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver](https://github.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver)
 
 ### Used libraries:
-* <RF24.h>         //https://github.com/nRF24/RF24
-* <nRF24L01.h>     //https://github.com/nRF24/RF24
+* <RF24.h>         //https://github.com/nRF24/RF24 
 * <DigitalIO.h>    //https://github.com/greiman/DigitalIO
 * "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
 
