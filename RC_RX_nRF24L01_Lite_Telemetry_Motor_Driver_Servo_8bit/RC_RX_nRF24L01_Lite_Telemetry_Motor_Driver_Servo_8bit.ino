@@ -35,8 +35,8 @@
 #define CSN      A3 
 
 //software SPI http://tmrh20.github.io/RF24/Arduino.html
-//----- MOSI     15 - A1
 //----- MISO     14 - A0
+//----- MOSI     15 - A1
 //----- SCK      16 - A2
 
 RF24 radio(CE, CSN); //setup CE and CSN pins
