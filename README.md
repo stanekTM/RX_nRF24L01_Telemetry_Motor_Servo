@@ -29,9 +29,10 @@ This RC receiver works with a simple RC transmitter from my repository [RC_TX_nR
 * Fail-safe = Motor A and B stopped
 
 ### Schema:
-!Schema_Motor_Driver](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver.PNG)
+![Schema_Motor_Driver](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver/Schema_Motor_Driver.PNG)
 
 ### Gerber files: 
 in processing ...
+![Layout_Motor_Driver](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver/Layout_Motor_Driver.PNG)
 
 George StanekTM
