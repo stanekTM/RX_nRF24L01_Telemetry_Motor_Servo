@@ -180,19 +180,17 @@ void setup()
   //define the radio communication
   radio.begin();
   
-  radio.setAutoAck(1);             //ensure autoACK is enabled (address 1, tx001)
+  radio.setAutoAck(true);          //ensure autoACK is enabled (default true)
   radio.enableAckPayload();        //enable custom ack payloads on the acknowledge packets
   radio.enableDynamicPayloads();   //enable dynamically-sized payloads
   radio.setRetries(5, 5);          //set the number and delay of retries on failed submit (max. 15 x 250us delay (blocking !), max. 15 retries)
   
-  radio.setChannel(76);            //which RF channel to communicate on (0-125, default 76) 
+  radio.setChannel(76);            //which RF channel to communicate on (0-125, 2.4Ghz + default 76 = 2.476Ghz)
   radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm) 
 
-  radio.openWritingPipe(addresses[0]);    //(address 1, tx001) open a pipe for writing via byte array
-  radio.openReadingPipe(1, addresses[1]); //(address 2, rx002) open all the required reading pipes, and then call "startListening"
-                                          //which number pipe to open (0-5)
-                                          //the 24, 32 or 40 bit address of the pipe to open
+  radio.openWritingPipe(addresses[0]);    //open a pipe for writing via byte array
+  radio.openReadingPipe(1, addresses[1]); //open all the required reading pipes, and then call "startListening"
                                           
   radio.startListening(); //set the module as receiver. Start listening on the pipes opened for reading
 }
