@@ -46,18 +46,18 @@ const byte addresses[][6] = {"tx001", "rx002"};
 //************************************************************************************************************************************************************************
 //this structure defines the received data in bytes (structure size max. 32 bytes) ***************************************************************************************
 //************************************************************************************************************************************************************************
-struct rx_data
+struct packet
 {
-  byte ch1;
-  byte ch2;
-  byte ch3;
-  byte ch4;
-  byte ch5;
-  byte ch6;
-  byte ch7;
-  byte ch8;
+  unsigned int ch1;
+  unsigned int ch2;
+  unsigned int ch3;
+  unsigned int ch4;
+  unsigned int ch5;
+  unsigned int ch6;
+  unsigned int ch7;
+  unsigned int ch8;
 };
-rx_data rc_data; //create a variable with the above structure
+packet rc_data; //create a variable with the above structure
 
 //************************************************************************************************************************************************************************
 //this struct defines data, which are embedded inside the ACK payload ****************************************************************************************************
@@ -128,7 +128,7 @@ void outputServo()
   ch2_value = map(rc_data.ch2, 0, 255, 1000, 2000);
   ch3_value = map(rc_data.ch3, 0, 255, 1000, 2000);
   ch4_value = map(rc_data.ch4, 0, 255, 1000, 2000);
-  ch5_value = map(rc_data.ch5, 0,   1, 1000, 2000);
+  ch5_value = map(rc_data.ch5, 0,   1, 1000, 2000); //logic
   ch6_value = map(rc_data.ch6, 0,   1, 1000, 2000);
 
 //  Serial.println(rc_data.ch1); //print value ​​on a serial monitor 
@@ -291,7 +291,7 @@ void send_and_receive_data()
   {
     radio.writeAckPayload(pipeNo, &payload, sizeof(ackPayload)); //prepare the ACK payload
    
-    radio.read(&rc_data, sizeof(rx_data)); //read the radia data and send out the ACK payload
+    radio.read(&rc_data, sizeof(packet)); //read the radia data and send out the ACK payload
     lastReceiveTime = millis();            //at this moment we have received the data
     RFon_indication();                    
   } 
