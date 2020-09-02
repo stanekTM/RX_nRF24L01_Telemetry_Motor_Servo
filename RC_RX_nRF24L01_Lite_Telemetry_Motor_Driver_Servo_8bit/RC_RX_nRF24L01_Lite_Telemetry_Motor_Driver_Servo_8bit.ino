@@ -81,18 +81,18 @@ int motA_value = 0;
 int motB_value = 0;
 
 //************************************************************************************************************************************************************************
-//reset values ​​(min = 0, mid = 127, max = 255) ***************************************************************************************************************************
+//reset values ​​(min = 1000us, mid = 1500us, max = 2000us) ****************************************************************************************************************
 //************************************************************************************************************************************************************************
 void resetData()
 {
-  rc_data.ch1 = 127;     
-  rc_data.ch2 = 127;
-  rc_data.ch3 = 127;
-  rc_data.ch4 = 127;
+  rc_data.ch1 = 1500;     
+  rc_data.ch2 = 1500;
+  rc_data.ch3 = 1500;
+  rc_data.ch4 = 1500;
   rc_data.ch5 = 0;
   rc_data.ch6 = 0;
-  rc_data.ch7 = 127;
-  rc_data.ch8 = 127;
+  rc_data.ch7 = 1500;
+  rc_data.ch8 = 1500;
 }
 
 //************************************************************************************************************************************************************************
@@ -124,12 +124,12 @@ void outputServo()
   servo5.write(ch5_value);
   servo6.write(ch6_value);
 
-  ch1_value = map(rc_data.ch1, 0, 255, 1000, 2000); //linear
-  ch2_value = map(rc_data.ch2, 0, 255, 1000, 2000);
-  ch3_value = map(rc_data.ch3, 0, 255, 1000, 2000);
-  ch4_value = map(rc_data.ch4, 0, 255, 1000, 2000);
-  ch5_value = map(rc_data.ch5, 0,   1, 1000, 2000); //logic
-  ch6_value = map(rc_data.ch6, 0,   1, 1000, 2000);
+  ch1_value = map(rc_data.ch1, 1000, 2000, 1000, 2000); //linear
+  ch2_value = map(rc_data.ch2, 1000, 2000, 1000, 2000);
+  ch3_value = map(rc_data.ch3, 1000, 2000, 1000, 2000);
+  ch4_value = map(rc_data.ch4, 1000, 2000, 1000, 2000);
+  ch5_value = map(rc_data.ch5,    0,    1, 1000, 2000); //logic
+  ch6_value = map(rc_data.ch6,    0,    1, 1000, 2000);
 
 //  Serial.println(rc_data.ch1); //print value ​​on a serial monitor 
 }
@@ -169,46 +169,46 @@ void outputPWM()
 
 //MotorA ------------------------------------------------------------------------------------ 
 
-  if (rc_data.ch7 < 120) // < 127, dead band of poor quality joysticks
+  if (rc_data.ch7 < 1450) // < 1500us, dead band of poor quality joysticks
   {
-    motA_value = map(rc_data.ch7, 120, 0, 0, 255);
+    motA_value = map(rc_data.ch7, 1450, 1000, 0, 255);
     analogWrite(pwm1, motA_value); 
     digitalWrite(pwm2, LOW);
   }
-  else if (rc_data.ch7 > 127) // > 127, dead band of poor quality joysticks
+  else if (rc_data.ch7 > 1550) // > 1500us, dead band of poor quality joysticks
   {
-    motA_value = map(rc_data.ch7, 127, 255, 0, 255);
+    motA_value = map(rc_data.ch7, 1550, 2000, 0, 255);
     analogWrite(pwm2, motA_value); 
     digitalWrite(pwm1, LOW);
   }
   else
   {
-//    digitalWrite(pwm1, LOW); //"HIGH" brake, "LOW" no brake
-//    digitalWrite(pwm2, LOW); //"HIGH" brake, "LOW" no brake
-    analogWrite(pwm1, motA_value = 255); //adjustable brake (0-255)
-    analogWrite(pwm2, motA_value = 255); //adjustable brake (0-255)
+    digitalWrite(pwm1, HIGH); //"HIGH" brake, "LOW" no brake
+    digitalWrite(pwm2, HIGH); //"HIGH" brake, "LOW" no brake
+//    analogWrite(pwm1, motA_value = 255); //adjustable brake (0-255)
+//    analogWrite(pwm2, motA_value = 255); //adjustable brake (0-255)
   }
 
-//  Serial.println(motA_value); //print value ​​on a serial monitor
+//  Serial.println(rc_data.ch7); //print value ​​on a serial monitor
   
 //MotorB ------------------------------------------------------------------------------------
 
-  if (rc_data.ch8 < 120) // < 127, dead band of poor quality joysticks
+  if (rc_data.ch8 < 1450) // < 1500us, dead band of poor quality joysticks
   {
-    motB_value = map(rc_data.ch8, 120, 0, 0, 255); 
+    motB_value = map(rc_data.ch8, 1450, 1000, 0, 255); 
     analogWrite(pwm3, motB_value); 
     digitalWrite(pwm4, LOW);
   }
-  else if (rc_data.ch8 > 127) // > 127, dead band of poor quality joysticks
+  else if (rc_data.ch8 > 1550) // > 1500us, dead band of poor quality joysticks
   {
-    motB_value = map(rc_data.ch8, 127, 255, 0, 255); 
+    motB_value = map(rc_data.ch8, 1550, 2000, 0, 255); 
     analogWrite(pwm4, motB_value); 
     digitalWrite(pwm3, LOW);
   }
   else
   {
-    digitalWrite(pwm3, HIGH); //"HIGH" brake, "LOW" no brake
-    digitalWrite(pwm4, HIGH); //"HIGH" brake, "LOW" no brake
+    digitalWrite(pwm3, LOW); //"HIGH" brake, "LOW" no brake
+    digitalWrite(pwm4, LOW); //"HIGH" brake, "LOW" no brake
 //    analogWrite(pwm3, motB_value = 127); //adjustable brake (0-255)
 //    analogWrite(pwm4, motB_value = 127); //adjustable brake (0-255)
   }
