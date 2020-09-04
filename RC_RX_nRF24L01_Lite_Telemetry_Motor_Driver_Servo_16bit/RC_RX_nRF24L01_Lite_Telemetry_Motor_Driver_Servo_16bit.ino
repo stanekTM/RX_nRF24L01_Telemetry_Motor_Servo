@@ -6,23 +6,23 @@
 #include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
 
 //free pins
+//pin            4
 //pin            7
+//pin            8
+//pin            9
+//pin            10
 //pin            A5
 //pin            A6
 
 //pins for servos
-#define serv1    4
-#define serv2    8
-#define serv3    9
-#define serv4    10
-#define serv5    12 //MISO
-#define serv6    13 //SCK
+#define serv1    12 //MISO
+#define serv2    13 //SCK
  
 //pwm pins for motor
-#define pwm1     5
-#define pwm2     6
-#define pwm3     3
-#define pwm4     11 //MOSI
+#define pwm1     5  //MotorA/steering
+#define pwm2     6  //MotorA/steering
+#define pwm3     3  //MotorB/throttle
+#define pwm4     11 //MotorB/throttle/MOSI
 
 //LED RX battery and RF on/off
 #define led      2 
@@ -51,11 +51,8 @@ struct packet
   unsigned int ch1;
   unsigned int ch2;
   unsigned int ch3;
-  unsigned int ch4;
-  unsigned int ch5;
-  unsigned int ch6;
-  unsigned int ch7;
-  unsigned int ch8;
+  unsigned int steering;
+  unsigned int throttle;
 };
 packet rc_data; //create a variable with the above structure
 
@@ -73,12 +70,8 @@ ackPayload payload;
 //************************************************************************************************************************************************************************
 int ch1_value  = 0;
 int ch2_value  = 0;
-int ch3_value  = 0;
-int ch4_value  = 0;
-int ch5_value  = 0;
-int ch6_value  = 0;
-int motA_value = 0;
-int motB_value = 0;
+int motA_value = 0; 
+int motB_value = 0; 
 
 //************************************************************************************************************************************************************************
 //reset values ​​(min = 1000us, mid = 1500us, max = 2000us) ****************************************************************************************************************
@@ -86,13 +79,9 @@ int motB_value = 0;
 void resetData()
 {
   rc_data.ch1 = 1500;     
-  rc_data.ch2 = 1500;
-  rc_data.ch3 = 1500;
-  rc_data.ch4 = 1500;
-  rc_data.ch5 = 0;
-  rc_data.ch6 = 0;
-  rc_data.ch7 = 1500;
-  rc_data.ch8 = 1500;
+  rc_data.ch2 = 0;
+  rc_data.steering = 1500;
+  rc_data.throttle = 1500;
 }
 
 //************************************************************************************************************************************************************************
@@ -100,36 +89,20 @@ void resetData()
 //************************************************************************************************************************************************************************
 Servo servo1;
 Servo servo2;
-Servo servo3;
-Servo servo4;
-Servo servo5;
-Servo servo6;
 
 void attachServoPins()
 {
   servo1.attach(serv1);
   servo2.attach(serv2);
-  servo3.attach(serv3);
-  servo4.attach(serv4);
-  servo5.attach(serv5);
-  servo6.attach(serv6);
 }
 
 void outputServo()
 {
   servo1.writeMicroseconds(ch1_value);   
   servo2.writeMicroseconds(ch2_value); 
-  servo3.writeMicroseconds(ch3_value);
-  servo4.writeMicroseconds(ch4_value);
-  servo5.writeMicroseconds(ch5_value);
-  servo6.writeMicroseconds(ch6_value);
 
   ch1_value = map(rc_data.ch1, 1000, 2000, 1000, 2000); //linear
-  ch2_value = map(rc_data.ch2, 1000, 2000, 1000, 2000);
-  ch3_value = map(rc_data.ch3, 1000, 2000, 1000, 2000);
-  ch4_value = map(rc_data.ch4, 1000, 2000, 1000, 2000);
-  ch5_value = map(rc_data.ch5,    0,    1, 1000, 2000); //logic
-  ch6_value = map(rc_data.ch6,    0,    1, 1000, 2000);
+  ch2_value = map(rc_data.ch2,    0,    1, 1000, 2000); //logic
 
 //  Serial.println(rc_data.ch1); //print value ​​on a serial monitor 
 }
@@ -167,17 +140,17 @@ void outputPWM()
 //MotorB (pin D3 or pin D11, prescaler 8)  
   setPWMPrescaler(pwm3, 8);  
 
-//MotorA ------------------------------------------------------------------------------------ 
+//MotorA/steering ----------------------------------------------------------------------------
 
-  if (rc_data.ch7 < 1450) // < 1500us, dead band of poor quality joysticks
+  if (rc_data.steering < 1450) // < 1500us, dead band of poor quality joysticks
   {
-    motA_value = map(rc_data.ch7, 1450, 1000, 0, 255);
+    motA_value = map(rc_data.steering, 1450, 1000, 0, 255);
     analogWrite(pwm1, motA_value); 
     digitalWrite(pwm2, LOW);
   }
-  else if (rc_data.ch7 > 1550) // > 1500us, dead band of poor quality joysticks
+  else if (rc_data.steering > 1550) // > 1500us, dead band of poor quality joysticks
   {
-    motA_value = map(rc_data.ch7, 1550, 2000, 0, 255);
+    motA_value = map(rc_data.steering, 1550, 2000, 0, 255);
     analogWrite(pwm2, motA_value); 
     digitalWrite(pwm1, LOW);
   }
@@ -189,19 +162,19 @@ void outputPWM()
 //    analogWrite(pwm2, motA_value = 255); //adjustable brake (0-255)
   }
 
-//  Serial.println(rc_data.ch7); //print value ​​on a serial monitor
+//  Serial.println(rc_data.steering); //print value ​​on a serial monitor
   
-//MotorB ------------------------------------------------------------------------------------
+//MotorB/throttle ----------------------------------------------------------------------------
 
-  if (rc_data.ch8 < 1450) // < 1500us, dead band of poor quality joysticks
+  if (rc_data.throttle < 1450) // < 1500us, dead band of poor quality joysticks
   {
-    motB_value = map(rc_data.ch8, 1450, 1000, 0, 255); 
+    motB_value = map(rc_data.throttle, 1450, 1000, 0, 255); 
     analogWrite(pwm3, motB_value); 
     digitalWrite(pwm4, LOW);
   }
-  else if (rc_data.ch8 > 1550) // > 1500us, dead band of poor quality joysticks
+  else if (rc_data.throttle > 1550) // > 1500us, dead band of poor quality joysticks
   {
-    motB_value = map(rc_data.ch8, 1550, 2000, 0, 255); 
+    motB_value = map(rc_data.throttle, 1550, 2000, 0, 255); 
     analogWrite(pwm4, motB_value); 
     digitalWrite(pwm3, LOW);
   }
