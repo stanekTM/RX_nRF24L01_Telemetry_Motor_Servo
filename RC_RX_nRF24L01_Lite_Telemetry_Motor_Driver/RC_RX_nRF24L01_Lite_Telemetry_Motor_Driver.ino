@@ -16,10 +16,10 @@
 //pin            A6
  
 //pwm pins for motor
-#define pwm1     9
-#define pwm2     10
-#define pwm3     3
-#define pwm4     11 //MOSI
+#define pwm1     9  //MotorA/steering
+#define pwm2     10 //MotorA/steering
+#define pwm3     3  //MotorB/throttle
+#define pwm4     11 //MotorB/throttle/MOSI
 
 //LED RX battery and RF on/off
 #define led      2
@@ -48,11 +48,8 @@ struct packet
   unsigned int ch1;
   unsigned int ch2;
   unsigned int ch3;
-  unsigned int ch4;
-  unsigned int ch5;
-  unsigned int ch6;
-  unsigned int ch7;
-  unsigned int ch8;
+  unsigned int steering;
+  unsigned int throttle;
 };
 packet rc_data; //create a variable with the above structure
 
@@ -76,8 +73,8 @@ int motB_value = 0;
 //************************************************************************************************************************************************************************
 void resetData()
 {
-  rc_data.ch7 = 1500;
-  rc_data.ch8 = 1500;
+  rc_data.steering = 1500;
+  rc_data.throttle = 1500;
 }
 
 //************************************************************************************************************************************************************************
@@ -113,17 +110,17 @@ void outputPWM()
 //MotorB (pin D3 or pin D11, prescaler 8)  
   setPWMPrescaler(pwm3, 8);  
 
-//MotorA ------------------------------------------------------------------------------------ 
+//MotorA/steering ---------------------------------------------------------------------------- 
 
-  if (rc_data.ch7 < 1450) // < 1500us, dead band of poor quality joysticks
+  if (rc_data.steering < 1450) // < 1500us, dead band of poor quality joysticks
   {
-    motA_value = map(rc_data.ch7, 1450, 1000, 0, 255);
+    motA_value = map(rc_data.steering, 1450, 1000, 0, 255);
     analogWrite(pwm1, motA_value); 
     digitalWrite(pwm2, LOW);
   }
-  else if (rc_data.ch7 > 1550) // > 1500us, dead band of poor quality joysticks
+  else if (rc_data.steering > 1550) // > 1500us, dead band of poor quality joysticks
   {
-    motA_value = map(rc_data.ch7, 1550, 2000, 0, 255);
+    motA_value = map(rc_data.steering, 1550, 2000, 0, 255);
     analogWrite(pwm2, motA_value); 
     digitalWrite(pwm1, LOW);
   }
@@ -135,19 +132,19 @@ void outputPWM()
 //    analogWrite(pwm2, motA_value = 255); //adjustable brake (0-255)
   }
 
-//  Serial.println(rc_data.ch7); //print value ​​on a serial monitor
+//  Serial.println(rc_data.steering); //print value ​​on a serial monitor
   
-//MotorB ------------------------------------------------------------------------------------
+//MotorB/throttle ----------------------------------------------------------------------------
 
-  if (rc_data.ch8 < 1450) // < 1500us, dead band of poor quality joysticks
+  if (rc_data.throttle < 1450) // < 1500us, dead band of poor quality joysticks
   {
-    motB_value = map(rc_data.ch8, 1450, 1000, 0, 255); 
+    motB_value = map(rc_data.throttle, 1450, 1000, 0, 255); 
     analogWrite(pwm3, motB_value); 
     digitalWrite(pwm4, LOW);
   }
-  else if (rc_data.ch8 > 1550) // > 1500us, dead band of poor quality joysticks
+  else if (rc_data.throttle > 1550) // > 1500us, dead band of poor quality joysticks
   {
-    motB_value = map(rc_data.ch8, 1550, 2000, 0, 255); 
+    motB_value = map(rc_data.throttle, 1550, 2000, 0, 255); 
     analogWrite(pwm4, motB_value); 
     digitalWrite(pwm3, LOW);
   }
