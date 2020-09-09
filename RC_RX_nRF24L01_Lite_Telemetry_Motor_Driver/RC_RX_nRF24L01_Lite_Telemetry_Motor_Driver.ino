@@ -229,7 +229,7 @@ void send_and_receive_data()
    
     radio.read(&rc_data, sizeof(packet)); //read the radia data and send out the ACK payload
     lastReceiveTime = millis();            //at this moment we have received the data
-    TxBat_indication();                      
+    RxBat_indication();                      
   } 
 }
 
@@ -250,7 +250,7 @@ void battery_voltage()
 unsigned long ledTime = 0;
 int ledState, detect;
 
-void TxBat_indication()
+void RxBat_indication()
 { //----------------------- monitored voltage
   detect = payload.RxBat <= 3.3;
   
