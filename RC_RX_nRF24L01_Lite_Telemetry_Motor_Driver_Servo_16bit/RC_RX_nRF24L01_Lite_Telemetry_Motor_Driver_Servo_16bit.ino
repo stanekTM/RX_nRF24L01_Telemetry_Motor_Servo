@@ -262,7 +262,7 @@ void send_and_receive_data()
    
     radio.read(&rc_data, sizeof(packet)); //read the radia data and send out the ACK payload
     lastReceiveTime = millis();           //at this moment we have received the data
-    TxBat_indication();                     
+    RxBat_indication();                     
   } 
 }
 
@@ -270,8 +270,7 @@ void send_and_receive_data()
 //measuring the input of the RX battery **********************************************************************************************************************************
 //************************************************************************************************************************************************************************
 void battery_voltage()
-{
-  //------------------------------------ RX battery --
+{ //------------------------------------ RX battery --
   payload.RxBat = analogRead(inRxBat) * (4.2 / 1023);
 
 //  Serial.println(payload.RxBat); //print value ​​on a serial monitor   
@@ -283,7 +282,7 @@ void battery_voltage()
 unsigned long ledTime = 0;
 int ledState, detect;
 
-void TxBat_indication()
+void RxBat_indication()
 { //----------------------- monitored voltage
   detect = payload.RxBat <= 3.3;
   
