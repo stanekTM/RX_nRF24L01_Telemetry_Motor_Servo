@@ -74,8 +74,7 @@ void resetData()
 //************************************************************************************************************************************************************************
 //setup frequencies and motors control ***********************************************************************************************************************************
 //************************************************************************************************************************************************************************
-int motA_value = 0;
-int motB_value = 0;
+int motA_value = 0, motB_value = 0;
 
 void outputPWM()
 {  
@@ -172,8 +171,7 @@ void setup()
   resetData(); //reset each channel value
 
   //define the radio communication
-  radio.begin();
-  
+  radio.begin();  
   radio.setAutoAck(true);          //ensure autoACK is enabled (default true)
   radio.enableAckPayload();        //enable custom ack payloads on the acknowledge packets
   radio.enableDynamicPayloads();   //enable dynamically-sized payloads
@@ -231,34 +229,36 @@ void send_and_receive_data()
    
     radio.read(&rc_data, sizeof(packet)); //read the radia data and send out the ACK payload
     lastReceiveTime = millis();            //at this moment we have received the data
-    RFon_indication();                     
+    TxBat_indication();                      
   } 
 }
 
 //************************************************************************************************************************************************************************
-//input RX battery with undervoltage detection ***************************************************************************************************************************
+//measuring the input of the RX battery **********************************************************************************************************************************
 //************************************************************************************************************************************************************************
 void battery_voltage()
 {
-  //------------------------------------ RX battery ----- monitored voltage
-  payload.RxBat = analogRead(inRxBat) * (4.5 / 1023.0) <= 3.3;
+  //------------------------------------ RX battery --
+  payload.RxBat = analogRead(inRxBat) * (4.2 / 1023);
 
-//  Serial.println(payload.RxBat); //print value ​​on a serial monitor
+//  Serial.println(payload.RxBat); //print value ​​on a serial monitor   
 }
 
 //************************************************************************************************************************************************************************
-//after receiving the RF data, it activates of the monitored RX battery by means of a flashing LED indication ************************************************************
+//after receiving RF data, the monitored RX battery is activated. Undervoltage detection by flashing LED or batteries OK LED status **************************************
 //************************************************************************************************************************************************************************
-int ledState;
 unsigned long ledTime = 0;
+int ledState, detect;
 
-void RFon_indication()
-{
+void TxBat_indication()
+{ //----------------------- monitored voltage
+  detect = payload.RxBat <= 3.3;
+  
   if (millis() >= ledTime + 500) //1000 (1second)
   {
     ledTime = millis();
     
-    if (ledState >= !payload.RxBat + HIGH)
+    if (ledState >= !detect + HIGH)
     {
       ledState = LOW;
     }
@@ -267,8 +267,6 @@ void RFon_indication()
       ledState = HIGH;
     }   
     digitalWrite(led, ledState);
-      
-//    digitalWrite(led, payload.Rxbat); //LED indication without flashing
   }
 }
 
