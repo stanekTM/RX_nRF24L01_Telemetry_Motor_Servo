@@ -88,8 +88,7 @@ void attachServoPins()
   servo2.attach(serv2);
 }
 
-int ch3_value = 0;
-int ch4_value = 0;
+int ch3_value = 0, ch4_value = 0;
 
 void outputServo()
 {
@@ -106,8 +105,7 @@ void outputServo()
 //************************************************************************************************************************************************************************
 //setup frequencies and motors control ***********************************************************************************************************************************
 //************************************************************************************************************************************************************************
-int motA_value = 0; 
-int motB_value = 0; 
+int motA_value = 0, motB_value = 0; 
 
 void outputPWM()
 {  
@@ -205,13 +203,12 @@ void setup()
   attachServoPins();
 
   //define the radio communication
-  radio.begin();
-  
+  radio.begin(); 
   radio.setAutoAck(true);          //ensure autoACK is enabled (default true)
   radio.enableAckPayload();        //enable custom ack payloads on the acknowledge packets
   radio.enableDynamicPayloads();   //enable dynamically-sized payloads
   radio.setRetries(5, 5);          //set the number and delay of retries on failed submit (max. 15 x 250us delay (blocking !), max. 15 retries)
-  
+   
   radio.setChannel(76);            //which RF channel to communicate on (0-125, 2.4Ghz + default 76 = 2.476Ghz) 
   radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm) 
@@ -264,35 +261,37 @@ void send_and_receive_data()
     radio.writeAckPayload(pipeNo, &payload, sizeof(ackPayload)); //prepare the ACK payload
    
     radio.read(&rc_data, sizeof(packet)); //read the radia data and send out the ACK payload
-    lastReceiveTime = millis();            //at this moment we have received the data
-    RFon_indication();                     
+    lastReceiveTime = millis();           //at this moment we have received the data
+    TxBat_indication();                     
   } 
 }
 
 //************************************************************************************************************************************************************************
-//input RX battery with undervoltage detection ***************************************************************************************************************************
+//measuring the input of the RX battery **********************************************************************************************************************************
 //************************************************************************************************************************************************************************
 void battery_voltage()
 {
-  //------------------------------------ RX battery ----- monitored voltage
-  payload.RxBat = analogRead(inRxBat) * (4.5 / 1023.0) <= 3.3;
+  //------------------------------------ RX battery --
+  payload.RxBat = analogRead(inRxBat) * (4.2 / 1023);
 
 //  Serial.println(payload.RxBat); //print value ​​on a serial monitor   
 }
 
 //************************************************************************************************************************************************************************
-//after receiving the RF data, it activates of the monitored RX battery by means of a flashing LED indication ************************************************************
+//after receiving RF data, the monitored RX battery is activated. Undervoltage detection by flashing LED or batteries OK LED status **************************************
 //************************************************************************************************************************************************************************
-int ledState;
 unsigned long ledTime = 0;
+int ledState, detect;
 
-void RFon_indication()
-{
+void TxBat_indication()
+{ //----------------------- monitored voltage
+  detect = payload.RxBat <= 3.3;
+  
   if (millis() >= ledTime + 500) //1000 (1second)
   {
     ledTime = millis();
     
-    if (ledState >= !payload.RxBat + HIGH)
+    if (ledState >= !detect + HIGH)
     {
       ledState = LOW;
     }
@@ -301,8 +300,6 @@ void RFon_indication()
       ledState = HIGH;
     }   
     digitalWrite(led, ledState);
-      
-//    digitalWrite(led, payload.RxBat); //LED indication without flashing
   }
 }
 
