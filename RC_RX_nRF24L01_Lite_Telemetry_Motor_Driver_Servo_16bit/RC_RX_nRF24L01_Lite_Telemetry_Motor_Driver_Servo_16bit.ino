@@ -235,16 +235,15 @@ void loop()
 } //end program loop
 
 //************************************************************************************************************************************************************************
-//get time and reset data ************************************************************************************************************************************************
+//get time after losing RF data or turning off the TX, reset data and the LED activates flashing  ************************************************************************
 //************************************************************************************************************************************************************************
 unsigned long lastReceiveTime = 0;
 
 void receive_time()
-{
-  //check whether we keep receving data, or we have a connection between the two modules
+{ //check whether we keep receving data, or we have a connection between the two modules
   if(millis() >= lastReceiveTime + 1000) //1000 (1second)
   {
-    resetData();        //if connection is lost, reset the data
+    resetData();       
     RFoff_indication(); 
   }
 }
