@@ -196,10 +196,10 @@ void setup()
   pinMode(pwm3, OUTPUT);
   pinMode(pwm4, OUTPUT);
   
-  pinMode(led, OUTPUT);    //LED RX battery and RF on/off
-  pinMode(inRxBat, INPUT); //input RX battery
+  pinMode(led, OUTPUT);
+  pinMode(inRxBat, INPUT);
   
-  resetData(); //reset each channel value
+  resetData();
   attachServoPins();
 
   //define the radio communication
@@ -235,7 +235,7 @@ void loop()
 } //end program loop
 
 //************************************************************************************************************************************************************************
-//get time after losing RF data or turning off the TX, reset data and the LED activates flashing  ************************************************************************
+//get time after losing RF data or turning off the TX, reset data and the LED flashing ***********************************************************************************
 //************************************************************************************************************************************************************************
 unsigned long lastReceiveTime = 0;
 
