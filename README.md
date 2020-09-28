@@ -15,14 +15,14 @@ This RC receiver works with a simple RC transmitter from my repository [RC_TX_nR
 Motor A:
 * D9  - pwm1
 * D10 - pwm2
-* 
+#
 Motor B:
 * D3  - pwm3
 * D11 - pwm4
-* 
+#
 * D2  - LED
 * A7  - input RX battery
-* 
+#
 nRF24L01:
 * A0  - CE
 * A1  - CSN
