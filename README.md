@@ -34,9 +34,9 @@ nRF24L01:
 [RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver](https://github.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver)
 
 ### Used libraries:
-* <RF24.h>         //https://github.com/nRF24/RF24 
-* <DigitalIO.h>    //https://github.com/greiman/DigitalIO
-* "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
+* <RF24.h>         https://github.com/nRF24/RF24 
+* <DigitalIO.h>    https://github.com/greiman/DigitalIO
+* "PWMFrequency.h" https://github.com/TheDIYGuy999/PWMFrequency
 
 ### Function:
 * Motor A (steering) = 3.9kHz (pwm 1, 2)
