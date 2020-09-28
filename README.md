@@ -12,11 +12,11 @@ This RC receiver works with a simple RC transmitter from my repository [RC_TX_nR
 
 ## RC receiver with motor drivers (no servos)
 ### Pin Arduino:
-MotorA
+Motor A
 * 9 pwm1
 * 10 pwm2
 
-MotorB
+Motor B
 * 3 pwm3
 * 11 pwm4
 
