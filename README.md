@@ -13,23 +13,23 @@ This RC receiver works with a simple RC transmitter from my repository [RC_TX_nR
 ## RC receiver with motor drivers (no servos)
 ### Pin Arduino:
 MotorA
-* pwm1 - 9 
-* pwm2 - 10
+* 9 pwm1
+* 10 pwm2
 
 MotorB
-* pwm3 - 3 
-* pwm4 - 11
+* 3 pwm3
+* 11 pwm4
 
-* LED - 2
+* 2 LED
 
-* input RX battery - A7
+* A7 input RX battery
 
 nRF24L01
-* CE - A0 
-* CSN - A1 
-* MISO  - A4
-* MOSI - A3
-* SCK -  A2
+* A0 CE
+* A1 CSN
+* A4 MISO
+* A3 MOSI
+* A2 SCK
 
 ### Code:
 [RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver](https://github.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver)
