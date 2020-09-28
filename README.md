@@ -11,25 +11,25 @@ The motor driver IC is based on MX1508, MX1208, MX1515, MX1616, TC1508S and othe
 This RC receiver works with a simple RC transmitter from my repository [RC_TX_nRF24L01_Lite_Telemetry_LED](https://github.com/stanekTM/RC_TX_nRF24L01_Lite_Telemetry_LED)
 
 ## RC receiver with motor drivers (no servos)
-### Pin map Arduino:
+### Pin Arduino:
 MotorA
-*pwm1             9 
-*pwm2             10
+* pwm1             9 
+* pwm2             10
  
 MotorB
-*pwm3             3 
-*pwm4             11
+* pwm3             3 
+* pwm4             11
 
-*LED              2
+* LED              2
 
-*input RX battery A7
+* input RX battery A7
 
 nRF24L01
-*CE               A0 
-*CSN              A1 
-*MISO             A4
-*MOSI             A3
-*SCK              A2
+* CE               A0 
+* CSN              A1 
+* MISO             A4
+* MOSI             A3
+* SCK              A2
 
 ### Code:
 [RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver](https://github.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver)
