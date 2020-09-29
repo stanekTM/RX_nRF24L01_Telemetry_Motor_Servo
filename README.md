@@ -26,9 +26,9 @@ Motor B:
 nRF24L01:
 * A0  - CE
 * A1  - CSN
-* A4  - MISO
-* A3  - MOSI
 * A2  - SCK
+* A3  - MOSI
+* A4  - MISO
 
 ### Code:
 [RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver](https://github.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver)
