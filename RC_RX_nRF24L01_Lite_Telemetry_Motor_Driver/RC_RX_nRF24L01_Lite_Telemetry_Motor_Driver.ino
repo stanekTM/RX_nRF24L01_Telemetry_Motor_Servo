@@ -1,6 +1,7 @@
 
 #include <RF24.h>         //https://github.com/nRF24/RF24
-#include <nRF24L01.h>     //https://github.com/nRF24/RF24
+#include <nRF24L01.h>
+//#include <printf.h>       //print the radio debug info
 #include <DigitalIO.h>    //https://github.com/greiman/DigitalIO
 #include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
 
@@ -158,7 +159,8 @@ void outputPWM()
 //************************************************************************************************************************************************************************
 void setup()
 {
-  Serial.begin(9600);
+//  Serial.begin(9600); //print value ​​on a serial monitor
+//  printf_begin();     //print the radio debug info
 
   pinMode(pwm1, OUTPUT);
   pinMode(pwm2, OUTPUT);
@@ -198,6 +200,9 @@ void loop()
   outputPWM();
   
   battery_voltage();
+
+//  Serial.println("Radio details *****************");
+//  radio.printDetails(); //print the radio debug info
  
 } //end program loop
 
