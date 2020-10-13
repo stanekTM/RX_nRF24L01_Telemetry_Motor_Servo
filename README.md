@@ -29,7 +29,7 @@ nRF24L01:
 * A4  - MISO
 
 ### Code:
-[RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver](https://github.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver)
+[RC_RX_nRF24L01_Telemetry_Motor_Driver](https://github.com/stanekTM/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_nRF24L01_Lite_Telemetry_Motor_Driver)
 
 ### Used libraries:
 * <RF24.h>         https://github.com/nRF24/RF24 
