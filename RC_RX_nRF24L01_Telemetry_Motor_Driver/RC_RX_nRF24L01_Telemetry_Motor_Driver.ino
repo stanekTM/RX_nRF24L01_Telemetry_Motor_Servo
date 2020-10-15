@@ -26,7 +26,7 @@
 #define led      2
 
 //input RX battery
-#define inRxBat  A7
+#define inRXbatt A7
 
 //pins for nRF24L01
 #define CE       A0 
@@ -59,7 +59,7 @@ packet rc_data; //create a variable with the above structure
 //************************************************************************************************************************************************************************
 struct ackPayload
 {
-  float RxBat;
+  float RXbatt;
 };
 ackPayload payload;
 
@@ -168,7 +168,7 @@ void setup()
   pinMode(pwm4, OUTPUT);
   
   pinMode(led, OUTPUT);
-  pinMode(inRxBat, INPUT);
+  pinMode(inRXbatt, INPUT);
   
   resetData();
 
@@ -242,10 +242,11 @@ void send_and_receive_data()
 //RX battery voltage 1S LiPo (4.2V) < 3.3V = LEDs RX, TX flash at a interval of 500ms. Battery OK = LEDs RX, TX is lit ***************************************************
 //************************************************************************************************************************************************************************
 void battery_voltage()
-{ //------------------------------------ RX battery --
-  payload.RxBat = analogRead(inRxBat) * (4.2 / 1023);
+{ 
+  //-------------------------------------- RX battery -
+  payload.RXbatt = analogRead(inRXbatt) * (4.2 / 1023);
 
-//  Serial.println(payload.RxBat); //print value ​​on a serial monitor   
+//  Serial.println(payload.RXbatt); //print value ​​on a serial monitor   
 }
 
 //-------------------------------------------------------------------
@@ -253,8 +254,9 @@ unsigned long ledTime = 0;
 int ledState, detect;
 
 void RxBat_indication()
-{ //----------------------- monitored voltage
-  detect = payload.RxBat <= 3.3;
+{ 
+  //-----------------------  monitored voltage
+  detect = payload.RXbatt <= 3.3;
   
   if (millis() >= ledTime + 500) //1000 (1second)
   {
