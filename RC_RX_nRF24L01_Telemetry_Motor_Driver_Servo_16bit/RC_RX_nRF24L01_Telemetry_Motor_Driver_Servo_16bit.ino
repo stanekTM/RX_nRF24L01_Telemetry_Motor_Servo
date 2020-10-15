@@ -245,7 +245,7 @@ void loop()
 unsigned long lastRxTime = 0;
 
 void receive_time()
-{ //check whether we keep receving data, or we have a connection between the two modules
+{
   if(millis() >= lastRxTime + 1000) //1000 (1second)
   {
     resetData();       
@@ -265,8 +265,8 @@ void send_and_receive_data()
     radio.writeAckPayload(pipeNo, &payload, sizeof(ackPayload)); //prepare the ACK payload
    
     radio.read(&rc_data, sizeof(packet)); //read the radia data and send out the ACK payload
-    lastRxTime = millis();           //at this moment we have received the data
-    RxBat_indication();                     
+    lastRxTime = millis();                //at this moment we have received the data
+    RXbatt_indication();                     
   } 
 }
 
@@ -286,7 +286,7 @@ void battery_voltage()
 unsigned long ledTime = 0;
 int ledState, detect;
 
-void RxBat_indication()
+void RXbatt_indication()
 { 
   //------------------------ monitored voltage
   detect = payload.RXbatt <= 3.3;
