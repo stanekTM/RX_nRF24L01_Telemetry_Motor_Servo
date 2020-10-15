@@ -227,12 +227,13 @@ void send_and_receive_data()
 {
   byte pipeNo;
   
-  if (radio.available(&pipeNo)) //check whether there is data to be received
+  if (radio.available(&pipeNo))
   {
-    radio.writeAckPayload(pipeNo, &payload, sizeof(ackPayload)); //prepare the ACK payload
+    radio.writeAckPayload(pipeNo, &payload, sizeof(ackPayload));
    
-    radio.read(&rc_data, sizeof(packet)); //read the radia data and send out the ACK payload
-    lastRxTime = millis();                //at this moment we have received the data
+    radio.read(&rc_data, sizeof(packet));
+    
+    lastRxTime = millis(); //at this moment we have received the data
     RXbatt_indication();                      
   } 
 }
