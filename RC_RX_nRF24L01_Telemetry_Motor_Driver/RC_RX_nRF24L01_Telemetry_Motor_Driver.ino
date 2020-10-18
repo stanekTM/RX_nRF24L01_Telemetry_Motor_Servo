@@ -3,7 +3,7 @@
 #include <nRF24L01.h>
 //#include <printf.h>       //print the radio debug info
 #include <DigitalIO.h>    //https://github.com/greiman/DigitalIO
-#include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
+#include "PWMFrequency.h" //used locally https://github.com/TheDIYGuy999/PWMFrequency
 
 //free pins
 //pin            4
