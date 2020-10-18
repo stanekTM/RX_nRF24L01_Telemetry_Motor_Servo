@@ -3,8 +3,8 @@
 #include <nRF24L01.h>
 //#include <printf.h>       //print the radio debug info
 #include <DigitalIO.h>    //https://github.com/greiman/DigitalIO
-#include "ServoTimer2.h"  //https://github.com/nabontra/ServoTimer2
-#include "PWMFrequency.h" //https://github.com/TheDIYGuy999/PWMFrequency
+#include "ServoTimer2.h"  //used locally https://github.com/nabontra/ServoTimer2
+#include "PWMFrequency.h" //used locally https://github.com/TheDIYGuy999/PWMFrequency
 
 //free pins
 //pin            3
