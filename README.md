@@ -13,6 +13,15 @@ This RC receiver works with RC transmitter from my repository [RC_TX_nRF24L01_Te
 or with a simple RC transmitter using only LED indication [RC_TX_nRF24L01_Telemetry_LED](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LED)
 
 ## RC receiver with motor drivers (no servos)
+### Function:
+* Motor A (steering) = 3.9kHz (pwm 1, 2)
+* Motor B (throttle) = 3.9kHz (pwm 3, 4)
+* Brake = on, off or adjustable effect 
+* Normal mode = LED RX is lit
+* Battery voltage 1S LiPo (4.2V) < 3.3V = RX, TX LEDs flash at a interval of 500ms
+* TX transmitter off or signal loss = RX LED flash at a interval of 100ms 
+* Fail-safe = Motor A and B stopped
+
 ### Arduino pins:
 * D9  - pwm1/Motor A
 * D10 - pwm2/Motor A
@@ -36,15 +45,6 @@ nRF24L01:
 * <RF24.h>                      https://github.com/nRF24/RF24 
 * <DigitalIO.h>                 https://github.com/greiman/DigitalIO
 * "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
-
-### Function:
-* Motor A (steering) = 3.9kHz (pwm 1, 2)
-* Motor B (throttle) = 3.9kHz (pwm 3, 4)
-* Brake = on, off or adjustable effect 
-* Normal mode = LED RX is lit
-* Battery voltage 1S LiPo (4.2V) < 3.3V = RX, TX LEDs flash at a interval of 500ms
-* TX transmitter off or signal loss = RX LED flash at a interval of 100ms 
-* Fail-safe = Motor A and B stopped
 
 ### Schema:
 ![Schema_Motor_Driver](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_nRF24L01_Telemetry_Motor_Driver/Schema_Motor_Driver.PNG)
