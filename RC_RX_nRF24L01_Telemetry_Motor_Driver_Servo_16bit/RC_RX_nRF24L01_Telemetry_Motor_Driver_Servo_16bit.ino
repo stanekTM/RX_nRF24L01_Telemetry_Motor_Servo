@@ -6,6 +6,10 @@
 #include <Servo.h>        //Arduino standard library
 #include "PWMFrequency.h" //used locally https://github.com/TheDIYGuy999/PWMFrequency
 
+// RX battery voltage settings
+#define RX_battery_voltage   4.2
+#define RX_monitored_voltage 3.3
+
 //free pins
 //pin            4
 //pin            7
@@ -249,7 +253,7 @@ void receive_time()
   if(millis() >= lastRxTime + 1000) //1000 (1second)
   {
     resetData();       
-    RFoff_indication(); 
+    RFoff_check(); 
   }
 }
 
@@ -267,7 +271,7 @@ void send_and_receive_data()
     radio.read(&rc_data, sizeof(packet));
     
     lastRxTime = millis(); //at this moment we have received the data
-    RXbatt_indication();                     
+    RX_batt_check();                     
   } 
 }
 
@@ -277,8 +281,7 @@ void send_and_receive_data()
 //************************************************************************************************************************************************************************
 void battery_voltage()
 { 
-  //-------------------------------------- RX battery -
-  payload.RXbatt = analogRead(inRXbatt) * (4.2 / 1023);
+  payload.RXbatt = analogRead(inRXbatt) * (RX_battery_voltage / 1023);
 
 //  Serial.println(payload.RXbatt); //print value ​​on a serial monitor   
 }
@@ -287,10 +290,9 @@ void battery_voltage()
 unsigned long ledTime = 0;
 int ledState, detect;
 
-void RXbatt_indication()
-{ 
-  //------------------------ monitored voltage
-  detect = payload.RXbatt <= 3.3;
+void RX_batt_check()
+{
+  detect = payload.RXbatt <= RX_monitored_voltage;
   
   if (millis() >= ledTime + 500) //1000 (1second)
   {
@@ -311,7 +313,7 @@ void RXbatt_indication()
 //************************************************************************************************************************************************************************
 //when RX is switched on and TX is switched off, or after the loss of RF data = LED RX flash at a interval of 100 ms. Normal mode = LED RX is lit ************************
 //************************************************************************************************************************************************************************
-void RFoff_indication()
+void RFoff_check()
 {
   if (millis() >= ledTime + 100) //1000 (1second)
   {
