@@ -239,8 +239,6 @@ void loop()
 
   outputServo();
   outputPWM();
-  
-  battery_voltage();
 
 //  Serial.println("Radio details *****************");
 //  radio.printDetails(); //print the radio debug info
@@ -283,19 +281,13 @@ void send_and_receive_data()
 //measuring the input of the RX battery. After receiving RF data, the monitored RX battery is activated ******************************************************************
 //RX battery voltage 1S LiPo (4.2V) < 3.3V = LEDs RX, TX flash at a interval of 500ms. Battery OK = LEDs RX, TX is lit ***************************************************
 //************************************************************************************************************************************************************************
-void battery_voltage()
-{ 
-  payload.RXbatt = analogRead(inRXbatt) * (RX_battery_voltage / 1023);
-
-//  Serial.println(payload.RXbatt); //print value ​​on a serial monitor   
-}
-
-//-------------------------------------------------------------------
 unsigned long ledTime = 0;
 int ledState, detect;
 
 void RX_batt_check()
 { 
+  payload.RXbatt = analogRead(inRXbatt) * (RX_battery_voltage / 1023);
+  
   detect = payload.RXbatt <= RX_monitored_voltage;
   
   if (millis() >= ledTime + 500) //1000 (1second)
