@@ -5,9 +5,18 @@
 #include <DigitalIO.h>    //https://github.com/greiman/DigitalIO
 #include "PWMFrequency.h" //used locally https://github.com/TheDIYGuy999/PWMFrequency
 
+// Brake setting, adjustment (0-255), no brake 0, max brake 255
+#define motA_brake 255 //steering
+#define motB_brake 0   //throttle
+
 // RX battery voltage settings
 #define RX_battery_voltage   4.2
 #define RX_monitored_voltage 3.3
+
+// PPM settings
+#define servoMid   1500
+#define servoMin   1000
+#define servoMax   2000
 
 //free pins
 //pin            4
@@ -68,12 +77,12 @@ struct ackPayload
 ackPayload payload;
 
 //************************************************************************************************************************************************************************
-//reset values ​​(min = 1000us, mid = 1500us, max = 2000us) ****************************************************************************************************************
+//reset values ​​(servoMin = 1000us, servoMid = 1500us, servoMax = 2000us) *************************************************************************************************
 //************************************************************************************************************************************************************************
 void resetData()
 {
-  rc_data.steering = 1500;
-  rc_data.throttle = 1500;
+  rc_data.steering = servoMid;
+  rc_data.throttle = servoMid;
 }
 
 //************************************************************************************************************************************************************************
@@ -115,22 +124,20 @@ void outputPWM()
 
   if (rc_data.steering < 1450) // < 1500us, dead band of poor quality joysticks
   {
-    motA_value = map(rc_data.steering, 1450, 1000, 0, 255);
+    motA_value = map(rc_data.steering, 1450, servoMin, 0, 255);
     analogWrite(pwm1, motA_value); 
     digitalWrite(pwm2, LOW);
   }
   else if (rc_data.steering > 1550) // > 1500us, dead band of poor quality joysticks
   {
-    motA_value = map(rc_data.steering, 1550, 2000, 0, 255);
+    motA_value = map(rc_data.steering, 1550, servoMax, 0, 255);
     analogWrite(pwm2, motA_value); 
     digitalWrite(pwm1, LOW);
   }
   else
   {
-    digitalWrite(pwm1, HIGH); //"HIGH" brake, "LOW" no brake
-    digitalWrite(pwm2, HIGH); //"HIGH" brake, "LOW" no brake
-//    analogWrite(pwm1, motA_value = 255); //adjustable brake (0-255)
-//    analogWrite(pwm2, motA_value = 255); //adjustable brake (0-255)
+    analogWrite(pwm1, motA_value = motA_brake);
+    analogWrite(pwm2, motA_value = motA_brake);
   }
 
 //  Serial.println(rc_data.steering); //print value ​​on a serial monitor
@@ -139,22 +146,20 @@ void outputPWM()
 
   if (rc_data.throttle < 1450) // < 1500us, dead band of poor quality joysticks
   {
-    motB_value = map(rc_data.throttle, 1450, 1000, 0, 255); 
+    motB_value = map(rc_data.throttle, 1450, servoMin, 0, 255); 
     analogWrite(pwm3, motB_value); 
     digitalWrite(pwm4, LOW);
   }
   else if (rc_data.throttle > 1550) // > 1500us, dead band of poor quality joysticks
   {
-    motB_value = map(rc_data.throttle, 1550, 2000, 0, 255); 
+    motB_value = map(rc_data.throttle, 1550, servoMax, 0, 255); 
     analogWrite(pwm4, motB_value); 
     digitalWrite(pwm3, LOW);
   }
   else
   {
-    digitalWrite(pwm3, LOW); //"HIGH" brake, "LOW" no brake
-    digitalWrite(pwm4, LOW); //"HIGH" brake, "LOW" no brake
-//    analogWrite(pwm3, motB_value = 127); //adjustable brake (0-255)
-//    analogWrite(pwm4, motB_value = 127); //adjustable brake (0-255)
+    analogWrite(pwm3, motB_value = motB_brake);
+    analogWrite(pwm4, motB_value = motB_brake);
   }
 }
 
