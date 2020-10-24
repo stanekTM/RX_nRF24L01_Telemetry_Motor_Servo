@@ -171,8 +171,8 @@ void outputPWM()
   }
   else
   {
-    analogWrite(pwm1, motA_value = motA_brake);
-    analogWrite(pwm2, motA_value = motA_brake);
+    analogWrite(pwm1, motA_brake);
+    analogWrite(pwm2, motA_brake);
   }
 
 //  Serial.println(rc_data.steering); //print value ​​on a serial monitor
@@ -193,8 +193,8 @@ void outputPWM()
   }
   else
   {
-    analogWrite(pwm3, motB_value = motB_brake);
-    analogWrite(pwm4, motB_value = motB_brake);
+    analogWrite(pwm3, motB_brake);
+    analogWrite(pwm4, motB_brake);
   }
 }
 
