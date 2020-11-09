@@ -11,7 +11,6 @@
 #define motB_brake 0   //throttle
 
 // RX battery voltage settings
-#define RX_battery_voltage   4.2
 #define RX_monitored_voltage 3.3
 
 // PPM settings
@@ -293,16 +292,16 @@ void send_and_receive_data()
 
 //************************************************************************************************************************************************************************
 //measuring the input of the RX battery. After receiving RF data, the monitored RX battery is activated ******************************************************************
-//RX battery voltage 1S LiPo (4.2V) < 3.3V = LEDs RX, TX flash at a interval of 500ms. Battery OK = LEDs RX, TX is lit ***************************************************
+//RX battery voltage 1S LiPo (4.2V) < RX_monitored_voltage = LED RX flash at a interval of 500ms. Battery OK = LED RX is lit *********************************************
 //************************************************************************************************************************************************************************
 unsigned long ledTime = 0;
 int ledState, detect;
 
 void RX_batt_check()
 {
-  payload.RXbatt = analogRead(inRXbatt) * (RX_battery_voltage / 16.795);
+  payload.RXbatt = map(analogRead(inRXbatt), 0, 1020, 0, 255);
 
-  detect = payload.RXbatt <= RX_monitored_voltage * 60.714;
+  detect = payload.RXbatt <= RX_monitored_voltage * 60.9;
   
   if (millis() >= ledTime + 500) //1000 (1second)
   {
