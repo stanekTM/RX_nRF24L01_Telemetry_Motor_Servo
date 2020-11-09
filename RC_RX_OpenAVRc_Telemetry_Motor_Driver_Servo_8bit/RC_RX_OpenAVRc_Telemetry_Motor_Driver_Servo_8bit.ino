@@ -10,8 +10,9 @@
 #define motA_brake 255 //steering
 #define motB_brake 0   //throttle
 
-// RX alarm battery voltage setting
-#define RX_monitored_voltage 3.3
+// LED alarm battery voltage setting
+#define monitored_voltage   3.3
+#define voltage_correction  60.7
 
 // PPM settings
 #define servoMid   1500
@@ -81,7 +82,7 @@ packet rc_data; //create a variable with the above structure
 //************************************************************************************************************************************************************************
 struct ackPayload
 {
-  unsigned int RXbatt;
+  unsigned int RXbatt; //0-255 for OpenAVRc telemetry
 };
 ackPayload payload;
 
@@ -298,16 +299,16 @@ void send_and_receive_data()
 
 //************************************************************************************************************************************************************************
 //measuring the input of the RX battery. After receiving RF data, the monitored RX battery is activated ******************************************************************
-//RX battery voltage 1S LiPo (4.2V) < RX_monitored_voltage = LED RX flash at a interval of 500ms. Battery OK = LED RX is lit *********************************************
+//RX battery voltage 1S LiPo (4.2V) < monitored_voltage = LED alarm RX flash at a interval of 500ms. Battery OK = LED RX is lit ******************************************
 //************************************************************************************************************************************************************************
 unsigned long ledTime = 0;
 int ledState, detect;
 
 void RX_batt_check()
 {
-  payload.RXbatt = map(analogRead(inRXbatt), 0, 1020, 0, 255);
+  payload.RXbatt = map(analogRead(inRXbatt), 0, 1023, 0, 255);
 
-  detect = payload.RXbatt <= RX_monitored_voltage * 60.9;
+  detect = payload.RXbatt <= monitored_voltage * voltage_correction;
   
   if (millis() >= ledTime + 500) //1000 (1second)
   {
