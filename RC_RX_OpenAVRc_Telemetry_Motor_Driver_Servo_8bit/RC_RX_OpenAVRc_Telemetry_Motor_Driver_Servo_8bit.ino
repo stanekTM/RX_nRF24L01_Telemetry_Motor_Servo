@@ -226,14 +226,12 @@ void setup()
 
   //define the radio communication
   radio.begin();
-  radio.setAutoAck(1);          //ensure autoACK is enabled (default true)
+  radio.setAutoAck(1);             //ensure autoACK is enabled (default true)
   radio.enableAckPayload();        //enable custom ack payloads on the acknowledge packets
-
 
 //  radio.enableDynamicAck();
 //  radio.setPayloadSize(10);
 //  radio.disableDynamicPayloads();
-  
   
   radio.enableDynamicPayloads();   //enable dynamically-sized payloads
   radio.setRetries(5, 5);          //set the number and delay of retries on failed submit (max. 15 x 250us delay (blocking !), max. 15 retries)
