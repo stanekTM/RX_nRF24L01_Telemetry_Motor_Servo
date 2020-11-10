@@ -11,8 +11,8 @@
 #define motB_brake 0   //throttle
 
 // LED alarm battery voltage setting
-#define monitored_voltage   3.3
-#define voltage_correction  60.7
+#define battery_voltage   4.2
+#define monitored_voltage 3.3
 
 // PPM settings
 #define servoMid   1500
@@ -296,7 +296,7 @@ void send_and_receive_data()
 
 //************************************************************************************************************************************************************************
 //measuring the input of the RX battery. After receiving RF data, the monitored RX battery is activated ******************************************************************
-//RX battery voltage 1S LiPo (4.2V) < monitored_voltage = LED alarm RX flash at a interval of 500ms. Battery OK = LED RX is lit ******************************************
+//RX battery_voltage < monitored_voltage = LED alarm RX flash at a interval of 500ms. Battery OK = LED RX is lit *********************************************************
 //************************************************************************************************************************************************************************
 unsigned long ledTime = 0;
 int ledState, detect;
@@ -305,7 +305,7 @@ void RX_batt_check()
 {
   payload.RXbatt = map(analogRead(inRXbatt), 0, 1023, 0, 255);
 
-  detect = payload.RXbatt <= monitored_voltage * voltage_correction;
+  detect = payload.RXbatt <= (255 / battery_voltage) * monitored_voltage;
   
   if (millis() >= ledTime + 500) //1000 (1second)
   {
