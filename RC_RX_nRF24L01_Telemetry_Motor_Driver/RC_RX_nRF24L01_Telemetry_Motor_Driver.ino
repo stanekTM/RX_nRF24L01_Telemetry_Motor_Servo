@@ -9,9 +9,9 @@
 #define motA_brake 255 //steering
 #define motB_brake 0   //throttle
 
-// RX battery voltage settings
-#define RX_battery_voltage   4.2
-#define RX_monitored_voltage 3.3
+// LED alarm battery voltage setting
+#define battery_voltage   4.2
+#define monitored_voltage 3.3
 
 // PPM settings
 #define servoMid   1500
@@ -50,9 +50,15 @@
 //----- MOSI     17 - A3
 //----- SCK      16 - A2
 
-RF24 radio(CE, CSN); //setup CE and CSN pins
+//setting of CE and CSN pins
+RF24 radio(CE, CSN);
 
-const byte addresses[][6] = {"tx001", "rx002"};
+//RF communication channel settings (0-125, 2.4Ghz + default 76 = 2.476Ghz)
+#define radio_channel 76
+
+//setting RF channels addresses
+const byte tx_address[] = "tx001";
+const byte rx_address[] = "rx002";
 
 //************************************************************************************************************************************************************************
 //this structure defines the received data in bytes (structure size max. 32 bytes) ***************************************************************************************
@@ -188,14 +194,15 @@ void setup()
   radio.enableDynamicPayloads();   //enable dynamically-sized payloads
   radio.setRetries(5, 5);          //set the number and delay of retries on failed submit (max. 15 x 250us delay (blocking !), max. 15 retries)
   
-  radio.setChannel(76);            //which RF channel to communicate on (0-125, 2.4Ghz + default 76 = 2.476Ghz)
+  radio.setChannel(radio_channel);            //which RF channel to communicate on (0-125, 2.4Ghz + default 76 = 2.476Ghz)
   radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm) 
 
-  radio.openWritingPipe(addresses[0]);    //open a pipe for writing via byte array
-  radio.openReadingPipe(1, addresses[1]); //open all the required reading pipes, and then call "startListening"
+  radio.openWritingPipe(tx_address);    //open a pipe for writing via byte array
+  radio.openReadingPipe(1, rx_address); //open all the required reading pipes, and then call "startListening"
                                           
   radio.startListening(); //set the module as receiver. Start listening on the pipes opened for reading
+  radio.powerUp();
 }
 
 //************************************************************************************************************************************************************************
@@ -247,16 +254,16 @@ void send_and_receive_data()
 
 //************************************************************************************************************************************************************************
 //measuring the input of the RX battery. After receiving RF data, the monitored RX battery is activated ******************************************************************
-//RX battery voltage 1S LiPo (4.2V) < 3.3V = LEDs RX, TX flash at a interval of 500ms. Battery OK = LEDs RX, TX is lit ***************************************************
+//RX battery_voltage < monitored_voltage = LEDs RX, TX flash at a interval of 500ms. Battery OK = LEDs RX, TX is lit *****************************************************
 //************************************************************************************************************************************************************************
 unsigned long ledTime = 0;
 int ledState, detect;
 
 void RX_batt_check()
 { 
-  payload.RXbatt = analogRead(inRXbatt) * (RX_battery_voltage / 1023);
+  payload.RXbatt = analogRead(inRXbatt) * (battery_voltage / 1023);
   
-  detect = payload.RXbatt <= RX_monitored_voltage;
+  detect = payload.RXbatt <= monitored_voltage;
   
   if (millis() >= ledTime + 500) //1000 (1second)
   {
