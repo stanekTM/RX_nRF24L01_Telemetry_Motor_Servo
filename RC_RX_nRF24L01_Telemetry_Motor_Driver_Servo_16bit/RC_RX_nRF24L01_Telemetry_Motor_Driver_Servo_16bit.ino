@@ -56,7 +56,7 @@
 //setting of CE and CSN pins
 RF24 radio(CE, CSN);
 
-//RF communication channel settings (0-125, 2.4Ghz + default 76 = 2.476Ghz)
+//RF communication channel settings (0-125, 2.4Ghz + 76 = 2.476Ghz)
 #define radio_channel 76
 
 //setting RF channels addresses
@@ -220,13 +220,19 @@ void setup()
   attachServoPins();
 
   //define the radio communication
-  radio.begin(); 
+  radio.begin();  
   radio.setAutoAck(true);          //ensure autoACK is enabled (default true)
-  radio.enableAckPayload();        //enable custom ack payloads on the acknowledge packets
-  radio.enableDynamicPayloads();   //enable dynamically-sized payloads
+  radio.enableAckPayload();        //enable Ack dynamic payloads. This only works on pipes 0&1 by default
+  radio.enableDynamicPayloads();   //enable dynamic payloads on all pipes
+
+//  radio.enableDynamicAck();
+//  radio.setPayloadSize(10);        //set static payload size. Default max. 32 bytes
+//  radio.setCRCLength(RF24_CRC_16); //RF24_CRC_8, RF24_CRC_16
+//  radio.setAddressWidth(5);        //the address width in bytes 3, 4 or 5 (24, 32 or 40 bit)
+
   radio.setRetries(5, 5);          //set the number and delay of retries on failed submit (max. 15 x 250us delay (blocking !), max. 15 retries)
-   
-  radio.setChannel(radio_channel);            //which RF channel to communicate on (0-125, 2.4Ghz + default 76 = 2.476Ghz)
+  
+  radio.setChannel(radio_channel); //which RF channel to communicate on (0-125, 2.4Ghz + 76 = 2.476Ghz)
   radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm) 
 
@@ -234,7 +240,6 @@ void setup()
   radio.openReadingPipe(1, rx_address); //open all the required reading pipes, and then call "startListening"
                                           
   radio.startListening(); //set the module as receiver. Start listening on the pipes opened for reading
-  radio.powerUp();
 }
 
 //************************************************************************************************************************************************************************
