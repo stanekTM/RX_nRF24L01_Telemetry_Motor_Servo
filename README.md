@@ -9,8 +9,8 @@ The firmware will be used for racing micro cars and boats.
 After editing the code, it can control tanks and aircraft.
 The possibility of setting the brake is in the code.
 
-This RC receiver works with the RC transmitters [OpenAVRc](https://github.com/Ingwie/OpenAVRc_Dev), [RC_TX_nRF24L01_Telemetry_LCD](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LCD)
-or [RC_TX_nRF24L01_Telemetry_LED](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LED)
+This RC receiver works with the RC transmitters [RC_TX_nRF24L01_Telemetry_LCD](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LCD), [RC_TX_nRF24L01_Telemetry_LED](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LED), 
+from my fork [OpenAVRc](https://github.com/Ingwie/OpenAVRc_Dev) or from my fork [DIY-Multiprotocol-TX-Module](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module)
 
 ## RC receiver with motor drivers (no servos)
 ### Function:
