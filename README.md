@@ -10,7 +10,7 @@ After editing the code, it can control tanks and aircraft.
 The possibility of setting the brake is in the code.
 
 This RC receiver works with the RC transmitters [RC_TX_nRF24L01_Telemetry_LCD](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LCD), [RC_TX_nRF24L01_Telemetry_LED](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LED), 
-from my fork [OpenAVRc](https://github.com/Ingwie/OpenAVRc_Dev) or from my fork [DIY-Multiprotocol-TX-Module](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module)
+[OpenAVRc](https://github.com/Ingwie/OpenAVRc_Dev) from my fork or [DIY-Multiprotocol-TX-Module](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
 
 ## RC receiver with motor drivers (no servos)
 ### Function:
