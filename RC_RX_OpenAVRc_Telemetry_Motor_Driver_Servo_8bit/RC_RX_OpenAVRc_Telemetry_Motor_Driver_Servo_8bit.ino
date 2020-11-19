@@ -6,15 +6,18 @@
 #include "ServoTimer2.h"  //used locally https://github.com/nabontra/ServoTimer2
 #include "PWMFrequency.h" //used locally https://github.com/TheDIYGuy999/PWMFrequency
 
-// Brake setting, adjustment (0-255), no brake 0, max brake 255
-#define motA_brake 255 //steering
-#define motB_brake 0   //throttle
+//brake setting, adjustment (0-255), no brake 0, max brake 255
+#define motA_brake 255 //MotorA/976Hz
+#define motB_brake 0   //MotorB/3906Hz
 
-// LED alarm battery voltage setting
+//LED alarm battery voltage setting
 #define battery_voltage   4.2
 #define monitored_voltage 3.3
 
-// PPM settings
+//setting the dead zone of poor quality joysticks TX for the motor controller
+#define dead_zone  10 
+
+//PPM settings
 #define servoMid   1500
 #define servoMin   1000
 #define servoMax   2000
@@ -33,10 +36,10 @@
 #define serv3    13 //SCK
  
 //pwm pins for motor
-#define pwm1     5  //MotorA/steering
-#define pwm2     6  //MotorA/steering
-#define pwm3     9  //MotorB/throttle
-#define pwm4     10 //MotorB/throttle
+#define pwm1     5  //MotorA/976Hz
+#define pwm2     6  //MotorA/976Hz
+#define pwm3     9  //MotorB/3906Hz
+#define pwm4     10 //MotorB/3906Hz
 
 //LED RX battery and RF on/off
 #define led      2
@@ -68,8 +71,8 @@ const byte rx_address[] = "rx002";
 //************************************************************************************************************************************************************************
 struct packet
 {
-  unsigned int steering;
-  unsigned int throttle;
+  unsigned int ch1;
+  unsigned int ch2;
   unsigned int ch3;
   unsigned int ch4;
   unsigned int ch5;
@@ -90,11 +93,11 @@ ackPayload payload;
 //************************************************************************************************************************************************************************
 void resetData()
 {
-  rc_data.steering = servoMid;
-  rc_data.throttle = servoMid;
-  rc_data.ch3      = servoMid;     
-  rc_data.ch4      = servoMid;
-  rc_data.ch5      = servoMid;
+  rc_data.ch1 = servoMid; //MotorA/976Hz
+  rc_data.ch2 = servoMid; //MotorB/3906Hz
+  rc_data.ch3 = servoMid;
+  rc_data.ch4 = servoMid;
+  rc_data.ch5 = servoMid;
 }
 
 //************************************************************************************************************************************************************************
@@ -161,17 +164,17 @@ void outputPWM()
 //MotorB (pin D9 or pin D10, prescaler 8)  
   setPWMPrescaler(pwm3, 8);
 
-//MotorA/steering ---------------------------------------------------------------------------- 
+//MotorA/976Hz -------------------------------------------------------------------------------- 
 
-  if (rc_data.steering < 1450) // < 1500us, dead band of poor quality joysticks
+  if (rc_data.ch1 < servoMid - dead_zone)
   {
-    motA_value = map(rc_data.steering, 1450, servoMin, 0, 255);
+    motA_value = map(rc_data.ch1, servoMid - dead_zone, servoMin, 0, 255);
     analogWrite(pwm1, motA_value); 
     digitalWrite(pwm2, LOW);
   }
-  else if (rc_data.steering > 1550) // > 1500us, dead band of poor quality joysticks
+  else if (rc_data.ch1 > servoMid + dead_zone)
   {
-    motA_value = map(rc_data.steering, 1550, servoMax, 0, 255);
+    motA_value = map(rc_data.ch1, servoMid + dead_zone, servoMax, 0, 255);
     analogWrite(pwm2, motA_value); 
     digitalWrite(pwm1, LOW);
   }
@@ -181,19 +184,19 @@ void outputPWM()
     analogWrite(pwm2, motA_brake);
   }
 
-//  Serial.println(rc_data.steering); //print value ​​on a serial monitor
+//  Serial.println(rc_data.ch1); //print value ​​on a serial monitor
   
-//MotorB/throttle ----------------------------------------------------------------------------
+//MotorB/3906Hz -------------------------------------------------------------------------------
 
-  if (rc_data.throttle < 1450) // < 1500us, dead band of poor quality joysticks
+  if (rc_data.ch2 < servoMid - dead_zone)
   {
-    motB_value = map(rc_data.throttle, 1450, servoMin, 0, 255); 
+    motB_value = map(rc_data.ch2, servoMid - dead_zone, servoMin, 0, 255); 
     analogWrite(pwm3, motB_value); 
     digitalWrite(pwm4, LOW);
   }
-  else if (rc_data.throttle > 1550) // > 1500us, dead band of poor quality joysticks
+  else if (rc_data.ch2 > servoMid + dead_zone)
   {
-    motB_value = map(rc_data.throttle, 1550, servoMax, 0, 255); 
+    motB_value = map(rc_data.ch2, servoMid + dead_zone, servoMax, 0, 255); 
     analogWrite(pwm4, motB_value); 
     digitalWrite(pwm3, LOW);
   }
