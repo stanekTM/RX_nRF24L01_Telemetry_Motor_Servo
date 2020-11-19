@@ -63,8 +63,8 @@ RF24 radio(CE, CSN);
 #define radio_channel 76
 
 //setting RF channels addresses
-const byte tx_address[] = "tx001";
-const byte rx_address[] = "rx002";
+const byte tx_rx_address[] = "tx001";
+const byte rx_p1_address[] = "rx002";
 
 //************************************************************************************************************************************************************************
 //this structure defines the received data in bytes (structure size max. 32 bytes) ***************************************************************************************
@@ -243,8 +243,8 @@ void setup()
   radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm) 
 
-  radio.openWritingPipe(tx_address);    //open a pipe for writing via byte array
-  radio.openReadingPipe(1, rx_address); //open all the required reading pipes, and then call "startListening"
+  radio.openWritingPipe(tx_rx_address);    //open a pipe for writing via byte array
+  radio.openReadingPipe(1, rx_p1_address); //open all the required reading pipes, and then call "startListening"
                                           
   radio.startListening(); //set the module as receiver. Start listening on the pipes opened for reading
 }
