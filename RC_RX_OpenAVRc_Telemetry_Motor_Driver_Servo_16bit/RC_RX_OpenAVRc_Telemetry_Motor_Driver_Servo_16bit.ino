@@ -7,12 +7,15 @@
 #include "PWMFrequency.h" //used locally https://github.com/TheDIYGuy999/PWMFrequency
 
 // Brake setting, adjustment (0-255), no brake 0, max brake 255
-#define motA_brake 255 //steering
-#define motB_brake 0   //throttle
+#define motA_brake 255 //MotorA/976Hz
+#define motB_brake 0   //MotorB/3906Hz
 
 // LED alarm battery voltage setting
 #define battery_voltage   4.2
 #define monitored_voltage 3.3
+
+//setting the dead zone of poor quality joysticks TX for the motor controller
+#define dead_zone  10
 
 // PPM settings
 #define servoMid   1500
@@ -33,10 +36,10 @@
 #define serv2    13 //SCK
  
 //pwm pins for motor
-#define pwm1     5  //MotorA/steering
-#define pwm2     6  //MotorA/steering
-#define pwm3     3  //MotorB/throttle
-#define pwm4     11 //MotorB/throttle/MOSI
+#define pwm1     5  //MotorA/976Hz
+#define pwm2     6  //MotorA/976Hz
+#define pwm3     3  //MotorB/3906Hz
+#define pwm4     11 //MotorB/3906Hz/MOSI
 
 //LED RX battery and RF on/off
 #define led      2 
@@ -60,16 +63,16 @@ RF24 radio(CE, CSN);
 #define radio_channel 76
 
 //setting RF channels addresses
-const byte tx_address[] = "tx001";
-const byte rx_address[] = "rx002";
+const byte tx_rx_address[] = "tx001";
+const byte rx_p1_address[] = "rx002";
 
 //************************************************************************************************************************************************************************
 //this structure defines the received data in bytes (structure size max. 32 bytes) ***************************************************************************************
 //************************************************************************************************************************************************************************
 struct packet
 {
-  unsigned int steering;
-  unsigned int throttle;
+  unsigned int ch1;
+  unsigned int ch2;
   unsigned int ch3;
   unsigned int ch4;
 };
@@ -89,10 +92,10 @@ ackPayload payload;
 //************************************************************************************************************************************************************************
 void resetData()
 {
-  rc_data.steering = servoMid;
-  rc_data.throttle = servoMid;
-  rc_data.ch3      = servoMid;     
-  rc_data.ch4      = servoMid;
+  rc_data.ch1 = servoMid; //MotorA/976Hz
+  rc_data.ch2 = servoMid; //MotorB/3906Hz
+  rc_data.ch3 = servoMid;     
+  rc_data.ch4 = servoMid;
 }
 
 //************************************************************************************************************************************************************************
@@ -156,17 +159,17 @@ void outputPWM()
 //MotorB (pin D3 or pin D11, prescaler 8)  
   setPWMPrescaler(pwm3, 8);  
 
-//MotorA/steering ----------------------------------------------------------------------------
+//MotorA/976Hz --------------------------------------------------------------------------------
 
-  if (rc_data.steering < 1450) // < 1500us, dead band of poor quality joysticks
+  if (rc_data.ch1 < servoMid - dead_zone)
   {
-    motA_value = map(rc_data.steering, 1450, servoMin, 0, 255);
+    motA_value = map(rc_data.ch1, servoMid - dead_zone, servoMin, 0, 255);
     analogWrite(pwm1, motA_value); 
     digitalWrite(pwm2, LOW);
   }
-  else if (rc_data.steering > 1550) // > 1500us, dead band of poor quality joysticks
+  else if (rc_data.ch1 > servoMid + dead_zone)
   {
-    motA_value = map(rc_data.steering, 1550, servoMax, 0, 255);
+    motA_value = map(rc_data.ch1, servoMid + dead_zone, servoMax, 0, 255);
     analogWrite(pwm2, motA_value); 
     digitalWrite(pwm1, LOW);
   }
@@ -176,19 +179,19 @@ void outputPWM()
     analogWrite(pwm2, motA_brake);
   }
 
-//  Serial.println(rc_data.steering); //print value ​​on a serial monitor
+//  Serial.println(rc_data.ch1); //print value ​​on a serial monitor
   
-//MotorB/throttle ----------------------------------------------------------------------------
+//MotorB/3906Hz -------------------------------------------------------------------------------
 
-  if (rc_data.throttle < 1450) // < 1500us, dead band of poor quality joysticks
+  if (rc_data.ch2 < servoMid - dead_zone)
   {
-    motB_value = map(rc_data.throttle, 1450, servoMin, 0, 255); 
+    motB_value = map(rc_data.ch2, servoMid - dead_zone, servoMin, 0, 255); 
     analogWrite(pwm3, motB_value); 
     digitalWrite(pwm4, LOW);
   }
-  else if (rc_data.throttle > 1550) // > 1500us, dead band of poor quality joysticks
+  else if (rc_data.ch2 > servoMid + dead_zone)
   {
-    motB_value = map(rc_data.throttle, 1550, servoMax, 0, 255); 
+    motB_value = map(rc_data.ch2, servoMid + dead_zone, servoMax, 0, 255); 
     analogWrite(pwm4, motB_value); 
     digitalWrite(pwm3, LOW);
   }
@@ -235,8 +238,8 @@ void setup()
   radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm) 
 
-  radio.openWritingPipe(tx_address);    //open a pipe for writing via byte array
-  radio.openReadingPipe(1, rx_address); //open all the required reading pipes, and then call "startListening"
+  radio.openWritingPipe(tx_rx_address);    //open a pipe for writing via byte array
+  radio.openReadingPipe(1, rx_p1_address); //open all the required reading pipes, and then call "startListening"
                                           
   radio.startListening(); //set the module as receiver. Start listening on the pipes opened for reading
 }
