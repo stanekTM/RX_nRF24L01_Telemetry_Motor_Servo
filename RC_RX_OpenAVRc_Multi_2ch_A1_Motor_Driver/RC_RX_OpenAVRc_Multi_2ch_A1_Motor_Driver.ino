@@ -28,39 +28,41 @@
 #define servoMax   2000
 
 //free pins
-//pin            4
-//pin            5
-//pin            6
-//pin            7
-//pin            8
-//pin            12 //MISO 
-//pin            13 //SCK
-//pin            A5
-//pin            A6
+//pin              0
+//pin              1
+//pin              4
+//pin              5
+//pin              6
+//pin              7
+//pin              8
+//pin              12 //MISO 
+//pin              13 //SCK
+//pin              A5
+//pin              A6
  
 //pwm pins for motor
-#define pwm1     9  //MotorA/3906Hz
-#define pwm2     10 //MotorA/3906Hz
-#define pwm3     3  //MotorB/3906Hz
-#define pwm4     11 //MotorB/3906Hz/MOSI
+#define pin_pwm1   9  //MotorA/3906Hz
+#define pin_pwm2   10 //MotorA/3906Hz
+#define pin_pwm3   3  //MotorB/3906Hz
+#define pin_pwm4   11 //MotorB/3906Hz/MOSI
 
 //LED RX battery and RF on/off
-#define led      2
+#define pin_LED    2
 
 //input RX battery
-#define inRXbatt A7
+#define pin_RXbatt A7
 
 //pins for nRF24L01
-#define CE       A0 
-#define CSN      A1 
+#define pin_CE     A0 
+#define pin_CSN    A1 
 
 //software SPI http://tmrh20.github.io/RF24/Arduino.html
-//----- MISO     18 - A4
-//----- MOSI     17 - A3
-//----- SCK      16 - A2
+//----- MISO  18 - A4
+//----- MOSI  17 - A3
+//----- SCK   16 - A2
 
 //setting of CE and CSN pins
-RF24 radio(CE, CSN);
+RF24 radio(pin_CE, pin_CSN);
 
 //RF communication channel settings (0-125, 2.4Ghz + 76 = 2.476Ghz)
 #define radio_channel 76
@@ -126,30 +128,30 @@ void outputPWM()
 
 //PWM frequency pin D9 or pin D10: 1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
 //MotorA (pin D9 or pin D10, prescaler 8)  
-  setPWMPrescaler(pwm1, 8);  
+  setPWMPrescaler(pin_pwm1, 8);  
 
 //PWM frequency pin D3 or pin D11:  128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
 //MotorB (pin D3 or pin D11, prescaler 8)  
-  setPWMPrescaler(pwm3, 8);  
+  setPWMPrescaler(pin_pwm3, 8);  
 
 //MotorA/3906Hz ------------------------------------------------------------------------------ 
 
   if (rc_data.ch1 < servoMid - dead_zone)
   {
     motA_value = map(rc_data.ch1, servoMid - dead_zone, servoMin, 0, 255);
-    analogWrite(pwm1, motA_value); 
-    digitalWrite(pwm2, LOW);
+    analogWrite(pin_pwm1, motA_value); 
+    digitalWrite(pin_pwm2, LOW);
   }
   else if (rc_data.ch1 > servoMid + dead_zone)
   {
     motA_value = map(rc_data.ch1, servoMid + dead_zone, servoMax, 0, 255);
-    analogWrite(pwm2, motA_value); 
-    digitalWrite(pwm1, LOW);
+    analogWrite(pin_pwm2, motA_value); 
+    digitalWrite(pin_pwm1, LOW);
   }
   else
   {
-    analogWrite(pwm1, motA_brake);
-    analogWrite(pwm2, motA_brake);
+    analogWrite(pin_pwm1, motA_brake);
+    analogWrite(pin_pwm2, motA_brake);
   }
 
 //  Serial.println(rc_data.ch1); //print value ​​on a serial monitor
@@ -159,19 +161,19 @@ void outputPWM()
   if (rc_data.ch2 < servoMid - dead_zone)
   {
     motB_value = map(rc_data.ch2, servoMid - dead_zone, servoMin, 0, 255); 
-    analogWrite(pwm3, motB_value); 
-    digitalWrite(pwm4, LOW);
+    analogWrite(pin_pwm3, motB_value); 
+    digitalWrite(pin_pwm4, LOW);
   }
   else if (rc_data.ch2 > servoMid + dead_zone)
   {
     motB_value = map(rc_data.ch2, servoMid + dead_zone, servoMax, 0, 255); 
-    analogWrite(pwm4, motB_value); 
-    digitalWrite(pwm3, LOW);
+    analogWrite(pin_pwm4, motB_value); 
+    digitalWrite(pin_pwm3, LOW);
   }
   else
   {
-    analogWrite(pwm3, motB_brake);
-    analogWrite(pwm4, motB_brake);
+    analogWrite(pin_pwm3, motB_brake);
+    analogWrite(pin_pwm4, motB_brake);
   }
 }
 
@@ -183,13 +185,13 @@ void setup()
 //  Serial.begin(9600); //print value ​​on a serial monitor
 //  printf_begin();     //print the radio debug info
 
-  pinMode(pwm1, OUTPUT);
-  pinMode(pwm2, OUTPUT);
-  pinMode(pwm3, OUTPUT);
-  pinMode(pwm4, OUTPUT);
+  pinMode(pin_pwm1, OUTPUT);
+  pinMode(pin_pwm2, OUTPUT);
+  pinMode(pin_pwm3, OUTPUT);
+  pinMode(pin_pwm4, OUTPUT);
   
-  pinMode(led, OUTPUT);
-  pinMode(inRXbatt, INPUT);
+  pinMode(pin_LED, OUTPUT);
+  pinMode(pin_RXbatt, INPUT);
   
   resetData();
 
@@ -272,7 +274,7 @@ int ledState, detect;
 
 void RX_batt_check()
 {
-  payload.RXbatt = map(analogRead(inRXbatt), 0, 1023, 0, 255);
+  payload.RXbatt = map(analogRead(pin_RXbatt), 0, 1023, 0, 255);
 
   detect = payload.RXbatt <= (255 / battery_voltage) * monitored_voltage;
   
@@ -288,7 +290,7 @@ void RX_batt_check()
     {
       ledState = HIGH;
     }   
-    digitalWrite(led, ledState);
+    digitalWrite(pin_LED, ledState);
   }
 //  Serial.println(payload.RXbatt); //print value ​​on a serial monitor
 }
@@ -310,7 +312,7 @@ void RFoff_check()
     {
       ledState = HIGH;
     }   
-    digitalWrite(led, ledState);
+    digitalWrite(pin_LED, ledState);
   }
 }
    
