@@ -38,7 +38,7 @@ nRF24L01:
 * A4  - MISO
 
 ### Code:
-[RC_RX_nRF24L01_Telemetry_Motor_Driver](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_nRF24L01_Telemetry_Motor_Driver/RC_RX_nRF24L01_Telemetry_Motor_Driver.ino)
+[RC_RX_nRF24L01_Telemetry_Motor_Driver](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver.ino)
 
 ### Used libraries:
 * <RF24.h>                      https://github.com/nRF24/RF24 
@@ -46,10 +46,10 @@ nRF24L01:
 * "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
 
 ### Schema:
-![Schema_Motor_Driver](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_nRF24L01_Telemetry_Motor_Driver/Schema_Motor_Driver.PNG)
+![Schema_Motor_Driver](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/Schema_Motor_Driver.PNG)
 
 ### Gerber files: 
 in processing ...
-![Layout_Motor_Driver](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_nRF24L01_Telemetry_Motor_Driver/Layout_Motor_Driver.PNG)
+![Layout_Motor_Driver](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/Layout_Motor_Driver.PNG)
 #
 George StanekTM
