@@ -38,7 +38,7 @@ nRF24L01:
 * A4  - MISO
 
 ### Code:
-[RC_RX_nRF24L01_Telemetry_Motor_Driver](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver.ino)
+[RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver.ino)
 
 ### Used libraries:
 * <RF24.h>                      https://github.com/nRF24/RF24 
