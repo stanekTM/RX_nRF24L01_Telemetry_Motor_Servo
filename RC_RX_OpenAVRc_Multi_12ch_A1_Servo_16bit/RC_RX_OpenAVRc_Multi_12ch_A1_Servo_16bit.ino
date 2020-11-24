@@ -17,46 +17,46 @@
 #define monitored_voltage 3.3
 
 // PPM settings
-#define servoMid   1500
-#define servoMin   1000
-#define servoMax   2000
+#define servoMid     1500
+#define servoMin     1000
+#define servoMax     2000
 
 //free pins
-//pin                 0
-//pin                 1
-//pin                 A6
+//pin                0
+//pin                1
+//pin                A6
 
 //pins for servos
-#define pin_servo1    2
-#define pin_servo2    3
-#define pin_servo3    4
-#define pin_servo4    5
-#define pin_servo5    6
-#define pin_servo6    7
-#define pin_servo7    8
-#define pin_servo8    9
-#define pin_servo9    10
-#define pin_servo10   11 //MOSI
-#define pin_servo11   12 //MISO
-#define pin_servo12   13 //SCK
+#define pin_servo1   2
+#define pin_servo2   3
+#define pin_servo3   4
+#define pin_servo4   5
+#define pin_servo5   6
+#define pin_servo6   7
+#define pin_servo7   8
+#define pin_servo8   9
+#define pin_servo9   10
+#define pin_servo10  11 //MOSI
+#define pin_servo11  12 //MISO
+#define pin_servo12  13 //SCK
 
 //LED RX battery and RF on/off
-#define pin_LED       A5 
+#define pin_LED      A5 
 
 //input RX battery
-#define pin_RXbatt    A7
+#define pin_RXbatt   A7
 
 //pins for nRF24L01
-#define CE            A0 
-#define CSN           A1 
+#define pin_CE       A0 
+#define pin_CSN      A1 
 
 //software SPI http://tmrh20.github.io/RF24/Arduino.html
-//----- MISO     18 - A4
-//----- MOSI     17 - A3
-//----- SCK      16 - A2
+//----- MISO    18 - A4
+//----- MOSI    17 - A3
+//----- SCK     16 - A2
 
 //setting of CE and CSN pins
-RF24 radio(CE, CSN);
+RF24 radio(pin_CE, pin_CSN);
 
 //RF communication channel settings (0-125, 2.4Ghz + 76 = 2.476Ghz)
 #define radio_channel  76
