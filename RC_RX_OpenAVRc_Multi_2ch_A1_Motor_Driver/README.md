@@ -1,4 +1,4 @@
-# RC receiver nRF24L01 for OpenAVRc transmitter and Multiprotocol module under OpenTX management 
+# RC receiver nRF24L01 for OpenAVRc transmitter and Multiprotocol/OpenTX
 RC receiver nRF24L01 with ATmega328P processor for smaller dimensions.
 It is possible to use Arduino Nano, Pro or Pro Mini.
 Telemetry sends the monitored voltage RX to TX. 
