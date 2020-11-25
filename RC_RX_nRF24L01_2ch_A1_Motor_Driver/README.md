@@ -1,4 +1,4 @@
-# RC receiver nRF24L01 
+## RC receiver nRF24L01 2ch motor drivers for Arduino TX
 RC receiver nRF24L01 with ATmega328P processor for smaller dimensions.
 It is possible to use Arduino Nano, Pro or Pro Mini.
 Telemetry sends the monitored voltage RX to TX. 
@@ -10,7 +10,6 @@ The firmware will be used for racing micro cars, boats, tanks and robots.
 This RC receiver works with RC transmitters [RC_TX_nRF24L01_Telemetry_LCD](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LCD) or
 [RC_TX_nRF24L01_Telemetry_LED](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LED) from my fork.
 
-## RC receiver with motor drivers (no servos)
 ### Function:
 * MotorA = steering/ch1
 * MotorB = throttle/ch2
