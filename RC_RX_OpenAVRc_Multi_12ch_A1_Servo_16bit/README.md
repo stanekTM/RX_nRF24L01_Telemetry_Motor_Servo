@@ -2,6 +2,7 @@
 RC receiver nRF24L01 with ATmega328P or Arduino Nano, Pro or Pro Mini.
 Telemetry sends the monitored voltage RX to TX. 
 It contains 12 channels servo outputs with 16 bit timers.
+This is the maximum of the Arduino RX receiver of the "Servo" library on the Atmega328P processor.
 The firmware will be used for racing cars, boats, tanks, robots and aircraft.
 
 This RC receiver works with RC transmitters [OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) or 
