@@ -1,4 +1,4 @@
-# RC receiver nRF24L01 for OpenAVRc and Multiprotocol/OpenTX
+## RC receiver nRF24L01 2ch motor drivers for OpenAVRc and Multiprotocol/OpenTX
 RC receiver nRF24L01 with ATmega328P processor for smaller dimensions.
 It is possible to use Arduino Nano, Pro or Pro Mini.
 Telemetry sends the monitored voltage RX to TX. 
@@ -10,7 +10,6 @@ The firmware will be used for racing micro cars, boats, tanks and robots.
 This RC receiver works with RC transmitters [OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) or 
 [DIY-Multiprotocol-TX-Module](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
 
-## RC receiver with motor drivers (no servos)
 ### Function:
 * MotorA = steering/ch1
 * MotorB = throttle/ch2
