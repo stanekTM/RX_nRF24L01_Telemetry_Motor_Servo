@@ -10,4 +10,9 @@ The possibility of setting the brake is in the code.
 This RC receiver works with the RC transmitters [RC_TX_nRF24L01_Telemetry_LCD](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LCD), [RC_TX_nRF24L01_Telemetry_LED](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LED), 
 [OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) from my fork or [DIY-Multiprotocol-TX-Module](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
 
+### Used libraries:
+* <RF24.h>                      https://github.com/nRF24/RF24 
+* <DigitalIO.h>                 https://github.com/greiman/DigitalIO
+* "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
+
 George StanekTM
