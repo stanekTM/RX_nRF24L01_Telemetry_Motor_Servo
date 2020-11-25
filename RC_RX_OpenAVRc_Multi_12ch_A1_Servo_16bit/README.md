@@ -10,7 +10,8 @@ This RC receiver works with RC transmitters [OpenAVRc](https://github.com/stanek
 ### Function:
 * Normal mode = LED RX is lit
 * Battery voltage 1S LiPo (4.2V) < 3.3V = RX LED flash at a interval of 500ms
-* TX transmitter off or signal loss = RX LED flash at a interval of 100ms 
+* TX transmitter off or signal loss = RX LED flash at a interval of 100ms
+* Fail-safe = servos 1 -> 12 set to neutral or individually set in code
 
 ### Arduino pins:
 * D2  - servo 1
