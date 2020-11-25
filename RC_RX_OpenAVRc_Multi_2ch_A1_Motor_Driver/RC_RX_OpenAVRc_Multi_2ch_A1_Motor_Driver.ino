@@ -57,9 +57,9 @@
 #define pin_CSN    A1 
 
 //software SPI http://tmrh20.github.io/RF24/Arduino.html
-//----- MISO  18 - A4
-//----- MOSI  17 - A3
 //----- SCK   16 - A2
+//----- MOSI  17 - A3
+//----- MISO  18 - A4
 
 //setting of CE and CSN pins
 RF24 radio(pin_CE, pin_CSN);
