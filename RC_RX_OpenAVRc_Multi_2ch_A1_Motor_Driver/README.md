@@ -8,23 +8,24 @@ The possibility of setting the brake is in the code.
 The firmware will be used for racing micro cars and boats.
 After editing the code, it can control tanks and aircraft.
 
-This RC receiver works with RC transmitters [OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) from my fork or [DIY-Multiprotocol-TX-Module](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
+This RC receiver works with RC transmitters [OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) or 
+[DIY-Multiprotocol-TX-Module](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
 
 ## RC receiver with motor drivers (no servos)
 ### Function:
-* Motor A (steering, ch1) = 3.9kHz (pwm 1, 2)
-* Motor B (throttle, ch2) = 3.9kHz (pwm 3, 4)
+* MotorA = steering/ch1
+* MotorB = throttle/ch2
 * Brake = on, off or adjustable effect 
 * Normal mode = LED RX is lit
 * Battery voltage 1S LiPo (4.2V) < 3.3V = RX LED flash at a interval of 500ms
 * TX transmitter off or signal loss = RX LED flash at a interval of 100ms 
-* Fail-safe = Motor A and B stopped
+* Fail-safe = MotorA and MotorB stopped
 
 ### Arduino pins:
-* D9  - pwm1/Motor A
-* D10 - pwm2/Motor A
-* D3  - pwm3/Motor B
-* D11 - pwm4/Motor B
+* D9  - pwm1/MotorA/3.9kHz
+* D10 - pwm2/MotorA/3.9kHz
+* D3  - pwm3/MotorB/3.9kHz
+* D11 - pwm4/MotorB/3.9kHz
 #
 * D2  - LED
 * A7  - telemetry analog input RX battery
