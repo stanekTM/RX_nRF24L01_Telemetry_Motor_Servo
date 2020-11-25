@@ -1,4 +1,4 @@
-# RC receiver nRF24L01 
+# RC receiver nRF24L01 Arduino
 RC receiver nRF24L01 with ATmega328P or Arduino Nano, Pro or Pro Mini.
 Telemetry sends the monitored voltage RX to TX. 
 The motor driver IC is based on MX1508, MX1208, MX1515, MX1616, TC1508S and others similar, using 4x pwm input control signals.
