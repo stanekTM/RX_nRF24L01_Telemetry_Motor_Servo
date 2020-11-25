@@ -44,12 +44,5 @@ nRF24L01:
 * <DigitalIO.h>                 https://github.com/greiman/DigitalIO
 * "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
 * <Servo.h>        Arduino standard library
-
-/*### Schema:
-![Schema_Motor_Driver](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/Schema_Motor_Driver.PNG)
-
-### Gerber files: 
-in processing ...
-![Layout_Motor_Driver](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/Layout_Motor_Driver.PNG) */
 #
 George StanekTM
