@@ -1,4 +1,4 @@
-## RC receiver nRF24L01 12 channels servo for OpenAVRc and Multiprotocol/OpenTX
+## RC receiver nRF24L01 12 channels servo outputs for OpenAVRc and Multiprotocol/OpenTX
 RC receiver nRF24L01 with ATmega328P or Arduino Nano, Pro or Pro Mini.
 Telemetry sends the monitored voltage RX to TX. 
 It contains 12 channels servo outputs with 16 bit timers.
