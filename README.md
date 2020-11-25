@@ -6,8 +6,9 @@ The possibility of setting the brake is in the code.
 Other versions of the RX firmware include servo outputs with 8 and 16 bit timers.
 The firmware will be used for racing cars, boats, tanks, robots and aircraft.
 
-This RC receiver works with the RC transmitters [RC_TX_nRF24L01_Telemetry_LCD](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LCD), [RC_TX_nRF24L01_Telemetry_LED](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LED), 
-[OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) from my fork or [DIY-Multiprotocol-TX-Module](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
+This RC receiver works with RC transmitters [RC_TX_nRF24L01_Telemetry_LCD](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LCD), 
+[RC_TX_nRF24L01_Telemetry_LED](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LED), 
+[OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) or [DIY-Multiprotocol-TX-Module](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
 #
 ### Used libraries:
 * <RF24.h>                      https://github.com/nRF24/RF24 
