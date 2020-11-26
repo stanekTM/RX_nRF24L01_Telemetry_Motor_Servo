@@ -1,6 +1,6 @@
 ## RC receiver nRF24L01 2ch motor drivers for OpenAVRc and Multiprotocol/OpenTX
-RC receiver nRF24L01 with ATmega328P processor for smaller dimensions.
-It is possible to use Arduino Nano, Pro or Pro Mini.
+RC receiver nRF24L01 with ATmega328P 5V/16Mhz processor for smaller dimensions.
+It is possible to use Arduino Nano or Pro Mini. 
 Telemetry sends the monitored voltage RX to TX. 
 It includes CMT2150A transponder for laps timing and motor driver.
 The motor driver IC is based on MX1508, MX1208, MX1515, MX1616, TC1508S and others similar, using 4x pwm input control signals.
