@@ -164,12 +164,10 @@ void outputPWM()
  * D11  pwm 488Hz(default), timer2, 8-bit, SPI MOSI hardware
 */
  
-//PWM frequency pin D5 or pin D6:  1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default)
-//MotorA (pin D5 or pin D6, prescaler 64)  
+//MotorA PWM frequency pin D5 or pin D6:  1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default) 
   setPWMPrescaler(pin_pwm1, 64);
   
-//PWM frequency pin D9 or pin D10: 1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
-//MotorB (pin D9 or pin D10, prescaler 8)  
+//MotorB PWM frequency pin D9 or pin D10: 1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
   setPWMPrescaler(pin_pwm3, 8);
 
 //MotorA/976Hz --------------------------------------------------------------------------------
