@@ -12,11 +12,11 @@
 #include <Servo.h>        //Arduino standard library
 
 
-// LED alarm battery voltage setting
+//LED alarm battery voltage setting
 #define battery_voltage   4.2
 #define monitored_voltage 3.3
 
-// PPM settings
+//PPM settings
 #define servoMid     1500
 #define servoMin     1000
 #define servoMax     2000
