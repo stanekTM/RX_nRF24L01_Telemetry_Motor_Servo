@@ -11,18 +11,27 @@
 #include <DigitalIO.h>    //https://github.com/greiman/DigitalIO
 #include "PWMFrequency.h" //used locally https://github.com/TheDIYGuy999/PWMFrequency
 
-// Brake setting, adjustment (0-255), no brake 0, max brake 255
-#define motA_brake 255 //MotorA/3906Hz
-#define motB_brake 0   //MotorB/3906Hz
 
-// LED alarm battery voltage setting
+//MotorA PWM frequency pin D9 or pin D10
+//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
+#define pwm_motorA 8
+
+//MotorB PWM frequency pin D3 or pin D11
+//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
+#define pwm_motorB 256
+
+//Brake setting, adjustment (0-255), no brake 0, max brake 255
+#define brake_motorA 255
+#define brake_motorB 0
+
+//LED alarm battery voltage setting
 #define battery_voltage   4.2
 #define monitored_voltage 3.3
 
 //setting the dead zone of poor quality joysticks TX for the motor controller
 #define dead_zone  10
 
-// PPM settings
+//PPM settings
 #define servoMid   1500
 #define servoMin   1000
 #define servoMax   2000
@@ -41,10 +50,10 @@
 //pin              A6
  
 //pwm pins for motor
-#define pin_pwm1   9  //MotorA/3906Hz
-#define pin_pwm2   10 //MotorA/3906Hz
-#define pin_pwm3   3  //MotorB/3906Hz
-#define pin_pwm4   11 //MotorB/3906Hz/MOSI
+#define pin_pwm1_motorA 9
+#define pin_pwm2_motorA 10
+#define pin_pwm3_motorB 3
+#define pin_pwm4_motorB 11 //MOSI
 
 //LED RX battery and RF on/off
 #define pin_LED    2
@@ -126,52 +135,54 @@ void outputPWM()
  * D11  pwm 488Hz(default), timer2, 8-bit, SPI MOSI hardware
 */
 
-//MotorA PWM frequency pin D9 or pin D10: 1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
-  setPWMPrescaler(pin_pwm1, 8);  
+//MotorA PWM frequency pin D9 or pin D10
+//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
+  setPWMPrescaler(pin_pwm1_motorA, pwm_motorA);  
 
-//MotorB PWM frequency pin D3 or pin D11:  128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz 
-  setPWMPrescaler(pin_pwm3, 8);  
+//MotorB PWM frequency pin D3 or pin D11
+//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
+  setPWMPrescaler(pin_pwm3_motorB, pwm_motorB);  
 
-//MotorA/3906Hz ------------------------------------------------------------------------------ 
+//MotorA ------------------------------------------------------------------------------------- 
 
   if (rc_data.ch1 < servoMid - dead_zone)
   {
     motA_value = map(rc_data.ch1, servoMid - dead_zone, servoMin, 0, 255);
-    analogWrite(pin_pwm1, motA_value); 
-    digitalWrite(pin_pwm2, LOW);
+    analogWrite(pin_pwm1_motorA, motA_value); 
+    digitalWrite(pin_pwm2_motorA, LOW);
   }
   else if (rc_data.ch1 > servoMid + dead_zone)
   {
     motA_value = map(rc_data.ch1, servoMid + dead_zone, servoMax, 0, 255);
-    analogWrite(pin_pwm2, motA_value); 
-    digitalWrite(pin_pwm1, LOW);
+    analogWrite(pin_pwm2_motorA, motA_value); 
+    digitalWrite(pin_pwm1_motorA, LOW);
   }
   else
   {
-    analogWrite(pin_pwm1, motA_brake);
-    analogWrite(pin_pwm2, motA_brake);
+    analogWrite(pin_pwm1_motorA, brake_motorA);
+    analogWrite(pin_pwm2_motorA, brake_motorA);
   }
 
 //  Serial.println(rc_data.ch1); //print value ​​on a serial monitor
   
-//MotorB/3906Hz ------------------------------------------------------------------------------
+//MotorB -------------------------------------------------------------------------------------
 
   if (rc_data.ch2 < servoMid - dead_zone)
   {
     motB_value = map(rc_data.ch2, servoMid - dead_zone, servoMin, 0, 255); 
-    analogWrite(pin_pwm3, motB_value); 
-    digitalWrite(pin_pwm4, LOW);
+    analogWrite(pin_pwm3_motorB, motB_value); 
+    digitalWrite(pin_pwm4_motorB, LOW);
   }
   else if (rc_data.ch2 > servoMid + dead_zone)
   {
     motB_value = map(rc_data.ch2, servoMid + dead_zone, servoMax, 0, 255); 
-    analogWrite(pin_pwm4, motB_value); 
-    digitalWrite(pin_pwm3, LOW);
+    analogWrite(pin_pwm4_motorB, motB_value); 
+    digitalWrite(pin_pwm3_motorB, LOW);
   }
   else
   {
-    analogWrite(pin_pwm3, motB_brake);
-    analogWrite(pin_pwm4, motB_brake);
+    analogWrite(pin_pwm3_motorB, brake_motorB);
+    analogWrite(pin_pwm4_motorB, brake_motorB);
   }
 }
 
@@ -183,10 +194,10 @@ void setup()
 //  Serial.begin(9600); //print value ​​on a serial monitor
 //  printf_begin();     //print the radio debug info
 
-  pinMode(pin_pwm1, OUTPUT);
-  pinMode(pin_pwm2, OUTPUT);
-  pinMode(pin_pwm3, OUTPUT);
-  pinMode(pin_pwm4, OUTPUT);
+  pinMode(pin_pwm1_motorA, OUTPUT);
+  pinMode(pin_pwm2_motorA, OUTPUT);
+  pinMode(pin_pwm3_motorB, OUTPUT);
+  pinMode(pin_pwm4_motorB, OUTPUT);
   
   pinMode(pin_LED, OUTPUT);
   pinMode(pin_RXbatt, INPUT);
