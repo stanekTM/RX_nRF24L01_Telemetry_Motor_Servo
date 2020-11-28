@@ -12,9 +12,18 @@
 #include "ServoTimer2.h"  //used locally https://github.com/nabontra/ServoTimer2
 #include "PWMFrequency.h" //used locally https://github.com/TheDIYGuy999/PWMFrequency
 
+
+//MotorA PWM frequency pin D5 or pin D6
+//1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default), 8 = 7812Hz 
+#define pwm_motorA 64
+
+//MotorB PWM frequency pin D9 or pin D10
+//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
+#define pwm_motorB 8
+
 //brake setting, adjustment (0-255), no brake 0, max brake 255
-#define motA_brake 255 //MotorA/976Hz
-#define motB_brake 0   //MotorB/3906Hz
+#define brake_motorA 255
+#define brake_motorB 0
 
 //LED alarm battery voltage setting
 #define battery_voltage   4.2
@@ -44,10 +53,10 @@
 #define pin_servo3 13 //SCK
  
 //pwm pins for motor
-#define pin_pwm1   5  //MotorA/976Hz
-#define pin_pwm2   6  //MotorA/976Hz
-#define pin_pwm3   9  //MotorB/3906Hz
-#define pin_pwm4   10 //MotorB/3906Hz
+#define pin_pwm1_motorA 5
+#define pin_pwm2_motorA 6
+#define pin_pwm3_motorB 9
+#define pin_pwm4_motorB 10
 
 //LED RX battery and RF on/off
 #define pin_LED    2
@@ -164,52 +173,54 @@ void outputPWM()
  * D11  pwm 488Hz(default), timer2, 8-bit, SPI MOSI hardware
 */
  
-//MotorA PWM frequency pin D5 or pin D6:  1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default) 
-  setPWMPrescaler(pin_pwm1, 64);
+//MotorA PWM frequency pin D5 or pin D6
+//1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default), 8 = 7812Hz 
+  setPWMPrescaler(pin_pwm1_motorA, pwm_motorA);
   
-//MotorB PWM frequency pin D9 or pin D10: 1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
-  setPWMPrescaler(pin_pwm3, 8);
+//MotorB PWM frequency pin D9 or pin D10
+//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
+  setPWMPrescaler(pin_pwm3_motorB, pwm_motorB);
 
-//MotorA/976Hz --------------------------------------------------------------------------------
+//MotorA --------------------------------------------------------------------------------------
 
   if (rc_data.ch1 < servoMid - dead_zone)
   {
     motA_value = map(rc_data.ch1, servoMid - dead_zone, servoMin, 0, 255);
-    analogWrite(pin_pwm1, motA_value); 
-    digitalWrite(pin_pwm2, LOW);
+    analogWrite(pin_pwm1_motorA, motA_value); 
+    digitalWrite(pin_pwm2_motorA, LOW);
   }
   else if (rc_data.ch1 > servoMid + dead_zone)
   {
     motA_value = map(rc_data.ch1, servoMid + dead_zone, servoMax, 0, 255);
-    analogWrite(pin_pwm2, motA_value); 
-    digitalWrite(pin_pwm1, LOW);
+    analogWrite(pin_pwm2_motorA, motA_value); 
+    digitalWrite(pin_pwm1_motorA, LOW);
   }
   else
   {
-    analogWrite(pin_pwm1, motA_brake);
-    analogWrite(pin_pwm2, motA_brake);
+    analogWrite(pin_pwm1_motorA, brake_motorA);
+    analogWrite(pin_pwm2_motorA, brake_motorA);
   }
 
 //  Serial.println(rc_data.ch1); //print value ​​on a serial monitor
   
-//MotorB/3906Hz -------------------------------------------------------------------------------
+//MotorB --------------------------------------------------------------------------------------
 
   if (rc_data.ch2 < servoMid - dead_zone)
   {
     motB_value = map(rc_data.ch2, servoMid - dead_zone, servoMin, 0, 255); 
-    analogWrite(pin_pwm3, motB_value); 
-    digitalWrite(pin_pwm4, LOW);
+    analogWrite(pin_pwm3_motorB, motB_value); 
+    digitalWrite(pin_pwm4_motorB, LOW);
   }
   else if (rc_data.ch2 > servoMid + dead_zone)
   {
     motB_value = map(rc_data.ch2, servoMid + dead_zone, servoMax, 0, 255); 
-    analogWrite(pin_pwm4, motB_value); 
-    digitalWrite(pin_pwm3, LOW);
+    analogWrite(pin_pwm4_motorB, motB_value); 
+    digitalWrite(pin_pwm3_motorB, LOW);
   }
   else
   {
-    analogWrite(pin_pwm3, motB_brake);
-    analogWrite(pin_pwm4, motB_brake);
+    analogWrite(pin_pwm3_motorB, brake_motorB);
+    analogWrite(pin_pwm4_motorB, brake_motorB);
   }
 }
 
@@ -221,10 +232,10 @@ void setup()
 //  Serial.begin(9600); //print value ​​on a serial monitor
 //  printf_begin();     //print the radio debug info
 
-  pinMode(pin_pwm1, OUTPUT);
-  pinMode(pin_pwm2, OUTPUT);
-  pinMode(pin_pwm3, OUTPUT);
-  pinMode(pin_pwm4, OUTPUT);
+  pinMode(pin_pwm1_motorA, OUTPUT);
+  pinMode(pin_pwm2_motorA, OUTPUT);
+  pinMode(pin_pwm3_motorB, OUTPUT);
+  pinMode(pin_pwm4_motorB, OUTPUT);
   
   pinMode(pin_LED, OUTPUT);
   pinMode(pin_RXbatt, INPUT);
