@@ -20,10 +20,10 @@ This RC receiver works with RC transmitters [OpenAVRc](https://github.com/stanek
 * Fail-safe = MotorA and MotorB stopped
 
 ### Arduino pins:
-* D9  - pwm1/MotorA/3.9kHz
-* D10 - pwm2/MotorA/3.9kHz
-* D3  - pwm3/MotorB/3.9kHz
-* D11 - pwm4/MotorB/3.9kHz
+* D9  - pwm1/MotorA
+* D10 - pwm2/MotorA
+* D3  - pwm3/MotorB
+* D11 - pwm4/MotorB
 #
 * D2  - LED
 * A7  - telemetry analog input RX battery
