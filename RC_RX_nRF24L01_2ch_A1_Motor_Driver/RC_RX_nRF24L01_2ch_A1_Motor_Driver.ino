@@ -14,7 +14,7 @@
 
 //MotorA PWM frequency pin D9 or pin D10
 //1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
-#define pwm_motorA 8 
+#define pwm_motorA 256 
 
 //MotorB PWM frequency pin D3 or pin D11
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
@@ -26,7 +26,7 @@
 
 //LED alarm battery voltage setting
 #define battery_voltage   4.2
-#define monitored_voltage 3.3
+#define monitored_voltage 3.49
 
 //setting the dead zone of poor quality joysticks TX for the motor controller
 #define dead_zone  10
@@ -85,8 +85,8 @@ const byte rx_p1_address[] = "rx002";
 //************************************************************************************************************************************************************************
 struct packet
 {
-  unsigned int ch1;
-  unsigned int ch2;
+  unsigned int ch1; //MotorA
+  unsigned int ch2; //MotorB
   unsigned int ch3;
   unsigned int ch4;
   unsigned int ch5;
@@ -107,8 +107,8 @@ ackPayload payload;
 //************************************************************************************************************************************************************************
 void resetData()
 {
-  rc_data.ch1 = servoMid; //MotorA/3906Hz
-  rc_data.ch2 = servoMid; //MotorB/3906Hz
+  rc_data.ch1 = servoMid; //MotorA
+  rc_data.ch2 = servoMid; //MotorB
 }
 
 //************************************************************************************************************************************************************************
@@ -252,7 +252,7 @@ unsigned long lastRxTime = 0;
 
 void receive_time()
 {
-  if(millis() >= lastRxTime + 1000) //1000 (1second)
+  if(millis() >= lastRxTime + 400) //400 = 3.3VCC, 1000 = 5VCC
   {
     resetData();       
     RFoff_check(); 
@@ -279,7 +279,7 @@ void send_and_receive_data()
 
 //************************************************************************************************************************************************************************
 //measuring the input of the RX battery. After receiving RF data, the monitored RX battery is activated ******************************************************************
-//RX battery_voltage < monitored_voltage = LEDs RX, TX flash at a interval of 500ms. Battery OK = LEDs RX, TX is lit *****************************************************
+//RX battery_voltage < monitored_voltage = LEDs RX, TX flash 2Hz. Battery OK = LEDs RX, TX is lit ************************************************************************
 //************************************************************************************************************************************************************************
 unsigned long ledTime = 0;
 int ledState, detect;
@@ -290,7 +290,7 @@ void RX_batt_check()
   
   detect = payload.RXbatt <= monitored_voltage;
   
-  if (millis() >= ledTime + 500) //1000 (1second)
+  if (millis() >= ledTime + 200) //200 = 3.3VCC, 500 = 5VCC
   {
     ledTime = millis();
     
@@ -307,11 +307,11 @@ void RX_batt_check()
 }
 
 //************************************************************************************************************************************************************************
-//when RX is switched on and TX is switched off, or after the loss of RF data = LED RX flash at a interval of 100 ms. Normal mode = LED RX is lit ************************
+//when RX is switched on and TX is switched off, or after the loss of RF data = LED RX flash 10Hz. Normal mode = LED RX is lit *******************************************
 //************************************************************************************************************************************************************************
 void RFoff_check()
 {
-  if (millis() >= ledTime + 100) //1000 (1second)
+  if (millis() >= ledTime + 30) //30 = 3.3VCC, 100 = 5VCC
   {
     ledTime = millis();
     
