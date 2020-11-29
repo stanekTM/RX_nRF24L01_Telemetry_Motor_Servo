@@ -14,7 +14,7 @@
 
 //LED alarm battery voltage setting
 #define battery_voltage   4.2
-#define monitored_voltage 3.3
+#define monitored_voltage 3.49
 
 //PPM settings
 #define servoMid     1500
@@ -90,7 +90,7 @@ packet rc_data; //create a variable with the above structure
 //************************************************************************************************************************************************************************
 struct ackPayload
 {
-  unsigned int RXbatt; //0-255 for OpenAVRc telemetry
+  unsigned int RXbatt; //0-255 for OpenAVRc and OpenTX Multiprotocol telemetry
 };
 ackPayload payload;
 
@@ -238,7 +238,7 @@ unsigned long lastRxTime = 0;
 
 void receive_time()
 {
-  if(millis() >= lastRxTime + 1000) //1000 (1second)
+  if(millis() >= lastRxTime + 400) //400 = 3.3VCC, 1000 = 5VCC
   {
     resetData();       
     RFoff_check(); 
@@ -265,7 +265,7 @@ void send_and_receive_data()
 
 //************************************************************************************************************************************************************************
 //measuring the input of the RX battery. After receiving RF data, the monitored RX battery is activated ******************************************************************
-//RX battery_voltage < monitored_voltage = LED alarm RX flash at a interval of 500ms. Battery OK = LED RX is lit *********************************************************
+//RX battery_voltage < monitored_voltage = LED alarm RX flash 2Hz. Battery OK = LED RX is lit ****************************************************************************
 //************************************************************************************************************************************************************************
 unsigned long ledTime = 0;
 int ledState, detect;
@@ -276,7 +276,7 @@ void RX_batt_check()
 
   detect = payload.RXbatt <= (255 / battery_voltage) * monitored_voltage;
   
-  if (millis() >= ledTime + 500) //1000 (1second)
+  if (millis() >= ledTime + 200) //200 = 3.3VCC, 500 = 5VCC
   {
     ledTime = millis();
     
@@ -294,11 +294,11 @@ void RX_batt_check()
 }
 
 //************************************************************************************************************************************************************************
-//when RX is switched on and TX is switched off, or after the loss of RF data = LED RX flash at a interval of 100 ms. Normal mode = LED RX is lit ************************
+//when RX is switched on and TX is switched off, or after the loss of RF data = LED RX flash 10Hz. Normal mode = LED RX is lit *******************************************
 //************************************************************************************************************************************************************************
 void RFoff_check()
 {
-  if (millis() >= ledTime + 100) //1000 (1second)
+  if (millis() >= ledTime + 30) //30 = 3.3VCC, 100 = 5VCC
   {
     ledTime = millis();
     
