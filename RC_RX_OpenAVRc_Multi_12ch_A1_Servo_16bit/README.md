@@ -8,10 +8,14 @@ The firmware will be used for racing cars, boats, tanks, robots and aircraft.
 This RC receiver works with RC transmitters [OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) or 
 [DIY-Multiprotocol-TX-Module](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
 
+Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage. 
+I haven't tried the 3.3V/8Mhz version yet. 
+If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF.
+
 ### Function:
 * Normal mode = LED RX is lit
-* Battery voltage 1S LiPo (4.2V) < 3.3V = RX LED flash at a interval of 500ms
-* TX transmitter off or signal loss = RX LED flash at a interval of 100ms
+* Battery voltage 1S LiPo (4.2V) < 3.3V = RX LED flash at a interval of 0.5s
+* TX transmitter off or signal loss = RX LED flash at a interval of 0.1s
 * Fail-safe = servos 1 -> 12 set to neutral or individually set in code
 
 ### Arduino pins:
