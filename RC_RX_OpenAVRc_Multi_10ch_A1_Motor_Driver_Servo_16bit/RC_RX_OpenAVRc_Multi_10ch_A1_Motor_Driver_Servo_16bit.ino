@@ -347,7 +347,7 @@ void send_and_receive_data()
 
 //************************************************************************************************************************************************************************
 //measuring the input of the RX battery. After receiving RF data, the monitored RX battery is activated ******************************************************************
-//RX battery_voltage < monitored_voltage = LED alarm RX flash 2Hz. Battery OK = LED RX is lit ****************************************************************************
+//RX battery_voltage < monitored_voltage = LED alarm RX flash at a interval of 0.5s. Battery OK = LED RX is lit **********************************************************
 //************************************************************************************************************************************************************************
 unsigned long ledTime = 0;
 int ledState, detect;
@@ -376,7 +376,7 @@ void RX_batt_check()
 }
 
 //************************************************************************************************************************************************************************
-//when RX is switched on and TX is switched off, or after the loss of RF data = LED RX flash 10Hz. Normal mode = LED RX is lit *******************************************
+//when RX is switched on and TX is switched off, or after the loss of RF data = LED RX flash at a interval of 0.1s. Normal mode = LED RX is lit **************************
 //************************************************************************************************************************************************************************
 void RFoff_check()
 {
