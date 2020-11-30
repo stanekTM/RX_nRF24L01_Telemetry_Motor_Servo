@@ -13,11 +13,11 @@
 #include "PWMFrequency.h" //used locally https://github.com/TheDIYGuy999/PWMFrequency
 
 
-//MotorA PWM frequency pin D5 or pin D6
+//settings PWM MotorA (pin D5 or D6)
 //1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default), 8 = 7812Hz 
 #define pwm_motorA 256
 
-//MotorB PWM frequency pin D9 or pin D10
+//settings PWM MotorB (pin D9 or D10)
 //1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
 #define pwm_motorB 256
 
@@ -120,9 +120,7 @@ void resetData()
 //************************************************************************************************************************************************************************
 //create servo object ****************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
-ServoTimer2 servo1;
-ServoTimer2 servo2;
-ServoTimer2 servo3;
+ServoTimer2 servo1, servo2, servo3;
 
 void attachServoPins()
 {
@@ -149,7 +147,7 @@ void outputServo()
 //************************************************************************************************************************************************************************
 //setup frequencies and motors control ***********************************************************************************************************************************
 //************************************************************************************************************************************************************************
-int motA_value = 0, motB_value = 0;
+int value_motorA = 0, value_motorB = 0;
 
 void outputPWM()
 {  
@@ -185,14 +183,14 @@ void outputPWM()
 
   if (rc_data.ch1 < servoMid - dead_zone)
   {
-    motA_value = map(rc_data.ch1, servoMid - dead_zone, servoMin, 0, 255);
-    analogWrite(pin_pwm1_motorA, motA_value); 
+    value_motorA = map(rc_data.ch1, servoMid - dead_zone, servoMin, 0, 255);
+    analogWrite(pin_pwm1_motorA, value_motorA); 
     digitalWrite(pin_pwm2_motorA, LOW);
   }
   else if (rc_data.ch1 > servoMid + dead_zone)
   {
-    motA_value = map(rc_data.ch1, servoMid + dead_zone, servoMax, 0, 255);
-    analogWrite(pin_pwm2_motorA, motA_value); 
+    value_motorA = map(rc_data.ch1, servoMid + dead_zone, servoMax, 0, 255);
+    analogWrite(pin_pwm2_motorA, value_motorA); 
     digitalWrite(pin_pwm1_motorA, LOW);
   }
   else
@@ -207,14 +205,14 @@ void outputPWM()
 
   if (rc_data.ch2 < servoMid - dead_zone)
   {
-    motB_value = map(rc_data.ch2, servoMid - dead_zone, servoMin, 0, 255); 
-    analogWrite(pin_pwm3_motorB, motB_value); 
+    value_motorB = map(rc_data.ch2, servoMid - dead_zone, servoMin, 0, 255); 
+    analogWrite(pin_pwm3_motorB, value_motorB); 
     digitalWrite(pin_pwm4_motorB, LOW);
   }
   else if (rc_data.ch2 > servoMid + dead_zone)
   {
-    motB_value = map(rc_data.ch2, servoMid + dead_zone, servoMax, 0, 255); 
-    analogWrite(pin_pwm4_motorB, motB_value); 
+    value_motorB = map(rc_data.ch2, servoMid + dead_zone, servoMax, 0, 255); 
+    analogWrite(pin_pwm4_motorB, value_motorB); 
     digitalWrite(pin_pwm3_motorB, LOW);
   }
   else
@@ -316,7 +314,7 @@ void send_and_receive_data()
 
 //************************************************************************************************************************************************************************
 //measuring the input of the RX battery. After receiving RF data, the monitored RX battery is activated ******************************************************************
-//RX battery_voltage < monitored_voltage = LED alarm RX flash at a interval of 0.5s. Battery OK = LED RX is lit **********************************************************
+//when RX battery_voltage < monitored_voltage = LED alarm RX flash at a interval of 0.5s. Battery OK = LED RX is lit *****************************************************
 //************************************************************************************************************************************************************************
 unsigned long ledTime = 0;
 int ledState, detect;
