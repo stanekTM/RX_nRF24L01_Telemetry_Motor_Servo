@@ -15,8 +15,9 @@ I haven't tried the 3.3V/8Mhz version yet.
 If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF. 
 All versions of the code are based on this [scheme](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/Schema_Motor_Driver.PNG), but each version uses different pins.
 #
+### RX prototype: 
 ![rx_prototype1](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype1.jpg)
-[rx_prototype2](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype2.jpg)
+![rx_prototype2](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype2.jpg)
 ### Used libraries:
 * <RF24.h>                      https://github.com/nRF24/RF24 
 * <DigitalIO.h>                 https://github.com/greiman/DigitalIO
