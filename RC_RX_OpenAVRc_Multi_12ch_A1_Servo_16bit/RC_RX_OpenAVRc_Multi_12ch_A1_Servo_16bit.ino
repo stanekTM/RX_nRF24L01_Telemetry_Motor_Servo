@@ -116,18 +116,7 @@ void resetData()
 //************************************************************************************************************************************************************************
 //create servo object ****************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
-Servo servo1;
-Servo servo2;
-Servo servo3;
-Servo servo4;
-Servo servo5;
-Servo servo6;
-Servo servo7;
-Servo servo8;
-Servo servo9;
-Servo servo10;
-Servo servo11;
-Servo servo12;
+Servo servo1, servo2, servo3, servo4, servo5, servo6, servo7, servo8, servo9, servo10, servo11, servo12;
 
 void attachServoPins()
 {
@@ -265,7 +254,7 @@ void send_and_receive_data()
 
 //************************************************************************************************************************************************************************
 //measuring the input of the RX battery. After receiving RF data, the monitored RX battery is activated ******************************************************************
-//RX battery_voltage < monitored_voltage = LED alarm RX flash at a interval of 0.5s. Battery OK = LED RX is lit **********************************************************
+//when RX battery_voltage < monitored_voltage = LED alarm RX flash at a interval of 0.5s. Battery OK = LED RX is lit *****************************************************
 //************************************************************************************************************************************************************************
 unsigned long ledTime = 0;
 int ledState, detect;
