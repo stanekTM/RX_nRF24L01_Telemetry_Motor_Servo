@@ -18,6 +18,7 @@ All versions of the code are based on this [scheme](https://raw.githubuserconten
 ### RX prototype: 
 ![rx_prototype1](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype1.jpg)
 ![rx_prototype2](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype2.jpg)
+#
 ### Used libraries:
 * <RF24.h>                      https://github.com/nRF24/RF24 
 * <DigitalIO.h>                 https://github.com/greiman/DigitalIO
