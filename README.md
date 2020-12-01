@@ -23,7 +23,6 @@ All versions of the code are based on this [scheme](https://raw.githubuserconten
 * <RF24.h>                      https://github.com/nRF24/RF24 
 * <DigitalIO.h>                 https://github.com/greiman/DigitalIO
 * "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
-* "ServoTimer2.h"  used locally https://github.com/nabontra/ServoTimer2
 * <Servo.h>        Arduino standard library
 #
 George StanekTM
