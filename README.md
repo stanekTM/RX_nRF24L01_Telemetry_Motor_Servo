@@ -3,7 +3,7 @@ RC receiver nRF24L01 with ATmega328P 5V/16Mhz, Arduino Nano or Pro Mini.
 Telemetry sends the monitored voltage RX to TX. 
 The motor driver IC is based on MX1508, MX1208, MX1515, MX1616, TC1508S and others similar, using 4x pwm input control signals.
 The possibility of setting the brake is in the code.
-Other versions of the RX firmware include servo outputs with 8 and 16 bit timers.
+Other versions of the RX firmware include servo outputs.
 The firmware will be used for racing cars, boats, tanks, robots and aircraft.
 
 This RC receiver works with RC transmitters [RC_TX_nRF24L01_Telemetry_LCD](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LCD), 
