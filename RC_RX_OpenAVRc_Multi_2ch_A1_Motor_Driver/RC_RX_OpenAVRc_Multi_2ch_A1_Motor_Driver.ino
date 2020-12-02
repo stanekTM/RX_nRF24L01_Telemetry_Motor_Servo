@@ -249,7 +249,7 @@ unsigned long lastRxTime = 0;
 
 void receive_time()
 {
-  if(millis() >= lastRxTime + 400) //400 = 3.3VCC, 1000 = 5VCC
+  if(millis() >= lastRxTime + 1000) //1s
   {
     resetData();       
     RFoff_check(); 
@@ -287,7 +287,7 @@ void RX_batt_check()
 
   detect = payload.RXbatt <= (255 / battery_voltage) * monitored_voltage;
   
-  if (millis() >= ledTime + 200) //200 = 3.3VCC, 500 = 5VCC
+  if (millis() >= ledTime + 500)
   {
     ledTime = millis();
     
@@ -309,7 +309,7 @@ void RX_batt_check()
 //************************************************************************************************************************************************************************
 void RFoff_check()
 {
-  if (millis() >= ledTime + 30) //30 = 3.3VCC, 100 = 5VCC
+  if (millis() >= ledTime + 100)
   {
     ledTime = millis();
     
