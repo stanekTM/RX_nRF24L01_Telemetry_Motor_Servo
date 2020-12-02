@@ -13,9 +13,9 @@
 #include "PWMFrequency.h" //used locally https://github.com/TheDIYGuy999/PWMFrequency
 
 
-//settings PWM MotorA (pin D5 or D6)
+//settings PWM MotorA (pin D5 or D6 are paired on timer0, functions delay(), millis() and micros())
 //1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default), 8 = 7812Hz 
-#define pwm_motorA 256
+#define pwm_motorA 64
 
 //settings PWM MotorB (pin D3 or D11)
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
@@ -287,7 +287,7 @@ unsigned long lastRxTime = 0;
 
 void receive_time()
 {
-  if(millis() >= lastRxTime + 400) //400 = 3.3VCC, 1000 = 5VCC
+  if(millis() >= lastRxTime + 1000) //1s
   {
     resetData();       
     RFoff_check(); 
@@ -325,7 +325,7 @@ void RX_batt_check()
   
   detect = payload.RXbatt <= monitored_voltage;
   
-  if (millis() >= ledTime + 200) //200 = 3.3VCC, 500 = 5VCC
+  if (millis() >= ledTime + 500)
   {
     ledTime = millis();
     
@@ -346,7 +346,7 @@ void RX_batt_check()
 //************************************************************************************************************************************************************************
 void RFoff_check()
 {
-  if (millis() >= ledTime + 30) //30 = 3.3VCC, 100 = 5VCC
+  if (millis() >= ledTime + 100)
   {
     ledTime = millis();
     
