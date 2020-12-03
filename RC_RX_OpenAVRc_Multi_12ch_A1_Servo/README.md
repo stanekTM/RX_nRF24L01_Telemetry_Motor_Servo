@@ -43,12 +43,11 @@ nRF24L01:
 * A4  - MISO
 
 ### Code:
-[RC_RX_OpenAVRc_Multi_12ch_A1_Servo_16bit](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_OpenAVRc_Multi_12ch_A1_Servo_16bit/RC_RX_OpenAVRc_Multi_12ch_A1_Servo_16bit.ino)
+[RC_RX_OpenAVRc_Multi_12ch_A1_Servo](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_OpenAVRc_Multi_12ch_A1_Servo/RC_RX_OpenAVRc_Multi_12ch_A1_Servo.ino)
 
 ### Used libraries:
 * <RF24.h>                      https://github.com/nRF24/RF24 
 * <DigitalIO.h>                 https://github.com/greiman/DigitalIO
-* "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
 * <Servo.h>        Arduino standard library
 #
 George StanekTM
