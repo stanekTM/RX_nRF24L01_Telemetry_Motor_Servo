@@ -284,8 +284,8 @@ void setup()
   radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm) 
 
-  radio.openWritingPipe(invert_address); //open the writing pipe and invert bits for so that telemetry packets have a different address
-  radio.openReadingPipe(1, address);     //open the reading pipe 1 and then call "startListening"
+  radio.openWritingPipe(invert_address); //open the writing pipe0 (RX_ADDR_P0 + TX_ADDR)
+  radio.openReadingPipe(1, address);     //open the reading pipe1 (RX_ADDR_P1) and then call "startListening"
                                           
   radio.startListening(); //set the module as receiver. Start listening on the pipes opened for reading
 }
