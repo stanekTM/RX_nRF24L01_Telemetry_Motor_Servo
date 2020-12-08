@@ -19,7 +19,7 @@ const byte address[] = "jirka";
 //RF communication channel settings (0-125, 2.4Ghz + 76 = 2.476Ghz)
 #define radio_channel 76
 
-//settings PWM MotorA (pin D5 or D6 are paired on timer0, functions delay(), millis() and micros())
+//settings PWM MotorA (pin D5 or D6 are paired on timer0, functions delay(), millis(), micros() and delayMicroseconds())
 //1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default), 8 = 7812Hz 
 #define pwm_motorA 64
 
@@ -157,7 +157,7 @@ void outputPWM()
  * The divisors available on pins 5, 6, 9, 10 are: 1, 8, 64, 256, and 1024.
  * The divisors available on pins 3, 11       are: 1, 8, 32, 64, 128, 256, and 1024.
  *    
- * Pins 5, 6  are paired on timer0, functions delay(), millis() and micros()
+ * Pins 5, 6  are paired on timer0, functions delay(), millis(), micros() and delayMicroseconds()
  * D5   pwm 976Hz(default), timer0, 8-bit 
  * D6   pwm 976Hz(default), timer0, 8-bit
  * 
