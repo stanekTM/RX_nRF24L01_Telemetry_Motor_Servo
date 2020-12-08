@@ -121,7 +121,7 @@ void outputPWM()
  * The divisors available on pins 5, 6, 9, 10 are: 1, 8, 64, 256, and 1024.
  * The divisors available on pins 3, 11       are: 1, 8, 32, 64, 128, 256, and 1024.
  *    
- * Pins 5, 6  are paired on timer0, functions delay(), millis() and micros()
+ * Pins 5, 6  are paired on timer0, functions delay(), millis(), micros() and delayMicroseconds()
  * D5   pwm 976Hz(default), timer0, 8-bit 
  * D6   pwm 976Hz(default), timer0, 8-bit
  * 
