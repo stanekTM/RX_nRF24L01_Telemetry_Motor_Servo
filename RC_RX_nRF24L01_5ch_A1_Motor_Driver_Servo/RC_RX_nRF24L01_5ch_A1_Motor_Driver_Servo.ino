@@ -27,6 +27,10 @@ const byte address[] = "jirka";
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
 #define pwm_motorB 256
 
+//setting the reaction of the motor to be rotated after the lever has been moved
+#define accelerate_motorA 40
+#define accelerate_motorB 40
+
 //Brake setting, adjustment (0-255), no brake 0, max brake 255
 #define brake_motorA 255
 #define brake_motorB 0
@@ -182,13 +186,13 @@ void outputPWM()
 
   if (rc_data.ch1 < servoMid - dead_zone)
   {
-    value_motorA = map(rc_data.ch1, servoMid - dead_zone, servoMin, 0, 255);
+    value_motorA = map(rc_data.ch1, servoMid - dead_zone, servoMin, accelerate_motorA, 255);
     analogWrite(pin_pwm1_motorA, value_motorA); 
     digitalWrite(pin_pwm2_motorA, LOW);
   }
   else if (rc_data.ch1 > servoMid + dead_zone)
   {
-    value_motorA = map(rc_data.ch1, servoMid + dead_zone, servoMax, 0, 255);
+    value_motorA = map(rc_data.ch1, servoMid + dead_zone, servoMax, accelerate_motorA, 255);
     analogWrite(pin_pwm2_motorA, value_motorA); 
     digitalWrite(pin_pwm1_motorA, LOW);
   }
@@ -204,13 +208,13 @@ void outputPWM()
 
   if (rc_data.ch2 < servoMid - dead_zone)
   {
-    value_motorB = map(rc_data.ch2, servoMid - dead_zone, servoMin, 0, 255); 
+    value_motorB = map(rc_data.ch2, servoMid - dead_zone, servoMin, accelerate_motorB, 255); 
     analogWrite(pin_pwm3_motorB, value_motorB); 
     digitalWrite(pin_pwm4_motorB, LOW);
   }
   else if (rc_data.ch2 > servoMid + dead_zone)
   {
-    value_motorB = map(rc_data.ch2, servoMid + dead_zone, servoMax, 0, 255); 
+    value_motorB = map(rc_data.ch2, servoMid + dead_zone, servoMax, accelerate_motorB, 255); 
     analogWrite(pin_pwm4_motorB, value_motorB); 
     digitalWrite(pin_pwm3_motorB, LOW);
   }
