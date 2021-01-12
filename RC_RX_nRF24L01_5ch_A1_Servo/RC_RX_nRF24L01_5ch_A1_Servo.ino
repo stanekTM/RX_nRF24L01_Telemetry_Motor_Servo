@@ -20,7 +20,7 @@ const byte address[] = "jirka";
 
 //LED alarm battery voltage setting
 #define battery_voltage   4.2
-#define monitored_voltage 3.49
+#define monitored_voltage 3.35
 
 //PPM settings
 #define servoMid     1500
@@ -135,6 +135,8 @@ void outputServo()
 //initial main settings **************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
 uint8_t invert_address = ~address[5]; //Invert bits for writing so that telemetry packets have a different address
+const int numReadings = 32; //number of monitored samples (max. 32). The higher the number, the more the values will be smoothed, but the input will respond more slowly
+int readings[numReadings];  //the readings from the analog input
 
 void setup()
 {
@@ -143,6 +145,12 @@ void setup()
 
   pinMode(pin_LED, OUTPUT);
   pinMode(pin_RXbatt, INPUT);
+
+  //initialize all the readings to 0
+  for (int thisReading = 0; thisReading < numReadings; thisReading++)
+  {
+    readings[thisReading] = 0;
+  }
   
   resetData();
   attachServoPins();
@@ -218,16 +226,39 @@ void send_and_receive_data()
 }
 
 //************************************************************************************************************************************************************************
-//measuring the input of the RX battery. After receiving RF data, the monitored RX battery is activated ******************************************************************
+//measuring the RX battery input and calculating the moving average. After receiving RF data, the monitored RX battery is activated **************************************
 //when RX battery_voltage < monitored_voltage = LED alarm RX flash at a interval of 0.5s. Battery OK = LED RX is lit *****************************************************
 //************************************************************************************************************************************************************************
+unsigned long adcTime = 0;
 unsigned long ledTime = 0;
-int ledState, detect;
+int ledState, detect, readIndex = 0, total = 0, average = 0;
 
 void RX_batt_check()
-{ 
-  payload.RXbatt = analogRead(pin_RXbatt) * (battery_voltage / 1023);
+{
+  //it reads repeatedly from the analog input and calculates the moving average
+  total = total - readings[readIndex];
+
+  readings[readIndex] = analogRead(pin_RXbatt);
+
+  total = total + readings[readIndex];
+
+  readIndex = readIndex + 1;
+
+  if (readIndex >= numReadings)
+  {
+    readIndex = 0;
+  }
+
+  average = total / numReadings;
   
+  if (millis() >= adcTime + 500) //delay for stable reading of digits on the display
+  {
+    adcTime = millis();
+
+    payload.RXbatt = average * (battery_voltage / 1023);
+  }
+
+  //when RX battery_voltage < monitored_voltage = LED alarm RX flash at a interval of 0.5s. Battery OK = LED RX is lit
   detect = payload.RXbatt <= monitored_voltage;
   
   if (millis() >= ledTime + 500)
@@ -244,6 +275,7 @@ void RX_batt_check()
     }   
     digitalWrite(pin_LED, ledState);
   }
+//  Serial.println(payload.RXbatt); //print value ​​on a serial monitor
 }
 
 //************************************************************************************************************************************************************************
