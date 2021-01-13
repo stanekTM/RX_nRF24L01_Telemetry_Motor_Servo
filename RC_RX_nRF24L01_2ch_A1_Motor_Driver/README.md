@@ -15,11 +15,11 @@ I haven't tried the 3.3V/8Mhz version yet.
 If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF.
 
 ### Function:
-* MotorA = adjustable pwm, steering/ch1
-* MotorB = adjustable pwm, throttle/ch2
+* MotorA = adjustable pwm/ch1
+* MotorB = adjustable pwm/ch2
 * Brake = on, off or adjustable effect 
 * Normal mode = LED RX is lit
-* Battery voltage 1S LiPo (4.2V) < 3.3V = RX, TX LEDs flash at a interval of 0.5s
+* Battery voltage 1S LiPo (4.2V) < monitored voltage = RX, TX LEDs flash at a interval of 0.5s
 * TX transmitter off or signal loss = RX LED flash at a interval of 0.1s 
 * Fail-safe = MotorA and MotorB stopped
 
