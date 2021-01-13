@@ -5,7 +5,7 @@ Telemetry sends the monitored voltage RX to TX.
 It includes CMT2150A transponder for laps timing and motor driver.
 The motor driver IC is based on MX1508, MX1208, MX1515, MX1616, TC1508S and others similar, using 4x pwm input control signals.
 The possibility of setting the brake is in the code.
-The firmware will be used for racing micro cars, boats, tanks and robots.
+The firmware will be used for micro cars, boats, tanks and robots.
 
 This RC receiver works with RC transmitters [RC_TX_nRF24L01_Telemetry_LCD](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LCD) or
 [RC_TX_nRF24L01_Telemetry_LED](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LED) from my fork.
@@ -54,4 +54,4 @@ nRF24L01:
 in processing ...
 ![Layout_Motor_Driver](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_nRF24L01_2ch_A1_Motor_Driver/Layout_Motor_Driver.PNG)
 #
-George StanekTM
+Jiri StanekTM
