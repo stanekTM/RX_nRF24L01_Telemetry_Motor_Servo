@@ -14,7 +14,7 @@ If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the
 
 ### Function:
 * Normal mode = LED RX is lit
-* Battery voltage 1S LiPo (4.2V) < 3.3V = RX LED flash at a interval of 0.5s
+* Battery voltage 1S LiPo (4.2V) < monitored voltage = RX LED flash at a interval of 0.5s
 * TX transmitter off or signal loss = RX LED flash at a interval of 0.1s
 * Fail-safe = servos 1 -> 12 set to neutral or individually set in code
 
