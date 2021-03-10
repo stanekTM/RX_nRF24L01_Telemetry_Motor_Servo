@@ -13,7 +13,7 @@ This RC receiver works with RC transmitters [RC_TX_nRF24L01_Telemetry_LCD](https
 Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage. 
 I haven't tried the 3.3V/8Mhz version yet. 
 If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF. 
-All versions of the code are based on this [scheme](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/Schema_Motor_Driver.PNG), but each version uses different pins.
+All versions of the code are based on this [scheme](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/Schema_Micro_RX_2ch_A1_Motor_Driver.PNG), but each version uses different pins.
 #
 ### RX prototype: 
 ![rx_prototype1](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype1.jpg)
