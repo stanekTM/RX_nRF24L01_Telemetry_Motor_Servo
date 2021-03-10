@@ -20,18 +20,18 @@ const byte address[] = "jirka";
 
 //settings PWM MotorA (pin D9 or D10)
 //1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
-#define pwm_motorA 256
+#define pwm_motorA 8
 
 //settings PWM MotorB (pin D3 or D11)
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
-#define pwm_motorB 256
+#define pwm_motorB 8
 
 //setting the reaction of the motor to be rotated after the lever has been moved
-#define accelerate_motorA 40
-#define accelerate_motorB 40
+#define accelerate_motorA 0
+#define accelerate_motorB 0
 
 //Brake setting, adjustment (0-255), no brake 0, max brake 255
-#define brake_motorA 255
+#define brake_motorA 0
 #define brake_motorB 0
 
 //LED alarm battery voltage setting
@@ -39,7 +39,7 @@ const byte address[] = "jirka";
 #define monitored_voltage 3.35
 
 //setting the dead zone of poor quality joysticks TX for the motor controller
-#define dead_zone  10
+#define dead_zone  15
 
 //PPM settings
 #define servoMid   1500
