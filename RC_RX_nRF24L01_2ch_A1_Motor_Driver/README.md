@@ -23,7 +23,6 @@ If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the
 ![Micro_RX_2ch_A1_Motor_Driver_5](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_nRF24L01_2ch_A1_Motor_Driver/Micro_RX_2ch_A1_Motor_Driver_5.jpg)
 ![Micro_RX_2ch_A1_Motor_Driver_6](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_nRF24L01_2ch_A1_Motor_Driver/Micro_RX_2ch_A1_Motor_Driver_6.jpg)
 ![Micro_RX_2ch_A1_Motor_Driver_7](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_nRF24L01_2ch_A1_Motor_Driver/Micro_RX_2ch_A1_Motor_Driver_7.jpg)
-![Micro_RX_2ch_A1_Motor_Driver_8](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_nRF24L01_2ch_A1_Motor_Driver/Micro_RX_2ch_A1_Motor_Driver_8.jpg)
 
 ### Function:
 * MotorA = adjustable pwm/ch1
