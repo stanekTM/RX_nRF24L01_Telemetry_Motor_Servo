@@ -15,6 +15,17 @@ I haven't tried the 3.3V/8Mhz version yet.
 If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF. 
 All versions of the code are based on this [scheme](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/Schema_Micro_RX_2ch_A1_Motor_Driver.PNG), but each version uses different pins.
 #
+### Example micro RX: 
+![Micro_RX_2ch_A1_Motor_Driver_0](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/Micro_RX_2ch_A1_Motor_Driver_0.jpg)
+![Micro_RX_2ch_A1_Motor_Driver_1](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/Micro_RX_2ch_A1_Motor_Driver_1.jpg)
+![Micro_RX_2ch_A1_Motor_Driver_2](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/Micro_RX_2ch_A1_Motor_Driver_2.jpg)
+![Micro_RX_2ch_A1_Motor_Driver_3](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/Micro_RX_2ch_A1_Motor_Driver_3.jpg)
+![Micro_RX_2ch_A1_Motor_Driver_4](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/Micro_RX_2ch_A1_Motor_Driver_4.jpg)
+![Micro_RX_2ch_A1_Motor_Driver_5](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/Micro_RX_2ch_A1_Motor_Driver_5.jpg)
+![Micro_RX_2ch_A1_Motor_Driver_6](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/Micro_RX_2ch_A1_Motor_Driver_6.jpg)
+![Micro_RX_2ch_A1_Motor_Driver_7](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/Micro_RX_2ch_A1_Motor_Driver_7.jpg)
+![Micro_RX_2ch_A1_Motor_Driver_8](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/Micro_RX_2ch_A1_Motor_Driver_8.jpg)
+#
 ### RX prototype: 
 ![rx_prototype1](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype1.jpg)
 ![rx_prototype2](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype2.jpg)
