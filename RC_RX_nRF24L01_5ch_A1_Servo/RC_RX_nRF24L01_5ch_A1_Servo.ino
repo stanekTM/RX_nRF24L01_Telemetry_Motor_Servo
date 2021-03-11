@@ -5,7 +5,7 @@
 //and for the TX Telemetry LED transmitter https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LED *
 //***************************************************************************************************
 
-#include <RF24.h>         //https://github.com/nRF24/RF24
+#include <RF24.h>         //https://github.com/nRF24/RF24 v1.3.9
 #include <nRF24L01.h>
 //#include <printf.h>       //print the radio debug info
 #include <DigitalIO.h>    //https://github.com/greiman/DigitalIO
