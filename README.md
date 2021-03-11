@@ -31,7 +31,7 @@ All versions of the code are based on this [scheme](https://raw.githubuserconten
 ![rx_prototype2](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype2.jpg)
 #
 ### Used libraries:
-* <RF24.h>                      https://github.com/nRF24/RF24 
+* <RF24.h>                      https://github.com/nRF24/RF24 v1.3.9
 * <DigitalIO.h>                 https://github.com/greiman/DigitalIO
 * "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
 * <Servo.h>        Arduino standard library
