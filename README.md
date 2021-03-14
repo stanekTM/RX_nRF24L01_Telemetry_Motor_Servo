@@ -18,8 +18,7 @@ All versions of the code are based on this [scheme](https://raw.githubuserconten
 ### Example micro RX:
 Video here https://youtu.be/E0pgMNPuYU4
 
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_0.jpg" width="300" height="239" />
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_1.jpg" width="300" height="239" />
+<img src="documents/Micro_RX_2ch_A1_Motor_Driver_0.jpg" width="300" height="239" /> <img src="documents/Micro_RX_2ch_A1_Motor_Driver_1.jpg" width="300" height="239" />
 <img src="documents/Micro_RX_2ch_A1_Motor_Driver_2.jpg" width="300" height="239" />
 <img src="documents/Micro_RX_2ch_A1_Motor_Driver_3.jpg" width="300" height="239" />
 <img src="documents/Micro_RX_2ch_A1_Motor_Driver_4.jpg" width="300" height="239" />
