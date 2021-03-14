@@ -18,14 +18,14 @@ All versions of the code are based on this [scheme](https://raw.githubuserconten
 ### Example micro RX:
 Video here https://youtu.be/E0pgMNPuYU4
 
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_0.jpg" width="276" height="239" /> <img src="documents/Micro_RX_2ch_A1_Motor_Driver_1.jpg" width="276" height="239" />
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_2.jpg" width="276" height="239" />
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_3.jpg" width="276" height="239" />
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_4.jpg" width="276" height="239" />
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_5.jpg" width="276" height="239" />
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_6.jpg" width="276" height="239" />
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_7.jpg" width="276" height="239" />
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_8.jpg" width="276" height="239" />
+<img src="documents/Micro_RX_2ch_A1_Motor_Driver_0.jpg" width="276" height="220" /> <img src="documents/Micro_RX_2ch_A1_Motor_Driver_1.jpg" width="276" height="227" />
+<img src="documents/Micro_RX_2ch_A1_Motor_Driver_2.jpg" width="276" height="183" />
+<img src="documents/Micro_RX_2ch_A1_Motor_Driver_3.jpg" width="276" height="184" />
+<img src="documents/Micro_RX_2ch_A1_Motor_Driver_4.jpg" width="276" height="155" />
+<img src="documents/Micro_RX_2ch_A1_Motor_Driver_5.jpg" width="276" height="155" />
+<img src="documents/Micro_RX_2ch_A1_Motor_Driver_6.jpg" width="276" height="162" />
+<img src="documents/Micro_RX_2ch_A1_Motor_Driver_7.jpg" width="276" height="135" />
+<img src="documents/Micro_RX_2ch_A1_Motor_Driver_8.jpg" width="276" height="374" />
 #
 ### RX prototype: 
 ![rx_prototype1](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype1.jpg)
