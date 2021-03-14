@@ -15,7 +15,7 @@ I haven't tried the 3.3V/8Mhz version yet.
 If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF.
 #
 ### Micro RX:
-<a href="https://youtu.be/E0pgMNPuYU4"><img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/youtube.PNG" width="640" /></a>
+<a href="https://youtu.be/E0pgMNPuYU4"><img src="documents/youtube.PNG" width="640" /></a>
 
 <img src="documents/Micro_RX_2ch_A1_Motor_Driver_0.jpg" width="276" /> <img src="documents/Micro_RX_2ch_A1_Motor_Driver_1.jpg" width="276" />
 <img src="documents/Micro_RX_2ch_A1_Motor_Driver_2.jpg" width="276" />
