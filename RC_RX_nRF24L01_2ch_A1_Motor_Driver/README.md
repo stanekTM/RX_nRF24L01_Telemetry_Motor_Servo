@@ -17,12 +17,11 @@ If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the
 ### Micro RX:
 Video here https://youtu.be/E0pgMNPuYU4
 
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_0.jpg" width="276" height="155" /> <img src="documents/Micro_RX_2ch_A1_Motor_Driver_1.jpg" width="276" height="155" />
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_2.jpg" width="276" height="155" />
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_3.jpg" width="276" height="155" />
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_4.jpg" width="276" height="155" />
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_5.jpg" width="276" height="155" />
-<img src="documents/Micro_RX_2ch_A1_Motor_Driver_6.jpg" width="416" height="558" />
+<img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_0.jpg" width="276" height="155" /> <img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_1.jpg" width="276" height="155" />
+<img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_2.jpg" width="276" height="155" />
+<img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_3.jpg" width="276" height="155" />
+<img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_4.jpg" width="276" height="155" />
+<img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_5.jpg" width="276" height="155" />
 ### Function:
 * MotorA = adjustable pwm/ch1
 * MotorB = adjustable pwm/ch2
