@@ -16,9 +16,8 @@ If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the
 All versions of the code are based on this [scheme](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Schema_Micro_RX_2ch_A1_Motor_Driver.PNG), but each version uses different pins.
 #
 ### Example micro RX:
-<a href="https://youtu.be/E0pgMNPuYU4"><img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/youtube.PNG" width="276"/>
-
-<img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_0.jpg" width="276" height="155" /> <img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_1.jpg" width="276" height="155" />
+<a href="https://youtu.be/E0pgMNPuYU4"><img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/youtube.PNG" width="276"/> <img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_0.jpg" width="276" height="155" />
+<img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_1.jpg" width="276" height="155" />
 <img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_2.jpg" width="276" height="155" />
 <img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_3.jpg" width="276" height="155" />
 <img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_4.jpg" width="276" height="155" />
