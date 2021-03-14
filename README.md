@@ -25,9 +25,9 @@ Video here https://youtu.be/E0pgMNPuYU4
 <img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/Micro_RX_2ch_A1_Motor_Driver_5.jpg" width="276" height="155" />
 <img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/Micro_RX_2ch_A1_Motor_Driver_6.jpg" width="416" height="558" />
 #
-### RX prototype: 
-![rx_prototype1](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype1.jpg)
-![rx_prototype2](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype2.jpg)
+### RX prototype:
+<img src="documents/rx_prototype1.jpg" width="416" height="253" />
+<img src="documents/rx_prototype2.jpg" width="416" height="214" />
 #
 ### Used libraries:
 * <RF24.h>                      https://github.com/nRF24/RF24 v1.3.9
