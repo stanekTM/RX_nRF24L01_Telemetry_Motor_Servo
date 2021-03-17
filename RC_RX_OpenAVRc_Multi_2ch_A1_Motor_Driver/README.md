@@ -7,8 +7,8 @@ The motor driver IC is based on MX1208, MX1508, MX1515, MX1616L, TC1508S, SA8302
 The possibility of setting the brake is in the code.
 The firmware will be used for micro cars, boats, tanks and robots.
 
-This RC receiver works with RC transmitters [OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) or 
-[DIY-Multiprotocol-TX-Module](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
+This RC receiver works with RC transmitters [openavrc](https://github.com/stanekTM/OpenAVRc_Dev) or 
+[mpm](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
 
 Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage. 
 I haven't tried the 3.3V/8Mhz version yet. 
@@ -49,7 +49,10 @@ nRF24L01:
 * A4  - MISO
 
 ### Code:
-[RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver.ino)
+[ino](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver.ino)
+
+### Hex file:
+[hex](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver.hex)
 
 ### Used libraries:
 * <RF24.h>                      https://github.com/nRF24/RF24 v1.3.9 
@@ -57,12 +60,12 @@ nRF24L01:
 * "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
 
 ### Schema:
-![Schema_Micro_RX_2ch_A1_Motor_Driver](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Schema_Micro_RX_2ch_A1_Motor_Driver.PNG)
+![schema](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Schema_Micro_RX_2ch_A1_Motor_Driver.PNG)
 
 ### Gerber files: 
-[Micro_RX_2ch_A1_Motor_Driver_v1.0](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/gerber)
+[gerber](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/gerber)
 
 ### Layout:
-![Layout_Micro_RX_2ch_A1_Motor_Driver](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Layout_Micro_RX_2ch_A1_Motor_Driver.PNG)
+![layout](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Layout_Micro_RX_2ch_A1_Motor_Driver.PNG)
 #
 Jiri StanekTM
