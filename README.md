@@ -8,7 +8,7 @@ The firmware will be used for cars, boats, tanks, robots and aircraft.
 
 This RC receiver works with RC transmitters [RC_TX_nRF24L01_Telemetry_LCD](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LCD), 
 [RC_TX_nRF24L01_Telemetry_LED](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LED), 
-[OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) or [DIY-Multiprotocol-TX-Module](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
+[OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) or [Multiprotocol](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
 
 Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage. 
 I haven't tried the 3.3V/8Mhz version yet. 
