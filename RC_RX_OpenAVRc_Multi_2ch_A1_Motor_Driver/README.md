@@ -48,12 +48,6 @@ nRF24L01:
 * A3  - MOSI
 * A4  - MISO
 
-### Code:
-[ino](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver.ino)
-
-### Hex file:
-![hex](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver.hex)
-
 ### Used libraries:
 * <RF24.h>                      https://github.com/nRF24/RF24 v1.3.9 
 * <DigitalIO.h>                 https://github.com/greiman/DigitalIO
@@ -62,10 +56,10 @@ nRF24L01:
 ### Schema:
 ![schema](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Schema_Micro_RX_2ch_A1_Motor_Driver.PNG)
 
-### Gerber files: 
-[Micro_RX_2ch_A1_Motor_Driver_v1.0](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/gerber)
-
 ### Layout:
 ![layout](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Layout_Micro_RX_2ch_A1_Motor_Driver.PNG)
+
+### Gerber files: 
+[Micro_RX_2ch_A1_Motor_Driver_v1.0](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/gerber)
 #
 Jiri StanekTM
