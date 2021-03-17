@@ -39,7 +39,7 @@ const byte address[] = "jirka";
 #define monitored_voltage 3.35
 
 //setting the dead zone of poor quality joysticks TX for the motor controller
-#define dead_zone  10
+#define dead_zone  15
 
 //PPM settings
 #define servoMid   1500
