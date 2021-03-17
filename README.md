@@ -26,7 +26,7 @@ All versions of the code are based on this [scheme](https://raw.githubuserconten
 <img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_6.jpg" width="416" />
 #
 ### RX prototype:
-<img src="documents/rx_prototype1.jpg" width="416" height="253" /> <img src="documents/rx_prototype2.jpg" width="416" height="214" />
+<img src="documents/rx_prototype1.jpg" width="416" /> <img src="documents/rx_prototype2.jpg" width="416" />
 #
 ### Used libraries:
 * <RF24.h>                      https://github.com/nRF24/RF24 v1.3.9
