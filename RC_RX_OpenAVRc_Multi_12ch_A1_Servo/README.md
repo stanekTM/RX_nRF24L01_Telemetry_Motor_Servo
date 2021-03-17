@@ -6,7 +6,7 @@ This is the maximum of the Arduino RX receiver of the "Servo" library on the Atm
 The firmware will be used for cars, boats, tanks, robots and aircraft.
 
 This RC receiver works with RC transmitters [OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) or 
-[DIY-Multiprotocol-TX-Module](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
+[Multiprotocol](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
 
 Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage. 
 I haven't tried the 3.3V/8Mhz version yet. 
@@ -41,9 +41,6 @@ nRF24L01:
 * A2  - SCK
 * A3  - MOSI
 * A4  - MISO
-
-### Code:
-[RC_RX_OpenAVRc_Multi_12ch_A1_Servo](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/blob/master/RC_RX_OpenAVRc_Multi_12ch_A1_Servo/RC_RX_OpenAVRc_Multi_12ch_A1_Servo.ino)
 
 ### Used libraries:
 * <RF24.h>                      https://github.com/nRF24/RF24 v1.3.9 
