@@ -58,8 +58,5 @@ nRF24L01:
 
 ### Layout:
 ![layout](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Layout_Micro_RX_2ch_A1_Motor_Driver.PNG)
-
-### Gerber files: 
-[Micro_RX_2ch_A1_Motor_Driver_v1.0](https://github.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/tree/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/gerber)
 #
 Jiri StanekTM
