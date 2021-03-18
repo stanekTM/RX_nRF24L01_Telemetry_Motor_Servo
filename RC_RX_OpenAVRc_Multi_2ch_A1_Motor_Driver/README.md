@@ -1,4 +1,4 @@
-## RC receiver nRF24L01 2ch motor drivers for OpenAVRc and Multiprotocol/OpenTX
+## Micro RX:
 RC receiver nRF24L01 with ATmega328P 5V/16Mhz processor for smaller dimensions.
 It is possible to use Arduino Nano or Pro Mini. 
 Telemetry sends the monitored voltage RX to TX. 
@@ -14,7 +14,6 @@ Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage.
 I haven't tried the 3.3V/8Mhz version yet. 
 If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF.
 #
-### Micro RX:
 <a href="https://youtu.be/E0pgMNPuYU4"><img src="documents/youtube.PNG" width="640" /></a>
 
 <img src="documents/Micro_RX_2ch_A1_Motor_Driver_0.jpg" width="276" /> <img src="documents/Micro_RX_2ch_A1_Motor_Driver_1.jpg" width="276" />
