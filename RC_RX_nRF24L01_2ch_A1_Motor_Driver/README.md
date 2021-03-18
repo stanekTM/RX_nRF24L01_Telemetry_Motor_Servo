@@ -1,4 +1,4 @@
-## RC receiver nRF24L01 2ch motor drivers for Arduino TX
+## Micro RX:
 RC receiver nRF24L01 with ATmega328P 5V/16Mhz processor for smaller dimensions.
 It is possible to use Arduino Nano or Pro Mini.
 Telemetry sends the monitored voltage RX to TX. 
