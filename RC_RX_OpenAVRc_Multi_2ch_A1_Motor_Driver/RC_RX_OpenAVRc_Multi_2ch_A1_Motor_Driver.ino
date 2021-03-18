@@ -20,7 +20,7 @@ const byte address[] = "jirka";
 
 //settings PWM MotorA (pin D9 or D10)
 //1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
-#define pwm_motorA 8
+#define pwm_motorA 64
 
 //settings PWM MotorB (pin D3 or D11)
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
