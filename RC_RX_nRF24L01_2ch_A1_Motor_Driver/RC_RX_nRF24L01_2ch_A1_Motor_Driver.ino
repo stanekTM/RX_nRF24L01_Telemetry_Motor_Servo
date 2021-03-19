@@ -89,9 +89,9 @@ struct packet
 {
   unsigned int ch1; //MotorA
   unsigned int ch2; //MotorB
-  unsigned int ch3;
-  unsigned int ch4;
-  unsigned int ch5;
+  unsigned int ch3; //unused channel, only adding byte array TX 5ch
+  unsigned int ch4; //unused channel, only adding byte array TX 5ch
+  unsigned int ch5; //unused channel, only adding byte array TX 5ch
 };
 packet rc_data; //create a variable with the above structure
 
