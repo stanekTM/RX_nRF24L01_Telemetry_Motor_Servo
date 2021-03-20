@@ -150,6 +150,15 @@ int ch3_value = 0, ch4_value = 0, ch5_value = 0, ch6_value = 0, ch7_value = 0, c
 
 void outputServo()
 {
+  ch3_value  = map(rc_data.ch3, servoMin, servoMax, servoMin, servoMax); 
+  ch4_value  = map(rc_data.ch4, servoMin, servoMax, servoMin, servoMax);
+  ch5_value  = map(rc_data.ch5, servoMin, servoMax, servoMin, servoMax); 
+  ch6_value  = map(rc_data.ch6, servoMin, servoMax, servoMin, servoMax);
+  ch7_value  = map(rc_data.ch7, servoMin, servoMax, servoMin, servoMax); 
+  ch8_value  = map(rc_data.ch8, servoMin, servoMax, servoMin, servoMax);
+  ch9_value  = map(rc_data.ch9, servoMin, servoMax, servoMin, servoMax);
+  ch10_value = map(rc_data.ch10, servoMin, servoMax, servoMin, servoMax);
+  
   servo1.writeMicroseconds(ch3_value);   
   servo2.writeMicroseconds(ch4_value); 
   servo3.writeMicroseconds(ch5_value);   
@@ -158,15 +167,6 @@ void outputServo()
   servo6.writeMicroseconds(ch8_value); 
   servo7.writeMicroseconds(ch9_value);
   servo8.writeMicroseconds(ch10_value);
-
-  ch3_value  = map(rc_data.ch3, servoMin, servoMax, servoMin, servoMax); 
-  ch4_value  = map(rc_data.ch4, servoMin, servoMax, servoMin, servoMax);
-  ch5_value  = map(rc_data.ch5, servoMin, servoMax, servoMin, servoMax); 
-  ch6_value  = map(rc_data.ch6, servoMin, servoMax, servoMin, servoMax);
-  ch7_value  = map(rc_data.ch7, servoMin, servoMax, servoMin, servoMax); 
-  ch8_value  = map(rc_data.ch8, servoMin, servoMax, servoMin, servoMax);
-  ch9_value  = map(rc_data.ch9, servoMin, servoMax, servoMin, servoMax);
-  ch10_value = map(rc_data.ch10, servoMin, servoMax, servoMin, servoMax); 
 
 //  Serial.println(rc_data.ch3); //print value ​​on a serial monitor 
 }
