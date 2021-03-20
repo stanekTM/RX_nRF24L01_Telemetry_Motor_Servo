@@ -135,13 +135,13 @@ int ch3_value = 0, ch4_value = 0, ch5_value = 0;
 
 void outputServo()
 {
-  servo1.writeMicroseconds(ch3_value);   
-  servo2.writeMicroseconds(ch4_value); 
-  servo3.writeMicroseconds(ch5_value);
-
   ch3_value  = map(rc_data.ch3, servoMin, servoMax, servoMin, servoMax); 
   ch4_value  = map(rc_data.ch4, servoMin, servoMax, servoMin, servoMax);
   ch5_value  = map(rc_data.ch5, servoMin, servoMax, servoMin, servoMax);
+  
+  servo1.writeMicroseconds(ch3_value);   
+  servo2.writeMicroseconds(ch4_value); 
+  servo3.writeMicroseconds(ch5_value);
 
 //  Serial.println(rc_data.ch3); //print value ​​on a serial monitor 
 }
