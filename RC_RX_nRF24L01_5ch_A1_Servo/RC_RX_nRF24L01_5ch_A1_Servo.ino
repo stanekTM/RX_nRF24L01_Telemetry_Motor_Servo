@@ -114,18 +114,18 @@ void attachServoPins()
 int ch1_value = 0, ch2_value = 0, ch3_value = 0, ch4_value = 0, ch5_value = 0;
 
 void outputServo()
-{ 
-  servo1.writeMicroseconds(ch1_value);   
-  servo2.writeMicroseconds(ch2_value);
-  servo3.writeMicroseconds(ch3_value);   
-  servo4.writeMicroseconds(ch4_value);
-  servo5.writeMicroseconds(ch5_value);
-
+{
   ch1_value  = map(rc_data.ch1, servoMin, servoMax, servoMin, servoMax);
   ch2_value  = map(rc_data.ch2, servoMin, servoMax, servoMin, servoMax);
   ch3_value  = map(rc_data.ch3, servoMin, servoMax, servoMin, servoMax); 
   ch4_value  = map(rc_data.ch4, servoMin, servoMax, servoMin, servoMax);
   ch5_value  = map(rc_data.ch5, servoMin, servoMax, servoMin, servoMax);
+  
+  servo1.writeMicroseconds(ch1_value);   
+  servo2.writeMicroseconds(ch2_value);
+  servo3.writeMicroseconds(ch3_value);   
+  servo4.writeMicroseconds(ch4_value);
+  servo5.writeMicroseconds(ch5_value);
 
 //  Serial.println(rc_data.ch1); //print value ​​on a serial monitor 
 }
