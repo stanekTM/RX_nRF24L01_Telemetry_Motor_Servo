@@ -111,21 +111,21 @@ void attachServoPins()
   servo5.attach(pin_servo5);
 }
 
-int ch1_value = 0, ch2_value = 0, ch3_value = 0, ch4_value = 0, ch5_value = 0;
+int value_servo1 = 0, value_servo2 = 0, value_servo3 = 0, value_servo4 = 0, value_servo5 = 0;
 
 void outputServo()
 {
-  ch1_value  = map(rc_data.ch1, servoMin, servoMax, servoMin, servoMax);
-  ch2_value  = map(rc_data.ch2, servoMin, servoMax, servoMin, servoMax);
-  ch3_value  = map(rc_data.ch3, servoMin, servoMax, servoMin, servoMax); 
-  ch4_value  = map(rc_data.ch4, servoMin, servoMax, servoMin, servoMax);
-  ch5_value  = map(rc_data.ch5, servoMin, servoMax, servoMin, servoMax);
+  value_servo1 = map(rc_data.ch1, servoMin, servoMax, servoMin, servoMax);
+  value_servo2 = map(rc_data.ch2, servoMin, servoMax, servoMin, servoMax);
+  value_servo3 = map(rc_data.ch3, servoMin, servoMax, servoMin, servoMax); 
+  value_servo4 = map(rc_data.ch4, servoMin, servoMax, servoMin, servoMax);
+  value_servo5 = map(rc_data.ch5, servoMin, servoMax, servoMin, servoMax);
   
-  servo1.writeMicroseconds(ch1_value);   
-  servo2.writeMicroseconds(ch2_value);
-  servo3.writeMicroseconds(ch3_value);   
-  servo4.writeMicroseconds(ch4_value);
-  servo5.writeMicroseconds(ch5_value);
+  servo1.writeMicroseconds(value_servo1);   
+  servo2.writeMicroseconds(value_servo2);
+  servo3.writeMicroseconds(value_servo3);   
+  servo4.writeMicroseconds(value_servo4);
+  servo5.writeMicroseconds(value_servo5);
 
 //  Serial.println(rc_data.ch1); //print value ​​on a serial monitor 
 }
