@@ -42,13 +42,13 @@
  *   - Pins 5 is exclusivly     on timer3 16bit (Default prescale=64, Freq=490Hz)
  *   - Pins 6 and 13 are paired on timer4 10bit (default prescale=64, Freq=490Hz)
  * 
- * Note: Pins 3 and 11 operate on Timer 0 changes this pins will 
+ * Note: Pins 3 and 11 operate on Timer 0 changes this pins will
  * affect the user of the main time millis() functions
  * 
  * Thanks to MacTester of the TonyMacX86 forums for his work in defining 
  * the timings and testing this library
  */ 
-void setPWMPrescaler(uint8_t pin, uint16_t prescale) 
+void setPWMPrescaler(uint8_t pin, uint16_t prescale)
 { 
   byte mode;
   
@@ -56,7 +56,7 @@ void setPWMPrescaler(uint8_t pin, uint16_t prescale)
     switch(prescale) {
       case    1: mode = 0b001; break;
       case    8: mode = 0b010; break;
-      case   64: mode = 0b011; break; 
+      case   64: mode = 0b011; break;
       case  256: mode = 0b100; break;
       case 1024: mode = 0b101; break;
       default: return;
@@ -136,7 +136,7 @@ void setPWMPrescaler(uint8_t pin, uint16_t prescale) {
     switch(prescale) {
       case    1: mode = 0b001; break;
       case    8: mode = 0b010; break;
-      case   64: mode = 0b011; break; 
+      case   64: mode = 0b011; break;
       case  256: mode = 0b100; break;
       case 1024: mode = 0b101; break;
       default: return;
@@ -146,8 +146,8 @@ void setPWMPrescaler(uint8_t pin, uint16_t prescale) {
     switch(prescale) {
       case    1: mode = 0b001; break;
       case    8: mode = 0b010; break;
-      case   32: mode = 0b011; break; 
-      case   64: mode = 0b100; break; 
+      case   32: mode = 0b011; break;
+      case   64: mode = 0b100; break;
       case  128: mode = 0b101; break;
       case  256: mode = 0b110; break;
       case 1024: mode = 0b111; break;

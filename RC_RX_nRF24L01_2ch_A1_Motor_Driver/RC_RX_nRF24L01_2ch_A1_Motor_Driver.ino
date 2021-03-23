@@ -18,11 +18,11 @@ const byte address[] = "jirka";
 #define radio_channel 76
 
 //settings PWM MotorA (pin D9 or D10)
-//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
-#define pwm_motorA 256 
+//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
+#define pwm_motorA 256
 
 //settings PWM MotorB (pin D3 or D11)
-//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
+//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
 #define pwm_motorB 256
 
 //setting the reaction of the motor to be rotated after the lever has been moved
@@ -53,7 +53,7 @@ const byte address[] = "jirka";
 //pin              6
 //pin              7
 //pin              8
-//pin              12 //MISO 
+//pin              12 //MISO
 //pin              13 //SCK
 //pin              A5
 //pin              A6
@@ -71,8 +71,8 @@ const byte address[] = "jirka";
 #define pin_RXbatt A7
 
 //pins for nRF24L01
-#define pin_CE     A0 
-#define pin_CSN    A1 
+#define pin_CE     A0
+#define pin_CSN    A1
 
 //software SPI http://tmrh20.github.io/RF24/Arduino.html
 //----- SCK   16 - A2
@@ -126,14 +126,14 @@ void outputPWM()
  * 
  * The divisors available on pins 5, 6, 9, 10 are: 1, 8, 64, 256, and 1024.
  * The divisors available on pins 3, 11       are: 1, 8, 32, 64, 128, 256, and 1024.
- *    
+ * 
  * Pins 5, 6  are paired on timer0, functions delay(), millis(), micros() and delayMicroseconds()
- * D5   pwm 976Hz(default), timer0, 8-bit 
+ * D5   pwm 976Hz(default), timer0, 8-bit
  * D6   pwm 976Hz(default), timer0, 8-bit
  * 
  * Pins 9, 10 are paired on timer1, Servo library
  * D9   pwm 488Hz(default), timer1, 16-bit
- * D10  pwm 488Hz(default), timer1, 16-bit    
+ * D10  pwm 488Hz(default), timer1, 16-bit
  * 
  * Pins 3, 11 are paired on timer2, ServoTimer2 library
  * D3   pwm 488Hz(default), timer2, 8-bit
@@ -141,19 +141,19 @@ void outputPWM()
 */
 
 //MotorA PWM frequency pin D9 or pin D10
-//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
+//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
   setPWMPrescaler(pin_pwm1_motorA, pwm_motorA);  
 
 //MotorB PWM frequency pin D3 or pin D11
-//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
-  setPWMPrescaler(pin_pwm3_motorB, pwm_motorB);  
+//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
+  setPWMPrescaler(pin_pwm3_motorB, pwm_motorB);
 
-//MotorA ------------------------------------------------------------------------------------- 
+//MotorA -------------------------------------------------------------------------------------
 
   if (rc_data.ch1 < servoMid - dead_zone)
   {
     value_motorA = map(rc_data.ch1, servoMid - dead_zone, servoMin, accelerate_motorA, 255);
-    analogWrite(pin_pwm1_motorA, value_motorA); 
+    analogWrite(pin_pwm1_motorA, value_motorA);
     digitalWrite(pin_pwm2_motorA, LOW);
   }
   else if (rc_data.ch1 > servoMid + dead_zone)
@@ -174,14 +174,14 @@ void outputPWM()
 
   if (rc_data.ch2 < servoMid - dead_zone)
   {
-    value_motorB = map(rc_data.ch2, servoMid - dead_zone, servoMin, accelerate_motorB, 255); 
-    analogWrite(pin_pwm3_motorB, value_motorB); 
+    value_motorB = map(rc_data.ch2, servoMid - dead_zone, servoMin, accelerate_motorB, 255);
+    analogWrite(pin_pwm3_motorB, value_motorB);
     digitalWrite(pin_pwm4_motorB, LOW);
   }
   else if (rc_data.ch2 > servoMid + dead_zone)
   {
-    value_motorB = map(rc_data.ch2, servoMid + dead_zone, servoMax, accelerate_motorB, 255); 
-    analogWrite(pin_pwm4_motorB, value_motorB); 
+    value_motorB = map(rc_data.ch2, servoMid + dead_zone, servoMax, accelerate_motorB, 255);
+    analogWrite(pin_pwm4_motorB, value_motorB);
     digitalWrite(pin_pwm3_motorB, LOW);
   }
   else
@@ -258,8 +258,8 @@ void receive_time()
 {
   if(millis() >= lastRxTime + 1000) //1s
   {
-    resetData();       
-    RFoff_check(); 
+    resetData();
+    RFoff_check();
   }
 }
 
@@ -277,7 +277,7 @@ void send_and_receive_data()
     radio.read(&rc_data, sizeof(packet));
     
     lastRxTime = millis(); //at this moment we have received the data
-    RX_batt_check();                      
+    RX_batt_check();
   } 
 }
 
