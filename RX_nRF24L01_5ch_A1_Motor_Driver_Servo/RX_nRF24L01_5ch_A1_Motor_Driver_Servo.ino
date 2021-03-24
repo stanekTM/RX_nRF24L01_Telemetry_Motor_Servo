@@ -1,14 +1,15 @@
 
-//***************************************************************************************************
-//Communication nRF24L01P. Fixed RF channel, fixed address.                                         *
-//Support for TX Telemetry LCD transmitter https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LCD *
-//and for the TX Telemetry LED transmitter https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LED *
-//***************************************************************************************************
+//************************************************************************************************
+//Communication nRF24L01P. Fixed RF channel, fixed address.                                      *
+//Support for TX Telemetry LCD transmitter https://github.com/stanekTM/TX_nRF24L01_Telemetry_LCD *
+//and for the TX Telemetry LED transmitter https://github.com/stanekTM/TX_nRF24L01_Telemetry_LED *
+//************************************************************************************************
 
 #include <RF24.h>         //https://github.com/nRF24/RF24 v1.3.9
 //#include <printf.h>       //print the radio debug info
 #include <DigitalIO.h>    //https://github.com/greiman/DigitalIO
 #include <Servo.h>        //Arduino standard library
+#include "PWMFrequency.h" //used locally https://github.com/TheDIYGuy999/PWMFrequency
 
 
 //setting RF channels address (5 bytes number or character)
@@ -17,48 +18,69 @@ const byte address[] = "jirka";
 //RF communication channel settings (0-125, 2.4Ghz + 76 = 2.476Ghz)
 #define radio_channel 76
 
+//settings PWM MotorA (pin D5 or D6 are paired on timer0, functions delay(), millis(), micros() and delayMicroseconds())
+//1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default), 8 = 7812Hz 
+#define pwm_motorA 64
+
+//settings PWM MotorB (pin D3 or D11)
+//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
+#define pwm_motorB 256
+
+//setting the reaction of the motor to be rotated after the lever has been moved
+#define accelerate_motorA 90
+#define accelerate_motorB 40
+
+//Brake setting, adjustment (0-255), no brake 0, max brake 255
+#define brake_motorA 255
+#define brake_motorB 0
+
 //LED alarm battery voltage setting
 #define battery_voltage   4.2
 #define monitored_voltage 3.35
 
+//setting the dead zone of poor quality joysticks TX for the motor controller
+#define dead_zone  15
+
 //PPM settings
-#define servoMid     1500
-#define servoMin     1000
-#define servoMax     2000
+#define servoMid   1500
+#define servoMin   1000
+#define servoMax   2000
 
 //free pins
-//pin                0
-//pin                1
-//pin                2
-//pin                3
-//pin                4
-//pin                5
-//pin                6
-//pin                7
-//pin                8
-//pin                A6
+//pin              0
+//pin              1
+//pin              2
+//pin              4
+//pin              7
+//pin              8
+//pin              9
+//pin              A6
 
 //pins for servos
-#define pin_servo1   9
-#define pin_servo2   10
-#define pin_servo3   11 //MOSI
-#define pin_servo4   12 //MISO
-#define pin_servo5   13 //SCK
+#define pin_servo1 10
+#define pin_servo2 12 //MISO
+#define pin_servo3 13 //SCK 
+ 
+//pwm pins for motor
+#define pin_pwm1_motorA 5
+#define pin_pwm2_motorA 6
+#define pin_pwm3_motorB 3
+#define pin_pwm4_motorB 11 //MOSI
 
 //LED RX battery and RF on/off
-#define pin_LED      A5 
+#define pin_LED    A5
 
 //input RX battery
-#define pin_RXbatt   A7
+#define pin_RXbatt A7
 
 //pins for nRF24L01
-#define pin_CE       A0 
-#define pin_CSN      A1 
+#define pin_CE     A0 
+#define pin_CSN    A1 
 
 //software SPI http://tmrh20.github.io/RF24/Arduino.html
-//----- SCK     16 - A2
-//----- MOSI    17 - A3
-//----- MISO    18 - A4
+//----- SCK   16 - A2
+//----- MOSI  17 - A3
+//----- MISO  18 - A4
 
 //setting of CE and CSN pins
 RF24 radio(pin_CE, pin_CSN);
@@ -68,8 +90,8 @@ RF24 radio(pin_CE, pin_CSN);
 //************************************************************************************************************************************************************************
 struct packet
 {
-  unsigned int ch1;
-  unsigned int ch2;
+  unsigned int ch1; //MotorA
+  unsigned int ch2; //MotorB
   unsigned int ch3;
   unsigned int ch4;
   unsigned int ch5;
@@ -90,8 +112,8 @@ ackPayload payload;
 //************************************************************************************************************************************************************************
 void resetData()
 {
-  rc_data.ch1  = servoMid;
-  rc_data.ch2  = servoMid;
+  rc_data.ch1  = servoMid; //MotorA
+  rc_data.ch2  = servoMid; //MotorB
   rc_data.ch3  = servoMid;     
   rc_data.ch4  = servoMid;
   rc_data.ch5  = servoMid;
@@ -100,34 +122,106 @@ void resetData()
 //************************************************************************************************************************************************************************
 //create servo object ****************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
-Servo servo1, servo2, servo3, servo4, servo5;
+Servo servo1, servo2, servo3;
 
 void attachServoPins()
 {
   servo1.attach(pin_servo1);
   servo2.attach(pin_servo2);
   servo3.attach(pin_servo3);
-  servo4.attach(pin_servo4);
-  servo5.attach(pin_servo5);
 }
 
-int value_servo1 = 0, value_servo2 = 0, value_servo3 = 0, value_servo4 = 0, value_servo5 = 0;
+int value_servo1 = 0, value_servo2 = 0, value_servo3 = 0;
 
 void outputServo()
 {
-  value_servo1 = map(rc_data.ch1, servoMin, servoMax, servoMin, servoMax);
-  value_servo2 = map(rc_data.ch2, servoMin, servoMax, servoMin, servoMax);
-  value_servo3 = map(rc_data.ch3, servoMin, servoMax, servoMin, servoMax); 
-  value_servo4 = map(rc_data.ch4, servoMin, servoMax, servoMin, servoMax);
-  value_servo5 = map(rc_data.ch5, servoMin, servoMax, servoMin, servoMax);
+  value_servo1 = map(rc_data.ch3, servoMin, servoMax, servoMin, servoMax); 
+  value_servo2 = map(rc_data.ch4, servoMin, servoMax, servoMin, servoMax);
+  value_servo3 = map(rc_data.ch5, servoMin, servoMax, servoMin, servoMax);
   
   servo1.writeMicroseconds(value_servo1);   
-  servo2.writeMicroseconds(value_servo2);
-  servo3.writeMicroseconds(value_servo3);   
-  servo4.writeMicroseconds(value_servo4);
-  servo5.writeMicroseconds(value_servo5);
+  servo2.writeMicroseconds(value_servo2); 
+  servo3.writeMicroseconds(value_servo3);
 
-//  Serial.println(rc_data.ch1); //print value ​​on a serial monitor 
+//  Serial.println(rc_data.ch3); //print value ​​on a serial monitor 
+}
+
+//************************************************************************************************************************************************************************
+//setup frequencies and motors control ***********************************************************************************************************************************
+//************************************************************************************************************************************************************************
+int value_motorA = 0, value_motorB = 0; 
+
+void outputPWM()
+{  
+/*
+ * The base frequency for pins 3, 9, 10, 11 is 31250Hz.
+ * The base frequency for pins 5, 6         is 62500Hz.
+ * 
+ * The divisors available on pins 5, 6, 9, 10 are: 1, 8, 64, 256, and 1024.
+ * The divisors available on pins 3, 11       are: 1, 8, 32, 64, 128, 256, and 1024.
+ *    
+ * Pins 5, 6  are paired on timer0, functions delay(), millis(), micros() and delayMicroseconds()
+ * D5   pwm 976Hz(default), timer0, 8-bit 
+ * D6   pwm 976Hz(default), timer0, 8-bit
+ * 
+ * Pins 9, 10 are paired on timer1, Servo library
+ * D9   pwm 488Hz(default), timer1, 16-bit
+ * D10  pwm 488Hz(default), timer1, 16-bit    
+ * 
+ * Pins 3, 11 are paired on timer2, ServoTimer2 library
+ * D3   pwm 488Hz(default), timer2, 8-bit
+ * D11  pwm 488Hz(default), timer2, 8-bit, SPI MOSI hardware
+*/
+ 
+//MotorA PWM frequency pin D5 or pin D6
+//1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default), 8 = 7812Hz 
+  setPWMPrescaler(pin_pwm1_motorA, pwm_motorA);
+
+//MotorB PWM frequency pin D3 or pin D11
+//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
+  setPWMPrescaler(pin_pwm3_motorB, pwm_motorB); 
+
+//MotorA --------------------------------------------------------------------------------------
+
+  if (rc_data.ch1 < servoMid - dead_zone)
+  {
+    value_motorA = map(rc_data.ch1, servoMid - dead_zone, servoMin, accelerate_motorA, 255);
+    analogWrite(pin_pwm1_motorA, value_motorA); 
+    digitalWrite(pin_pwm2_motorA, LOW);
+  }
+  else if (rc_data.ch1 > servoMid + dead_zone)
+  {
+    value_motorA = map(rc_data.ch1, servoMid + dead_zone, servoMax, accelerate_motorA, 255);
+    analogWrite(pin_pwm2_motorA, value_motorA); 
+    digitalWrite(pin_pwm1_motorA, LOW);
+  }
+  else
+  {
+    analogWrite(pin_pwm1_motorA, brake_motorA);
+    analogWrite(pin_pwm2_motorA, brake_motorA);
+  }
+
+//  Serial.println(rc_data.ch1); //print value ​​on a serial monitor
+  
+//MotorB --------------------------------------------------------------------------------------
+
+  if (rc_data.ch2 < servoMid - dead_zone)
+  {
+    value_motorB = map(rc_data.ch2, servoMid - dead_zone, servoMin, accelerate_motorB, 255); 
+    analogWrite(pin_pwm3_motorB, value_motorB); 
+    digitalWrite(pin_pwm4_motorB, LOW);
+  }
+  else if (rc_data.ch2 > servoMid + dead_zone)
+  {
+    value_motorB = map(rc_data.ch2, servoMid + dead_zone, servoMax, accelerate_motorB, 255); 
+    analogWrite(pin_pwm4_motorB, value_motorB); 
+    digitalWrite(pin_pwm3_motorB, LOW);
+  }
+  else
+  {
+    analogWrite(pin_pwm3_motorB, brake_motorB);
+    analogWrite(pin_pwm4_motorB, brake_motorB);
+  }
 }
 
 //************************************************************************************************************************************************************************
@@ -140,6 +234,11 @@ void setup()
 //  Serial.begin(9600); //print value ​​on a serial monitor
 //  printf_begin();     //print the radio debug info
 
+  pinMode(pin_pwm1_motorA, OUTPUT);
+  pinMode(pin_pwm2_motorA, OUTPUT);
+  pinMode(pin_pwm3_motorB, OUTPUT);
+  pinMode(pin_pwm4_motorB, OUTPUT);
+  
   pinMode(pin_LED, OUTPUT);
   pinMode(pin_RXbatt, INPUT);
   
@@ -178,6 +277,7 @@ void loop()
   send_and_receive_data();
 
   outputServo();
+  outputPWM();
 
 //  Serial.println("Radio details *****************");
 //  radio.printDetails(); //print the radio debug info

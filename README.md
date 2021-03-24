@@ -6,14 +6,14 @@ The possibility of setting the brake is in the code.
 Other versions of the RX firmware include servo outputs.
 The firmware will be used for cars, boats, tanks, robots and aircraft.
 
-This RC receiver works with RC transmitters [RC_TX_nRF24L01_Telemetry_LCD](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LCD), 
-[RC_TX_nRF24L01_Telemetry_LED](https://github.com/stanekTM/RC_TX_nRF24L01_Telemetry_LED), 
+This RC receiver works with RC transmitters [TX_nRF24L01_Telemetry_LCD](https://github.com/stanekTM/TX_nRF24L01_Telemetry_LCD), 
+[TX_nRF24L01_Telemetry_LED](https://github.com/stanekTM/TX_nRF24L01_Telemetry_LED), 
 [OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) or [Multiprotocol](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
 
 Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage. 
 I haven't tried the 3.3V/8Mhz version yet. 
 If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF. 
-All versions of the code are based on this [scheme](https://raw.githubusercontent.com/stanekTM/RC_RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Schema_Micro_RX_2ch_A1_Motor_Driver.PNG), but each version uses different pins.
+All versions of the code are based on this [scheme](https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Schema_Micro_RX_2ch_A1_Motor_Driver.PNG), but each version uses different pins.
 #
 ### Example micro RX:
 <a href="https://youtu.be/E0pgMNPuYU4"><img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/youtube.PNG" width="640" /></a>
