@@ -16,14 +16,14 @@ If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the
 All versions of the code are based on this [scheme](https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Schema_Micro_RX_2ch_A1_Motor_Driver.PNG), but each version uses different pins.
 #
 ### Example micro RX:
-<a href="https://youtu.be/E0pgMNPuYU4"><img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/youtube.PNG" width="640" /></a>
+<a href="https://youtu.be/E0pgMNPuYU4"><img src="RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/youtube.PNG" width="640" /></a>
 
-<img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_0.jpg" width="276" /> <img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_1.jpg" width="276" />
-<img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_2.jpg" width="276" />
-<img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_3.jpg" width="276" />
-<img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_4.jpg" width="276" />
-<img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_5.jpg" width="276" />
-<img src="RC_RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_6.jpg" width="416" />
+<img src="RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_0.jpg" width="276" /> <img src="RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_1.jpg" width="276" />
+<img src="RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_2.jpg" width="276" />
+<img src="RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_3.jpg" width="276" />
+<img src="RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_4.jpg" width="276" />
+<img src="RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_5.jpg" width="276" />
+<img src="RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_6.jpg" width="416" />
 #
 ### RX prototype:
 <img src="documents/rx_prototype1.jpg" width="416" /> <img src="documents/rx_prototype2.jpg" width="416" />
