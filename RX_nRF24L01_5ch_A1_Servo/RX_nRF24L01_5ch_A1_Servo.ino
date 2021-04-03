@@ -66,7 +66,7 @@ RF24 radio(pin_CE, pin_CSN);
 //************************************************************************************************************************************************************************
 //this structure defines the received data in bytes (structure size max. 32 bytes) ***************************************************************************************
 //************************************************************************************************************************************************************************
-struct packet
+struct rc_packet_size
 {
   unsigned int ch1;
   unsigned int ch2;
@@ -74,27 +74,29 @@ struct packet
   unsigned int ch4;
   unsigned int ch5;
 };
-packet rc_data; //create a variable with the above structure
+rc_packet_size rc_packet; //create a variable with the above structure
 
 //************************************************************************************************************************************************************************
 //this struct defines data, which are embedded inside the ACK payload ****************************************************************************************************
 //************************************************************************************************************************************************************************
-struct ackPayload
+struct telemetry_packet_size
 {
-  float RXbatt;
+  uint8_t rssi;     // not used yet
+  float RX_batt_A1;
+  float RX_batt_A2; // not used yet
 };
-ackPayload payload;
+telemetry_packet_size telemetry_packet;
 
 //************************************************************************************************************************************************************************
 //reset values ​​(servoMin = 1000us, servoMid = 1500us, servoMax = 2000us) *************************************************************************************************
 //************************************************************************************************************************************************************************
 void resetData()
 {
-  rc_data.ch1  = servoMid;
-  rc_data.ch2  = servoMid;
-  rc_data.ch3  = servoMid;     
-  rc_data.ch4  = servoMid;
-  rc_data.ch5  = servoMid;
+  rc_packet.ch1  = servoMid;
+  rc_packet.ch2  = servoMid;
+  rc_packet.ch3  = servoMid;     
+  rc_packet.ch4  = servoMid;
+  rc_packet.ch5  = servoMid;
 }
 
 //************************************************************************************************************************************************************************
@@ -115,11 +117,11 @@ int value_servo1 = 0, value_servo2 = 0, value_servo3 = 0, value_servo4 = 0, valu
 
 void outputServo()
 {
-  value_servo1 = map(rc_data.ch1, servoMin, servoMax, servoMin, servoMax);
-  value_servo2 = map(rc_data.ch2, servoMin, servoMax, servoMin, servoMax);
-  value_servo3 = map(rc_data.ch3, servoMin, servoMax, servoMin, servoMax); 
-  value_servo4 = map(rc_data.ch4, servoMin, servoMax, servoMin, servoMax);
-  value_servo5 = map(rc_data.ch5, servoMin, servoMax, servoMin, servoMax);
+  value_servo1 = map(rc_packet.ch1, servoMin, servoMax, servoMin, servoMax);
+  value_servo2 = map(rc_packet.ch2, servoMin, servoMax, servoMin, servoMax);
+  value_servo3 = map(rc_packet.ch3, servoMin, servoMax, servoMin, servoMax); 
+  value_servo4 = map(rc_packet.ch4, servoMin, servoMax, servoMin, servoMax);
+  value_servo5 = map(rc_packet.ch5, servoMin, servoMax, servoMin, servoMax);
   
   servo1.writeMicroseconds(value_servo1);   
   servo2.writeMicroseconds(value_servo2);
@@ -127,7 +129,7 @@ void outputServo()
   servo4.writeMicroseconds(value_servo4);
   servo5.writeMicroseconds(value_servo5);
 
-//  Serial.println(rc_data.ch1); //print value ​​on a serial monitor 
+//  Serial.println(rc_packet.ch1); //print value ​​on a serial monitor 
 }
 
 //************************************************************************************************************************************************************************
@@ -207,9 +209,9 @@ void send_and_receive_data()
   
   if (radio.available(&pipeNo))
   {
-    radio.writeAckPayload(pipeNo, &payload, sizeof(ackPayload));
+    radio.writeAckPayload(pipeNo, &telemetry_packet, sizeof(telemetry_packet_size));
    
-    radio.read(&rc_data, sizeof(packet));
+    radio.read(&rc_packet, sizeof(rc_packet_size));
     
     lastRxTime = millis(); //at this moment we have received the data
     RX_batt_check();                     
@@ -229,10 +231,10 @@ void RX_batt_check()
   {
     adcTime = millis();
 
-    payload.RXbatt = analogRead(pin_RXbatt) * (battery_voltage / 1023);
+    telemetry_packet.RX_batt_A1 = analogRead(pin_RXbatt) * (battery_voltage / 1023);
   }
 
-  detect = payload.RXbatt <= monitored_voltage;
+  detect = telemetry_packet.RX_batt_A1 <= monitored_voltage;
   
   if (millis() >= ledTime + 500)
   {
@@ -248,7 +250,7 @@ void RX_batt_check()
     }   
     digitalWrite(pin_LED, ledState);
   }
-//  Serial.println(payload.RXbatt); //print value ​​on a serial monitor
+//  Serial.println(telemetry_packet.RX_batt_A1); //print value ​​on a serial monitor
 }
 
 //************************************************************************************************************************************************************************

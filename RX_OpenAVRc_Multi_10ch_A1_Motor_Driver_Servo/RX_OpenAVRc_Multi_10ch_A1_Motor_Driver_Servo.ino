@@ -88,7 +88,7 @@ RF24 radio(pin_CE, pin_CSN);
 //************************************************************************************************************************************************************************
 //this structure defines the received data in bytes (structure size max. 32 bytes) ***************************************************************************************
 //************************************************************************************************************************************************************************
-struct packet
+struct rc_packet_size
 {
   unsigned int ch1; //MotorA
   unsigned int ch2; //MotorB
@@ -101,32 +101,34 @@ struct packet
   unsigned int ch9;
   unsigned int ch10;
 };
-packet rc_data; //create a variable with the above structure
+rc_packet_size rc_packet; //create a variable with the above structure
 
 //************************************************************************************************************************************************************************
 //this struct defines data, which are embedded inside the ACK payload ****************************************************************************************************
 //************************************************************************************************************************************************************************
-struct ackPayload
+struct telemetry_packet_size
 {
-  unsigned int RXbatt; //0-255 for OpenAVRc and OpenTX Multiprotocol telemetry
+  uint8_t rssi;       // not used yet
+  uint8_t RX_batt_A1; //0-255 for OpenAVRc and OpenTX Multiprotocol telemetry
+  uint8_t RX_batt_A2; //0-255 for OpenAVRc and OpenTX Multiprotocol telemetry (not used yet)
 };
-ackPayload payload;
+telemetry_packet_size telemetry_packet;
 
 //************************************************************************************************************************************************************************
 //reset values ​​(servoMin = 1000us, servoMid = 1500us, servoMax = 2000us) *************************************************************************************************
 //************************************************************************************************************************************************************************
 void resetData()
 {
-  rc_data.ch1  = servoMid; //MotorA
-  rc_data.ch2  = servoMid; //MotorB
-  rc_data.ch3  = servoMid;     
-  rc_data.ch4  = servoMid;
-  rc_data.ch5  = servoMid;     
-  rc_data.ch6  = servoMid;
-  rc_data.ch7  = servoMid;     
-  rc_data.ch8  = servoMid;
-  rc_data.ch9  = servoMid;
-  rc_data.ch10 = servoMid;
+  rc_packet.ch1  = servoMid; //MotorA
+  rc_packet.ch2  = servoMid; //MotorB
+  rc_packet.ch3  = servoMid;     
+  rc_packet.ch4  = servoMid;
+  rc_packet.ch5  = servoMid;     
+  rc_packet.ch6  = servoMid;
+  rc_packet.ch7  = servoMid;     
+  rc_packet.ch8  = servoMid;
+  rc_packet.ch9  = servoMid;
+  rc_packet.ch10 = servoMid;
 }
 
 //************************************************************************************************************************************************************************
@@ -150,14 +152,14 @@ int value_servo1 = 0, value_servo2 = 0, value_servo3 = 0, value_servo4 = 0, valu
 
 void outputServo()
 {
-  value_servo1 = map(rc_data.ch3,  servoMin, servoMax, servoMin, servoMax); 
-  value_servo2 = map(rc_data.ch4,  servoMin, servoMax, servoMin, servoMax);
-  value_servo3 = map(rc_data.ch5,  servoMin, servoMax, servoMin, servoMax); 
-  value_servo4 = map(rc_data.ch6,  servoMin, servoMax, servoMin, servoMax);
-  value_servo5 = map(rc_data.ch7,  servoMin, servoMax, servoMin, servoMax); 
-  value_servo6 = map(rc_data.ch8,  servoMin, servoMax, servoMin, servoMax);
-  value_servo7 = map(rc_data.ch9,  servoMin, servoMax, servoMin, servoMax);
-  value_servo8 = map(rc_data.ch10, servoMin, servoMax, servoMin, servoMax);
+  value_servo1 = map(rc_packet.ch3,  servoMin, servoMax, servoMin, servoMax); 
+  value_servo2 = map(rc_packet.ch4,  servoMin, servoMax, servoMin, servoMax);
+  value_servo3 = map(rc_packet.ch5,  servoMin, servoMax, servoMin, servoMax); 
+  value_servo4 = map(rc_packet.ch6,  servoMin, servoMax, servoMin, servoMax);
+  value_servo5 = map(rc_packet.ch7,  servoMin, servoMax, servoMin, servoMax); 
+  value_servo6 = map(rc_packet.ch8,  servoMin, servoMax, servoMin, servoMax);
+  value_servo7 = map(rc_packet.ch9,  servoMin, servoMax, servoMin, servoMax);
+  value_servo8 = map(rc_packet.ch10, servoMin, servoMax, servoMin, servoMax);
   
   servo1.writeMicroseconds(value_servo1);   
   servo2.writeMicroseconds(value_servo2); 
@@ -168,7 +170,7 @@ void outputServo()
   servo7.writeMicroseconds(value_servo7);
   servo8.writeMicroseconds(value_servo8);
 
-//  Serial.println(rc_data.ch3); //print value ​​on a serial monitor 
+//  Serial.println(rc_packet.ch3); //print value ​​on a serial monitor 
 }
 
 //************************************************************************************************************************************************************************
@@ -208,15 +210,15 @@ void outputPWM()
 
 //MotorA --------------------------------------------------------------------------------------
 
-  if (rc_data.ch1 < servoMid - dead_zone)
+  if (rc_packet.ch1 < servoMid - dead_zone)
   {
-    value_motorA = map(rc_data.ch1, servoMid - dead_zone, servoMin, accelerate_motorA, 255);
+    value_motorA = map(rc_packet.ch1, servoMid - dead_zone, servoMin, accelerate_motorA, 255);
     analogWrite(pin_pwm1_motorA, value_motorA); 
     digitalWrite(pin_pwm2_motorA, LOW);
   }
-  else if (rc_data.ch1 > servoMid + dead_zone)
+  else if (rc_packet.ch1 > servoMid + dead_zone)
   {
-    value_motorA = map(rc_data.ch1, servoMid + dead_zone, servoMax, accelerate_motorA, 255);
+    value_motorA = map(rc_packet.ch1, servoMid + dead_zone, servoMax, accelerate_motorA, 255);
     analogWrite(pin_pwm2_motorA, value_motorA); 
     digitalWrite(pin_pwm1_motorA, LOW);
   }
@@ -226,19 +228,19 @@ void outputPWM()
     analogWrite(pin_pwm2_motorA, brake_motorA);
   }
 
-//  Serial.println(rc_data.ch1); //print value ​​on a serial monitor
+//  Serial.println(rc_packet.ch1); //print value ​​on a serial monitor
   
 //MotorB --------------------------------------------------------------------------------------
 
-  if (rc_data.ch2 < servoMid - dead_zone)
+  if (rc_packet.ch2 < servoMid - dead_zone)
   {
-    value_motorB = map(rc_data.ch2, servoMid - dead_zone, servoMin, accelerate_motorB, 255); 
+    value_motorB = map(rc_packet.ch2, servoMid - dead_zone, servoMin, accelerate_motorB, 255); 
     analogWrite(pin_pwm3_motorB, value_motorB); 
     digitalWrite(pin_pwm4_motorB, LOW);
   }
-  else if (rc_data.ch2 > servoMid + dead_zone)
+  else if (rc_packet.ch2 > servoMid + dead_zone)
   {
-    value_motorB = map(rc_data.ch2, servoMid + dead_zone, servoMax, accelerate_motorB, 255); 
+    value_motorB = map(rc_packet.ch2, servoMid + dead_zone, servoMax, accelerate_motorB, 255); 
     analogWrite(pin_pwm4_motorB, value_motorB); 
     digitalWrite(pin_pwm3_motorB, LOW);
   }
@@ -332,9 +334,9 @@ void send_and_receive_data()
   
   if (radio.available(&pipeNo))
   {
-    radio.writeAckPayload(pipeNo, &payload, sizeof(ackPayload));
+    radio.writeAckPayload(pipeNo, &telemetry_packet, sizeof(telemetry_packet_size));
    
-    radio.read(&rc_data, sizeof(packet));
+    radio.read(&rc_packet, sizeof(rc_packet_size));
     
     lastRxTime = millis(); //at this moment we have received the data
     RX_batt_check();                     
@@ -354,10 +356,10 @@ void RX_batt_check()
   {
     adcTime = millis();
     
-    payload.RXbatt = map(analogRead(pin_RXbatt), 0, 1023, 0, 255);
+    telemetry_packet.RX_batt_A1 = map(analogRead(pin_RXbatt), 0, 1023, 0, 255);
   }
   
-  detect = payload.RXbatt <= (255 / battery_voltage) * monitored_voltage;
+  detect = telemetry_packet.RX_batt_A1 <= (255 / battery_voltage) * monitored_voltage;
     
   if (millis() >= ledTime + 500)
   {
@@ -373,7 +375,7 @@ void RX_batt_check()
     }   
     digitalWrite(pin_LED, ledState);
   } 
-//  Serial.println(payload.RXbatt); //print value ​​on a serial monitor
+//  Serial.println(telemetry_packet.RX_batt_A1); //print value ​​on a serial monitor
 }
 
 //************************************************************************************************************************************************************************
