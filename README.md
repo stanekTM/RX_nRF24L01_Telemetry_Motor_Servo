@@ -26,7 +26,7 @@ All versions of the code are based on this [scheme](https://raw.githubuserconten
 <img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/RX_OpenAVRc_Multi_2ch_A1_Motor_Driver/documents/Micro_RX_2ch_A1_Motor_Driver_6.jpg" width="416" />
 #
 ### RX prototype:
-<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype1.jpg" width="415" /><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype2.jpg" width="415" />
+<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype1.jpg" width="415" /> <img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Driver_Servo/master/documents/rx_prototype2.jpg" width="415" />
 #
 ### Used libraries:
 * <RF24.h>                      https://github.com/nRF24/RF24 v1.3.9
