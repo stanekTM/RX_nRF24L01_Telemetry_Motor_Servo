@@ -25,7 +25,7 @@ const byte address[] = "jirka";
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
 #define pwm_motorB 8
 
-//setting the reaction of the motor to be rotated after the lever has been moved
+//setting the reaction of the motor to be rotated after the lever has been moved (0-255)
 #define accelerate_motorA 0
 #define accelerate_motorB 0
 
