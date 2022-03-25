@@ -18,11 +18,11 @@ const byte address[] = "jirka";
 #define radio_channel 76
 
 //settings PWM MotorA (pin D9 or D10)
-//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
+//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
 #define pwm_motorA 64
 
 //settings PWM MotorB (pin D3 or D11)
-//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
+//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
 #define pwm_motorB 8
 
 //setting the reaction of the motor to be rotated after the lever has been moved (0-255)
@@ -53,7 +53,7 @@ const byte address[] = "jirka";
 //pin              6
 //pin              7
 //pin              8
-//pin              12 //MISO 
+//pin              12 //MISO
 //pin              13 //SCK
 //pin              A5
 //pin              A6
@@ -71,8 +71,8 @@ const byte address[] = "jirka";
 #define pin_RXbatt A7
 
 //pins for nRF24L01
-#define pin_CE     A0 
-#define pin_CSN    A1 
+#define pin_CE     A0
+#define pin_CSN    A1
 
 //software SPI http://tmrh20.github.io/RF24/Arduino.html
 //----- SCK   16 - A2
@@ -127,12 +127,12 @@ void outputPWM()
  * The divisors available on pins 3, 11       are: 1, 8, 32, 64, 128, 256, and 1024.
  *    
  * Pins 5, 6  are paired on timer0, functions delay(), millis(), micros() and delayMicroseconds()
- * D5   pwm 976Hz(default), timer0, 8-bit 
+ * D5   pwm 976Hz(default), timer0, 8-bit
  * D6   pwm 976Hz(default), timer0, 8-bit
  * 
  * Pins 9, 10 are paired on timer1, Servo library
  * D9   pwm 488Hz(default), timer1, 16-bit
- * D10  pwm 488Hz(default), timer1, 16-bit    
+ * D10  pwm 488Hz(default), timer1, 16-bit
  * 
  * Pins 3, 11 are paired on timer2, ServoTimer2 library
  * D3   pwm 488Hz(default), timer2, 8-bit
@@ -140,19 +140,19 @@ void outputPWM()
 */
 
 //MotorA PWM frequency pin D9 or pin D10
-//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz 
-  setPWMPrescaler(pin_pwm1_motorA, pwm_motorA);  
+//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
+  setPWMPrescaler(pin_pwm1_motorA, pwm_motorA);
 
 //MotorB PWM frequency pin D3 or pin D11
-//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz  
-  setPWMPrescaler(pin_pwm3_motorB, pwm_motorB);  
+//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
+  setPWMPrescaler(pin_pwm3_motorB, pwm_motorB);
 
 //MotorA ------------------------------------------------------------------------------------- 
 
   if (rc_packet.ch1 < servoMid - dead_zone)
   {
     value_motorA = map(rc_packet.ch1, servoMid - dead_zone, servoMin, accelerate_motorA, 255);
-    analogWrite(pin_pwm1_motorA, value_motorA); 
+    analogWrite(pin_pwm1_motorA, value_motorA);
     digitalWrite(pin_pwm2_motorA, LOW);
   }
   else if (rc_packet.ch1 > servoMid + dead_zone)
@@ -173,13 +173,13 @@ void outputPWM()
 
   if (rc_packet.ch2 < servoMid - dead_zone)
   {
-    value_motorB = map(rc_packet.ch2, servoMid - dead_zone, servoMin, accelerate_motorB, 255); 
+    value_motorB = map(rc_packet.ch2, servoMid - dead_zone, servoMin, accelerate_motorB, 255);
     analogWrite(pin_pwm3_motorB, value_motorB); 
     digitalWrite(pin_pwm4_motorB, LOW);
   }
   else if (rc_packet.ch2 > servoMid + dead_zone)
   {
-    value_motorB = map(rc_packet.ch2, servoMid + dead_zone, servoMax, accelerate_motorB, 255); 
+    value_motorB = map(rc_packet.ch2, servoMid + dead_zone, servoMax, accelerate_motorB, 255);
     analogWrite(pin_pwm4_motorB, value_motorB); 
     digitalWrite(pin_pwm3_motorB, LOW);
   }
@@ -211,16 +211,11 @@ void setup()
   resetData();
 
   //define the radio communication
-  radio.begin();  
+  radio.begin();
   radio.setAutoAck(true);          //ensure autoACK is enabled (default true)
   radio.enableAckPayload();        //enable Ack dynamic payloads. This only works on pipes 0&1 by default
   radio.enableDynamicPayloads();   //enable dynamic payloads on all pipes
-
-//  radio.enableDynamicAck();
-//  radio.setPayloadSize(10);        //set static payload size. Default max. 32 bytes
-//  radio.setCRCLength(RF24_CRC_16); //RF24_CRC_8, RF24_CRC_16
-//  radio.setAddressWidth(5);        //the address width in bytes 3, 4 or 5 (24, 32 or 40 bit)
-
+  
   radio.setRetries(5, 5);          //set the number and delay of retries on failed submit (max. 15 x 250us delay (blocking !), max. 15 retries)
   
   radio.setChannel(radio_channel); //which RF channel to communicate on (0-125, 2.4Ghz + 76 = 2.476Ghz)
@@ -229,7 +224,7 @@ void setup()
 
   radio.openWritingPipe(invert_address); //open the writing pipe0 (RX_ADDR_P0 + TX_ADDR)
   radio.openReadingPipe(1, address);     //open the reading pipe1 (RX_ADDR_P1) and then call "startListening"
-                                          
+  
   radio.startListening(); //set the module as receiver. Start listening on the pipes opened for reading
 }
 
@@ -257,8 +252,8 @@ void receive_time()
 {
   if(millis() >= lastRxTime + 1000) //1s
   {
-    resetData();       
-    RFoff_check(); 
+    resetData();
+    RFoff_check();
   }
 }
 
@@ -276,8 +271,8 @@ void send_and_receive_data()
     radio.read(&rc_packet, sizeof(rc_packet_size));
     
     lastRxTime = millis(); //at this moment we have received the data
-    RX_batt_check();                      
-  } 
+    RX_batt_check();     
+  }
 }
 
 //************************************************************************************************************************************************************************

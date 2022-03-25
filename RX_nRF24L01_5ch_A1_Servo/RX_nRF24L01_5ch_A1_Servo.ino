@@ -46,14 +46,14 @@ const byte address[] = "jirka";
 #define pin_servo5   13 //SCK
 
 //LED RX battery and RF on/off
-#define pin_LED      A5 
+#define pin_LED      A5
 
 //input RX battery
 #define pin_RXbatt   A7
 
 //pins for nRF24L01
-#define pin_CE       A0 
-#define pin_CSN      A1 
+#define pin_CE       A0
+#define pin_CSN      A1
 
 //software SPI http://tmrh20.github.io/RF24/Arduino.html
 //----- SCK     16 - A2
@@ -94,7 +94,7 @@ void resetData()
 {
   rc_packet.ch1  = servoMid;
   rc_packet.ch2  = servoMid;
-  rc_packet.ch3  = servoMid;     
+  rc_packet.ch3  = servoMid;
   rc_packet.ch4  = servoMid;
   rc_packet.ch5  = servoMid;
 }
@@ -119,13 +119,13 @@ void outputServo()
 {
   value_servo1 = map(rc_packet.ch1, servoMin, servoMax, servoMin, servoMax);
   value_servo2 = map(rc_packet.ch2, servoMin, servoMax, servoMin, servoMax);
-  value_servo3 = map(rc_packet.ch3, servoMin, servoMax, servoMin, servoMax); 
+  value_servo3 = map(rc_packet.ch3, servoMin, servoMax, servoMin, servoMax);
   value_servo4 = map(rc_packet.ch4, servoMin, servoMax, servoMin, servoMax);
   value_servo5 = map(rc_packet.ch5, servoMin, servoMax, servoMin, servoMax);
   
-  servo1.writeMicroseconds(value_servo1);   
+  servo1.writeMicroseconds(value_servo1);
   servo2.writeMicroseconds(value_servo2);
-  servo3.writeMicroseconds(value_servo3);   
+  servo3.writeMicroseconds(value_servo3);
   servo4.writeMicroseconds(value_servo4);
   servo5.writeMicroseconds(value_servo5);
 
@@ -153,21 +153,16 @@ void setup()
   radio.setAutoAck(true);          //ensure autoACK is enabled (default true)
   radio.enableAckPayload();        //enable Ack dynamic payloads. This only works on pipes 0&1 by default
   radio.enableDynamicPayloads();   //enable dynamic payloads on all pipes
-
-//  radio.enableDynamicAck();
-//  radio.setPayloadSize(10);        //set static payload size. Default max. 32 bytes
-//  radio.setCRCLength(RF24_CRC_16); //RF24_CRC_8, RF24_CRC_16
-//  radio.setAddressWidth(5);        //the address width in bytes 3, 4 or 5 (24, 32 or 40 bit)
-
+  
   radio.setRetries(5, 5);          //set the number and delay of retries on failed submit (max. 15 x 250us delay (blocking !), max. 15 retries)
   
   radio.setChannel(radio_channel); //which RF channel to communicate on (0-125, 2.4Ghz + 76 = 2.476Ghz)
   radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
-  radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm) 
-
+  radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm)
+  
   radio.openWritingPipe(invert_address); //open the writing pipe0 (RX_ADDR_P0 + TX_ADDR)
   radio.openReadingPipe(1, address);     //open the reading pipe1 (RX_ADDR_P1) and then call "startListening"
-                                          
+  
   radio.startListening(); //set the module as receiver. Start listening on the pipes opened for reading
 }
 
@@ -195,8 +190,8 @@ void receive_time()
 {
   if(millis() >= lastRxTime + 1000) //1s
   {
-    resetData();       
-    RFoff_check(); 
+    resetData(); 
+    RFoff_check();
   }
 }
 
@@ -214,8 +209,8 @@ void send_and_receive_data()
     radio.read(&rc_packet, sizeof(rc_packet_size));
     
     lastRxTime = millis(); //at this moment we have received the data
-    RX_batt_check();                     
-  } 
+    RX_batt_check();
+  }
 }
 
 //************************************************************************************************************************************************************************
