@@ -41,10 +41,10 @@ const byte address[] = "jirka";
 //setting the dead zone of poor quality joysticks TX for the motor controller
 #define dead_zone  15
 
-//PPM settings
-#define servoMid   1500
-#define servoMin   1000
-#define servoMax   2000
+//setting the control range value
+#define min_control_val 1000
+#define mid_control_val 1500
+#define max_control_val 2000
 
 //free pins
 //pin              0
@@ -115,20 +115,20 @@ struct telemetry_packet_size
 telemetry_packet_size telemetry_packet;
 
 //************************************************************************************************************************************************************************
-//reset values ​​(servoMin = 1000us, servoMid = 1500us, servoMax = 2000us) *************************************************************************************************
+//fail safe, settings 1000-2000 ​​(min_control_val = 1000, mid_control_val = 1500, max_control_val = 2000) *****************************************************************
 //************************************************************************************************************************************************************************
-void resetData()
+void fail_safe()
 {
-  rc_packet.ch1  = servoMid; //MotorA
-  rc_packet.ch2  = servoMid; //MotorB
-  rc_packet.ch3  = servoMid;
-  rc_packet.ch4  = servoMid;
-  rc_packet.ch5  = servoMid;
-  rc_packet.ch6  = servoMid;
-  rc_packet.ch7  = servoMid;
-  rc_packet.ch8  = servoMid;
-  rc_packet.ch9  = servoMid;
-  rc_packet.ch10 = servoMid;
+  rc_packet.ch1  = mid_control_val; //MotorA
+  rc_packet.ch2  = mid_control_val; //MotorB
+  rc_packet.ch3  = mid_control_val;
+  rc_packet.ch4  = mid_control_val;
+  rc_packet.ch5  = mid_control_val;
+  rc_packet.ch6  = mid_control_val;
+  rc_packet.ch7  = mid_control_val;
+  rc_packet.ch8  = mid_control_val;
+  rc_packet.ch9  = mid_control_val;
+  rc_packet.ch10 = mid_control_val;
 }
 
 //************************************************************************************************************************************************************************
@@ -152,14 +152,14 @@ int value_servo1 = 0, value_servo2 = 0, value_servo3 = 0, value_servo4 = 0, valu
 
 void outputServo()
 {
-  value_servo1 = map(rc_packet.ch3,  servoMin, servoMax, servoMin, servoMax);
-  value_servo2 = map(rc_packet.ch4,  servoMin, servoMax, servoMin, servoMax);
-  value_servo3 = map(rc_packet.ch5,  servoMin, servoMax, servoMin, servoMax);
-  value_servo4 = map(rc_packet.ch6,  servoMin, servoMax, servoMin, servoMax);
-  value_servo5 = map(rc_packet.ch7,  servoMin, servoMax, servoMin, servoMax);
-  value_servo6 = map(rc_packet.ch8,  servoMin, servoMax, servoMin, servoMax);
-  value_servo7 = map(rc_packet.ch9,  servoMin, servoMax, servoMin, servoMax);
-  value_servo8 = map(rc_packet.ch10, servoMin, servoMax, servoMin, servoMax);
+  value_servo1 = map(rc_packet.ch3,  min_control_val, max_control_val, min_control_val, max_control_val);
+  value_servo2 = map(rc_packet.ch4,  min_control_val, max_control_val, min_control_val, max_control_val);
+  value_servo3 = map(rc_packet.ch5,  min_control_val, max_control_val, min_control_val, max_control_val);
+  value_servo4 = map(rc_packet.ch6,  min_control_val, max_control_val, min_control_val, max_control_val);
+  value_servo5 = map(rc_packet.ch7,  min_control_val, max_control_val, min_control_val, max_control_val);
+  value_servo6 = map(rc_packet.ch8,  min_control_val, max_control_val, min_control_val, max_control_val);
+  value_servo7 = map(rc_packet.ch9,  min_control_val, max_control_val, min_control_val, max_control_val);
+  value_servo8 = map(rc_packet.ch10, min_control_val, max_control_val, min_control_val, max_control_val);
   
   servo1.writeMicroseconds(value_servo1);
   servo2.writeMicroseconds(value_servo2);
@@ -210,15 +210,15 @@ void outputPWM()
 
 //MotorA --------------------------------------------------------------------------------------
 
-  if (rc_packet.ch1 < servoMid - dead_zone)
+  if (rc_packet.ch1 < mid_control_val - dead_zone)
   {
-    value_motorA = map(rc_packet.ch1, servoMid - dead_zone, servoMin, accelerate_motorA, 255);
+    value_motorA = map(rc_packet.ch1, mid_control_val - dead_zone, min_control_val, accelerate_motorA, 255);
     analogWrite(pin_pwm1_motorA, value_motorA);
     digitalWrite(pin_pwm2_motorA, LOW);
   }
-  else if (rc_packet.ch1 > servoMid + dead_zone)
+  else if (rc_packet.ch1 > mid_control_val + dead_zone)
   {
-    value_motorA = map(rc_packet.ch1, servoMid + dead_zone, servoMax, accelerate_motorA, 255);
+    value_motorA = map(rc_packet.ch1, mid_control_val + dead_zone, max_control_val, accelerate_motorA, 255);
     analogWrite(pin_pwm2_motorA, value_motorA); 
     digitalWrite(pin_pwm1_motorA, LOW);
   }
@@ -232,15 +232,15 @@ void outputPWM()
   
 //MotorB --------------------------------------------------------------------------------------
 
-  if (rc_packet.ch2 < servoMid - dead_zone)
+  if (rc_packet.ch2 < mid_control_val - dead_zone)
   {
-    value_motorB = map(rc_packet.ch2, servoMid - dead_zone, servoMin, accelerate_motorB, 255);
+    value_motorB = map(rc_packet.ch2, mid_control_val - dead_zone, min_control_val, accelerate_motorB, 255);
     analogWrite(pin_pwm3_motorB, value_motorB);
     digitalWrite(pin_pwm4_motorB, LOW);
   }
-  else if (rc_packet.ch2 > servoMid + dead_zone)
+  else if (rc_packet.ch2 > mid_control_val + dead_zone)
   {
-    value_motorB = map(rc_packet.ch2, servoMid + dead_zone, servoMax, accelerate_motorB, 255);
+    value_motorB = map(rc_packet.ch2, mid_control_val + dead_zone, max_control_val, accelerate_motorB, 255);
     analogWrite(pin_pwm4_motorB, value_motorB);
     digitalWrite(pin_pwm3_motorB, LOW);
   }
@@ -269,7 +269,7 @@ void setup()
   pinMode(pin_LED, OUTPUT);
   pinMode(pin_RXbatt, INPUT);
   
-  resetData();
+  fail_safe();
   attachServoPins();
 
   //define the radio communication
@@ -315,7 +315,7 @@ void receive_time()
 {
   if(millis() >= lastRxTime + 1000) //1s
   {
-    resetData();  
+    fail_safe();  
     RFoff_check();
   }
 }
