@@ -46,17 +46,17 @@ const byte address[] = "jirka";
 #define max_control_val 2000
 
 //free pins
-//pin              0
-//pin              1
-//pin              4
-//pin              5
-//pin              6
-//pin              7
-//pin              8
-//pin              12 //MISO
-//pin              13 //SCK
-//pin              A5
-//pin              A6
+//pin                   0
+//pin                   1
+//pin                   4
+//pin                   5
+//pin                   6
+//pin                   7
+//pin                   8
+//pin                   12 //MISO
+//pin                   13 //SCK
+//pin                   A5
+//pin                   A6
  
 //pwm pins for motor
 #define pin_pwm1_motorA 9
@@ -65,19 +65,19 @@ const byte address[] = "jirka";
 #define pin_pwm4_motorB 11 //MOSI
 
 //LED RX battery and RF on/off
-#define pin_LED    2
+#define pin_LED         2
 
 //input RX battery
-#define pin_RXbatt A7
+#define pin_RX_battery  A7
 
 //pins for nRF24L01
-#define pin_CE     A0
-#define pin_CSN    A1
+#define pin_CE          A0
+#define pin_CSN         A1
 
 //software SPI http://tmrh20.github.io/RF24/Arduino.html
-//----- SCK   16 - A2
-//----- MOSI  17 - A3
-//----- MISO  18 - A4
+//----- SCK        16 - A2
+//----- MOSI       17 - A3
+//----- MISO       18 - A4
 
 //setting of CE and CSN pins
 RF24 radio(pin_CE, pin_CSN);
@@ -206,7 +206,7 @@ void setup()
   pinMode(pin_pwm4_motorB, OUTPUT);
   
   pinMode(pin_LED, OUTPUT);
-  pinMode(pin_RXbatt, INPUT);
+  pinMode(pin_RX_battery, INPUT);
 
   fail_safe();
 
@@ -253,7 +253,7 @@ void receive_time()
   if(millis() >= lastRxTime + 1000) //1s
   {
     fail_safe();
-    RFoff_check();
+    RF_off_check();
   }
 }
 
@@ -288,7 +288,7 @@ void RX_batt_check()
   {
     adcTime = millis();
     
-    telemetry_packet.RX_batt_A1 = map(analogRead(pin_RXbatt), 0, 1023, 0, 255);
+    telemetry_packet.RX_batt_A1 = map(analogRead(pin_RX_battery), 0, 1023, 0, 255);
   }
   
   detect = telemetry_packet.RX_batt_A1 <= (255 / battery_voltage) * monitored_voltage;
@@ -313,7 +313,7 @@ void RX_batt_check()
 //************************************************************************************************************************************************************************
 //when RX is switched on and TX is switched off, or after the loss of RF data = LED RX flash at a interval of 0.1s. Normal mode = LED RX is lit **************************
 //************************************************************************************************************************************************************************
-void RFoff_check()
+void RF_off_check()
 {
   if (millis() >= ledTime + 100)
   {
