@@ -18,11 +18,11 @@ const byte address[] = "jirka";
 //RF communication channel settings (0-125, 2.4Ghz + 76 = 2.476Ghz)
 #define radio_channel 76
 
-//settings PWM MotorA (pin D5 or D6 are paired on timer0, functions delay(), millis(), micros() and delayMicroseconds())
+//settings PWM motorA (pin D5 or D6 are paired on timer0, functions delay(), millis(), micros() and delayMicroseconds())
 //1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default), 8 = 7812Hz
 #define pwm_motorA 64
 
-//settings PWM MotorB (pin D3 or D11)
+//settings PWM motorB (pin D3 or D11)
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
 #define pwm_motorB 256
 
@@ -30,7 +30,7 @@ const byte address[] = "jirka";
 #define accelerate_motorA 90
 #define accelerate_motorB 40
 
-//Brake setting, adjustment (0-255), no brake 0, max brake 255
+//brake setting, adjustment (0-255), no brake 0, max brake 255
 #define brake_motorA 255
 #define brake_motorB 0
 
@@ -90,8 +90,8 @@ RF24 radio(pin_CE, pin_CSN);
 //************************************************************************************************************************************************************************
 struct rc_packet_size
 {
-  unsigned int ch1; //MotorA
-  unsigned int ch2; //MotorB
+  unsigned int ch1; //motorA
+  unsigned int ch2; //motorB
   unsigned int ch3;
   unsigned int ch4;
   unsigned int ch5;
@@ -119,8 +119,8 @@ telemetry_packet_size telemetry_packet;
 //************************************************************************************************************************************************************************
 void fail_safe()
 {
-  rc_packet.ch1  = mid_control_val; //MotorA
-  rc_packet.ch2  = mid_control_val; //MotorB
+  rc_packet.ch1  = mid_control_val; //motorA
+  rc_packet.ch2  = mid_control_val; //motorB
   rc_packet.ch3  = mid_control_val;
   rc_packet.ch4  = mid_control_val;
   rc_packet.ch5  = mid_control_val;
@@ -200,15 +200,15 @@ void outputPWM()
  * D11  pwm 488Hz(default), timer2, 8-bit, SPI MOSI hardware
 */
  
-//MotorA PWM frequency pin D5 or pin D6
+//motorA PWM frequency pin D5 or pin D6
 //1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default), 8 = 7812Hz
   setPWMPrescaler(pin_pwm1_motorA, pwm_motorA);
 
-//MotorB PWM frequency pin D3 or pin D11
+//motorB PWM frequency pin D3 or pin D11
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
   setPWMPrescaler(pin_pwm3_motorB, pwm_motorB);
 
-//MotorA --------------------------------------------------------------------------------------
+//motorA --------------------------------------------------------------------------------------
 
   if (rc_packet.ch1 < mid_control_val - dead_zone)
   {
@@ -230,7 +230,7 @@ void outputPWM()
 
 //  Serial.println(rc_packet.ch1); //print value ​​on a serial monitor
   
-//MotorB --------------------------------------------------------------------------------------
+//motorB --------------------------------------------------------------------------------------
 
   if (rc_packet.ch2 < mid_control_val - dead_zone)
   {
@@ -254,7 +254,7 @@ void outputPWM()
 //************************************************************************************************************************************************************************
 //initial main settings **************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
-uint8_t invert_address = ~address[5]; //Invert bits for writing so that telemetry packets have a different address
+uint8_t invert_address = ~address[5]; //invert bits for writing so that telemetry packets have a different address
 
 void setup()
 {
