@@ -17,11 +17,11 @@ const byte address[] = "jirka";
 //RF communication channel settings (0-125, 2.4Ghz + 76 = 2.476Ghz)
 #define radio_channel 76
 
-//settings PWM MotorA (pin D9 or D10)
+//settings PWM motorA (pin D9 or D10)
 //1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
 #define pwm_motorA 256
 
-//settings PWM MotorB (pin D3 or D11)
+//settings PWM motorB (pin D3 or D11)
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
 #define pwm_motorB 256
 
@@ -29,7 +29,11 @@ const byte address[] = "jirka";
 #define accelerate_motorA 40
 #define accelerate_motorB 40
 
-//Brake setting, adjustment (0-255), no brake 0, max brake 255
+//setting the maximum engine power. Suitable for TX transmitters without endpoint setting (0-255)
+#define maximum_motorA 255
+#define maximum_motorB 255
+
+//brake setting, adjustment (0-255), no brake 0, max brake 255
 #define brake_motorA 255
 #define brake_motorB 0
 
@@ -87,8 +91,8 @@ RF24 radio(pin_CE, pin_CSN);
 //************************************************************************************************************************************************************************
 struct rc_packet_size
 {
-  unsigned int ch1; //MotorA
-  unsigned int ch2; //MotorB
+  unsigned int ch1; //motorA
+  unsigned int ch2; //motorB
   unsigned int ch3; //unused channel, only adding byte array TX 5ch
   unsigned int ch4; //unused channel, only adding byte array TX 5ch
   unsigned int ch5; //unused channel, only adding byte array TX 5ch
@@ -111,8 +115,8 @@ telemetry_packet_size telemetry_packet;
 //************************************************************************************************************************************************************************
 void fail_safe()
 {
-  rc_packet.ch1 = mid_control_val; //MotorA
-  rc_packet.ch2 = mid_control_val; //MotorB
+  rc_packet.ch1 = mid_control_val; //motorA
+  rc_packet.ch2 = mid_control_val; //motorB
 }
 
 //************************************************************************************************************************************************************************
@@ -142,25 +146,25 @@ void outputPWM()
  * D11  pwm 488Hz(default), timer2, 8-bit, SPI MOSI hardware
 */
 
-//MotorA PWM frequency pin D9 or pin D10
+//motorA PWM frequency pin D9 or pin D10
 //1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
   setPWMPrescaler(pin_pwm1_motorA, pwm_motorA);  
 
-//MotorB PWM frequency pin D3 or pin D11
+//motorB PWM frequency pin D3 or pin D11
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
   setPWMPrescaler(pin_pwm3_motorB, pwm_motorB);
 
-//MotorA -------------------------------------------------------------------------------------
+//motorA -------------------------------------------------------------------------------------
 
   if (rc_packet.ch1 < mid_control_val - dead_zone)
   {
-    value_motorA = map(rc_packet.ch1, mid_control_val - dead_zone, min_control_val, accelerate_motorA, 255);
+    value_motorA = map(rc_packet.ch1, mid_control_val - dead_zone, min_control_val, accelerate_motorA, maximum_motorA);
     analogWrite(pin_pwm1_motorA, value_motorA);
     digitalWrite(pin_pwm2_motorA, LOW);
   }
   else if (rc_packet.ch1 > mid_control_val + dead_zone)
   {
-    value_motorA = map(rc_packet.ch1, mid_control_val + dead_zone, max_control_val, accelerate_motorA, 255);
+    value_motorA = map(rc_packet.ch1, mid_control_val + dead_zone, max_control_val, accelerate_motorA, maximum_motorA);
     analogWrite(pin_pwm2_motorA, value_motorA); 
     digitalWrite(pin_pwm1_motorA, LOW);
   }
@@ -172,17 +176,17 @@ void outputPWM()
 
 //  Serial.println(rc_packet.ch1); //print value ​​on a serial monitor
   
-//MotorB -------------------------------------------------------------------------------------
+//motorB -------------------------------------------------------------------------------------
 
   if (rc_packet.ch2 < mid_control_val - dead_zone)
   {
-    value_motorB = map(rc_packet.ch2, mid_control_val - dead_zone, min_control_val, accelerate_motorB, 255);
+    value_motorB = map(rc_packet.ch2, mid_control_val - dead_zone, min_control_val, accelerate_motorB, maximum_motorB);
     analogWrite(pin_pwm3_motorB, value_motorB);
     digitalWrite(pin_pwm4_motorB, LOW);
   }
   else if (rc_packet.ch2 > mid_control_val + dead_zone)
   {
-    value_motorB = map(rc_packet.ch2, mid_control_val + dead_zone, max_control_val, accelerate_motorB, 255);
+    value_motorB = map(rc_packet.ch2, mid_control_val + dead_zone, max_control_val, accelerate_motorB, maximum_motorB);
     analogWrite(pin_pwm4_motorB, value_motorB);
     digitalWrite(pin_pwm3_motorB, LOW);
   }
@@ -196,7 +200,7 @@ void outputPWM()
 //************************************************************************************************************************************************************************
 //initial main settings **************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
-uint8_t invert_address = ~address[5]; //Invert bits for writing so that telemetry packets have a different address
+uint8_t invert_address = ~address[5]; //invert bits for writing so that telemetry packets have a different address
 
 void setup()
 {
