@@ -118,8 +118,8 @@ telemetry_packet_size telemetry_packet;
 //************************************************************************************************************************************************************************
 void fail_safe()
 {
-  rc_packet.ch1  = mid_control_val; //MotorA
-  rc_packet.ch2  = mid_control_val; //MotorB
+  rc_packet.ch1  = mid_control_val; //motorA
+  rc_packet.ch2  = mid_control_val; //motorB
   rc_packet.ch3  = mid_control_val;
   rc_packet.ch4  = mid_control_val;
   rc_packet.ch5  = mid_control_val;
