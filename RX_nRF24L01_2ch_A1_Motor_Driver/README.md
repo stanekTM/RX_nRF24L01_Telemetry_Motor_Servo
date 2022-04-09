@@ -1,5 +1,5 @@
 ## Micro RX 2ch (motor driver)
-RC receiver nRF24L01 with ATmega328P 5V/16Mhz processor for smaller dimensions.
+RC receiver nRF24L01 with ATmega328P/16Mhz processor for smaller dimensions.
 It is possible to use Arduino Nano or Pro Mini.
 Telemetry sends the monitored voltage RX to TX. 
 It includes CMT2150A transponder for laps timing and motor driver.
@@ -11,7 +11,6 @@ This RC receiver works with RC transmitters [TX_nRF24L01_Telemetry_LCD](https://
 [TX_nRF24L01_Telemetry_LED](https://github.com/stanekTM/TX_nRF24L01_Telemetry_LED) from my fork.
 
 Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage. 
-I haven't tried the 3.3V/8Mhz version yet. 
 If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF.
 #
 ### Function:
