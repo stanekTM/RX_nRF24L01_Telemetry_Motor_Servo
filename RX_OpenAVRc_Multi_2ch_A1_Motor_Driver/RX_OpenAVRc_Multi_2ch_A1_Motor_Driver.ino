@@ -15,30 +15,30 @@
 const byte address[] = "jirka";
 
 //RF communication channel settings (0-125, 2.4Ghz + 76 = 2.476Ghz)
-#define radio_channel 76
+#define RADIO_CHANNEL  76
 
 //settings PWM motorA (pin D9 or D10)
 //1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
-#define pwm_motorA 64
+#define PWM_MOTOR_A  64
 
 //settings PWM motorB (pin D3 or D11)
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
-#define pwm_motorB 8
+#define PWM_MOTOR_B  8
 
 //setting the reaction of the motor to be rotated after the lever has been moved (0-255)
-#define accelerate_motorA 0
-#define accelerate_motorB 0
+#define ACCELERATE_MOTOR_A  0
+#define ACCELERATE_MOTOR_B  0
 
 //brake setting, adjustment (0-255), no brake 0, max brake 255
-#define brake_motorA 0
-#define brake_motorB 0
+#define BRAKE_MOTOR_A  0
+#define BRAKE_MOTOR_B  0
 
 //LED alarm battery voltage setting
-#define battery_voltage   4.2
-#define monitored_voltage 3.35
+#define BATTERY_VOLTAGE    4.2
+#define MONITORED_VOLTAGE  3.35
 
 //setting the dead zone of poor quality joysticks TX for the motor controller
-#define dead_zone  15
+#define DEAD_ZONE  15
 
 //setting the control range value
 #define min_control_val 1000
@@ -141,52 +141,52 @@ void outputPWM()
 
 //motorA PWM frequency pin D9 or pin D10
 //1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
-  setPWMPrescaler(pin_pwm1_motorA, pwm_motorA);
+  setPWMPrescaler(pin_pwm1_motorA, PWM_MOTOR_A);
 
 //motorB PWM frequency pin D3 or pin D11
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
-  setPWMPrescaler(pin_pwm3_motorB, pwm_motorB);
+  setPWMPrescaler(pin_pwm3_motorB, PWM_MOTOR_B);
 
 //motorA ------------------------------------------------------------------------------------- 
 
-  if (rc_packet.ch1 < mid_control_val - dead_zone)
+  if (rc_packet.ch1 < mid_control_val - DEAD_ZONE)
   {
-    value_motorA = map(rc_packet.ch1, mid_control_val - dead_zone, min_control_val, accelerate_motorA, 255);
+    value_motorA = map(rc_packet.ch1, mid_control_val - DEAD_ZONE, min_control_val, ACCELERATE_MOTOR_A, 255);
     analogWrite(pin_pwm1_motorA, value_motorA);
     digitalWrite(pin_pwm2_motorA, LOW);
   }
-  else if (rc_packet.ch1 > mid_control_val + dead_zone)
+  else if (rc_packet.ch1 > mid_control_val + DEAD_ZONE)
   {
-    value_motorA = map(rc_packet.ch1, mid_control_val + dead_zone, max_control_val, accelerate_motorA, 255);
+    value_motorA = map(rc_packet.ch1, mid_control_val + DEAD_ZONE, max_control_val, ACCELERATE_MOTOR_A, 255);
     analogWrite(pin_pwm2_motorA, value_motorA); 
     digitalWrite(pin_pwm1_motorA, LOW);
   }
   else
   {
-    analogWrite(pin_pwm1_motorA, brake_motorA);
-    analogWrite(pin_pwm2_motorA, brake_motorA);
+    analogWrite(pin_pwm1_motorA, BRAKE_MOTOR_A);
+    analogWrite(pin_pwm2_motorA, BRAKE_MOTOR_A);
   }
 
 //  Serial.println(rc_packet.ch1); //print value ​​on a serial monitor
   
 //motorB -------------------------------------------------------------------------------------
 
-  if (rc_packet.ch2 < mid_control_val - dead_zone)
+  if (rc_packet.ch2 < mid_control_val - DEAD_ZONE)
   {
-    value_motorB = map(rc_packet.ch2, mid_control_val - dead_zone, min_control_val, accelerate_motorB, 255);
+    value_motorB = map(rc_packet.ch2, mid_control_val - DEAD_ZONE, min_control_val, ACCELERATE_MOTOR_B, 255);
     analogWrite(pin_pwm3_motorB, value_motorB); 
     digitalWrite(pin_pwm4_motorB, LOW);
   }
-  else if (rc_packet.ch2 > mid_control_val + dead_zone)
+  else if (rc_packet.ch2 > mid_control_val + DEAD_ZONE)
   {
-    value_motorB = map(rc_packet.ch2, mid_control_val + dead_zone, max_control_val, accelerate_motorB, 255);
+    value_motorB = map(rc_packet.ch2, mid_control_val + DEAD_ZONE, max_control_val, ACCELERATE_MOTOR_B, 255);
     analogWrite(pin_pwm4_motorB, value_motorB); 
     digitalWrite(pin_pwm3_motorB, LOW);
   }
   else
   {
-    analogWrite(pin_pwm3_motorB, brake_motorB);
-    analogWrite(pin_pwm4_motorB, brake_motorB);
+    analogWrite(pin_pwm3_motorB, BRAKE_MOTOR_B);
+    analogWrite(pin_pwm4_motorB, BRAKE_MOTOR_B);
   }
 }
 
@@ -218,7 +218,7 @@ void setup()
   
   radio.setRetries(5, 5);          //set the number and delay of retries on failed submit (max. 15 x 250us delay (blocking !), max. 15 retries)
   
-  radio.setChannel(radio_channel); //which RF channel to communicate on (0-125, 2.4Ghz + 76 = 2.476Ghz)
+  radio.setChannel(RADIO_CHANNEL); //which RF channel to communicate on (0-125, 2.4Ghz + 76 = 2.476Ghz)
   radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm) 
 
@@ -277,7 +277,7 @@ void send_and_receive_data()
 
 //************************************************************************************************************************************************************************
 //reading adc RX battery. After receiving RF data, the monitored RX battery is activated *********************************************************************************
-//when RX battery_voltage < monitored_voltage = LED alarm RX flash at a interval of 0.5s. Battery OK = LED RX is lit *****************************************************
+//when RX BATTERY_VOLTAGE < MONITORED_VOLTAGE = LED alarm RX flash at a interval of 0.5s. Battery OK = LED RX is lit *****************************************************
 //************************************************************************************************************************************************************************
 unsigned long ledTime = 0, adcTime = 0;
 int ledState, detect;
@@ -291,7 +291,7 @@ void RX_batt_check()
     telemetry_packet.RX_batt_A1 = map(analogRead(pin_RX_battery), 0, 1023, 0, 255);
   }
   
-  detect = telemetry_packet.RX_batt_A1 <= (255 / battery_voltage) * monitored_voltage;
+  detect = telemetry_packet.RX_batt_A1 <= (255 / BATTERY_VOLTAGE) * MONITORED_VOLTAGE;
     
   if (millis() >= ledTime + 500)
   {

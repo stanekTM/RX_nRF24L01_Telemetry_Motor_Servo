@@ -15,11 +15,11 @@
 const byte address[] = "jirka";
 
 //RF communication channel settings (0-125, 2.4Ghz + 76 = 2.476Ghz)
-#define radio_channel 76
+#define RADIO_CHANNEL  76
 
 //LED alarm battery voltage setting
-#define battery_voltage   4.2
-#define monitored_voltage 3.35
+#define BATTERY_VOLTAGE    4.2
+#define MONITORED_VOLTAGE  3.35
 
 //setting the control range value
 #define min_control_val 1000
@@ -192,7 +192,7 @@ void setup()
   
   radio.setRetries(5, 5);          //set the number and delay of retries on failed submit (max. 15 x 250us delay (blocking !), max. 15 retries)
   
-  radio.setChannel(radio_channel); //which RF channel to communicate on (0-125, 2.4Ghz + 76 = 2.476Ghz)
+  radio.setChannel(RADIO_CHANNEL); //which RF channel to communicate on (0-125, 2.4Ghz + 76 = 2.476Ghz)
   radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm) 
 
@@ -251,7 +251,7 @@ void send_and_receive_data()
 
 //************************************************************************************************************************************************************************
 //reading adc RX battery. After receiving RF data, the monitored RX battery is activated *********************************************************************************
-//when RX battery_voltage < monitored_voltage = LED alarm RX flash at a interval of 0.5s. Battery OK = LED RX is lit *****************************************************
+//when RX BATTERY_VOLTAGE < MONITORED_VOLTAGE = LED alarm RX flash at a interval of 0.5s. Battery OK = LED RX is lit *****************************************************
 //************************************************************************************************************************************************************************
 unsigned long ledTime = 0, adcTime = 0;
 int ledState, detect;
@@ -265,7 +265,7 @@ void RX_batt_check()
     telemetry_packet.RX_batt_A1 = map(analogRead(pin_RX_battery), 0, 1023, 0, 255);
   }
   
-  detect = telemetry_packet.RX_batt_A1 <= (255 / battery_voltage) * monitored_voltage;
+  detect = telemetry_packet.RX_batt_A1 <= (255 / BATTERY_VOLTAGE) * MONITORED_VOLTAGE;
     
   if (millis() >= ledTime + 500)
   {
