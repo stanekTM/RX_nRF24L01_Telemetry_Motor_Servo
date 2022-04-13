@@ -22,64 +22,64 @@ const byte address[] = "jirka";
 #define MONITORED_VOLTAGE  3.35
 
 //setting the control range value
-#define min_control_val 1000
-#define mid_control_val 1500
-#define max_control_val 2000
+#define MIN_CONTROL_VAL  1000
+#define MID_CONTROL_VAL  1500
+#define MAX_CONTROL_VAL  2000
 
 //free pins
-//pin                  0
-//pin                  1
-//pin                  A6
+//pin                   0
+//pin                   1
+//pin                   A6
 
 //pins for servos
-#define pin_servo1     2
-#define pin_servo2     3
-#define pin_servo3     4
-#define pin_servo4     5
-#define pin_servo5     6
-#define pin_servo6     7
-#define pin_servo7     8
-#define pin_servo8     9
-#define pin_servo9     10
-#define pin_servo10    11 //MOSI
-#define pin_servo11    12 //MISO
-#define pin_servo12    13 //SCK
+#define PIN_SERVO_1     2
+#define PIN_SERVO_2     3
+#define PIN_SERVO_3     4
+#define PIN_SERVO_4     5
+#define PIN_SERVO_5     6
+#define PIN_SERVO_6     7
+#define PIN_SERVO_7     8
+#define PIN_SERVO_8     9
+#define PIN_SERVO_9     10
+#define PIN_SERVO_10    11 //MOSI
+#define PIN_SERVO_11    12 //MISO
+#define PIN_SERVO_12    13 //SCK
 
 //LED RX battery and RF on/off
-#define pin_LED        A5
+#define PIN_LED         A5
 
 //input RX battery
-#define pin_RX_battery A7
+#define PIN_RX_BATTERY  A7
 
 //pins for nRF24L01
-#define pin_CE         A0
-#define pin_CSN        A1
+#define PIN_CE          A0
+#define PIN_CSN         A1
 
 //software SPI http://tmrh20.github.io/RF24/Arduino.html
-//----- SCK       16 - A2
-//----- MOSI      17 - A3
-//----- MISO      18 - A4
+//----- SCK        16 - A2
+//----- MOSI       17 - A3
+//----- MISO       18 - A4
 
 //setting of CE and CSN pins
-RF24 radio(pin_CE, pin_CSN);
+RF24 radio(PIN_CE, PIN_CSN);
 
 //************************************************************************************************************************************************************************
 //this structure defines the received data in bytes (structure size max. 32 bytes) ***************************************************************************************
 //************************************************************************************************************************************************************************
 struct rc_packet_size
 {
-  unsigned int ch1;
-  unsigned int ch2;
-  unsigned int ch3;
-  unsigned int ch4;
-  unsigned int ch5;
-  unsigned int ch6;
-  unsigned int ch7;
-  unsigned int ch8;
-  unsigned int ch9;
-  unsigned int ch10;
-  unsigned int ch11;
-  unsigned int ch12;
+  unsigned int ch_servo1;
+  unsigned int ch_servo2;
+  unsigned int ch_servo3;
+  unsigned int ch_servo4;
+  unsigned int ch_servo5;
+  unsigned int ch_servo6;
+  unsigned int ch_servo7;
+  unsigned int ch_servo8;
+  unsigned int ch_servo9;
+  unsigned int ch_servo10;
+  unsigned int ch_servo11;
+  unsigned int ch_servo12;
 };
 rc_packet_size rc_packet; //create a variable with the above structure
 
@@ -95,22 +95,22 @@ struct telemetry_packet_size
 telemetry_packet_size telemetry_packet;
 
 //************************************************************************************************************************************************************************
-//fail safe, settings 1000-2000 ​​(min_control_val = 1000, mid_control_val = 1500, max_control_val = 2000) *****************************************************************
+//fail safe, settings 1000-2000 ​​(MIN_CONTROL_VAL = 1000, MID_CONTROL_VAL = 1500, MAX_CONTROL_VAL = 2000) *****************************************************************
 //************************************************************************************************************************************************************************
 void fail_safe()
 {
-  rc_packet.ch1  = mid_control_val;
-  rc_packet.ch2  = mid_control_val;
-  rc_packet.ch3  = mid_control_val;
-  rc_packet.ch4  = mid_control_val;
-  rc_packet.ch5  = mid_control_val;
-  rc_packet.ch6  = mid_control_val;
-  rc_packet.ch7  = mid_control_val;
-  rc_packet.ch8  = mid_control_val;
-  rc_packet.ch9  = mid_control_val;
-  rc_packet.ch10 = mid_control_val;
-  rc_packet.ch11 = mid_control_val;
-  rc_packet.ch12 = mid_control_val;
+  rc_packet.ch_servo1  = MID_CONTROL_VAL;
+  rc_packet.ch_servo2  = MID_CONTROL_VAL;
+  rc_packet.ch_servo3  = MID_CONTROL_VAL;
+  rc_packet.ch_servo4  = MID_CONTROL_VAL;
+  rc_packet.ch_servo5  = MID_CONTROL_VAL;
+  rc_packet.ch_servo6  = MID_CONTROL_VAL;
+  rc_packet.ch_servo7  = MID_CONTROL_VAL;
+  rc_packet.ch_servo8  = MID_CONTROL_VAL;
+  rc_packet.ch_servo9  = MID_CONTROL_VAL;
+  rc_packet.ch_servo10 = MID_CONTROL_VAL;
+  rc_packet.ch_servo11 = MID_CONTROL_VAL;
+  rc_packet.ch_servo12 = MID_CONTROL_VAL;
 }
 
 //************************************************************************************************************************************************************************
@@ -120,18 +120,18 @@ Servo servo1, servo2, servo3, servo4, servo5, servo6, servo7, servo8, servo9, se
 
 void attachServoPins()
 {
-  servo1.attach(pin_servo1);
-  servo2.attach(pin_servo2);
-  servo3.attach(pin_servo3);
-  servo4.attach(pin_servo4);
-  servo5.attach(pin_servo5);
-  servo6.attach(pin_servo6);
-  servo7.attach(pin_servo7);
-  servo8.attach(pin_servo8);
-  servo9.attach(pin_servo9);
-  servo10.attach(pin_servo10);
-  servo11.attach(pin_servo11);
-  servo12.attach(pin_servo12);
+  servo1.attach(PIN_SERVO_1);
+  servo2.attach(PIN_SERVO_2);
+  servo3.attach(PIN_SERVO_3);
+  servo4.attach(PIN_SERVO_4);
+  servo5.attach(PIN_SERVO_5);
+  servo6.attach(PIN_SERVO_6);
+  servo7.attach(PIN_SERVO_7);
+  servo8.attach(PIN_SERVO_8);
+  servo9.attach(PIN_SERVO_9);
+  servo10.attach(PIN_SERVO_10);
+  servo11.attach(PIN_SERVO_11);
+  servo12.attach(PIN_SERVO_12);
 }
 
 int value_servo1 = 0, value_servo2 = 0, value_servo3 = 0, value_servo4 = 0, value_servo5 = 0, value_servo6 = 0,
@@ -139,18 +139,18 @@ int value_servo1 = 0, value_servo2 = 0, value_servo3 = 0, value_servo4 = 0, valu
 
 void outputServo()
 {
-  value_servo1  = map(rc_packet.ch1,  min_control_val, max_control_val, min_control_val, max_control_val);
-  value_servo2  = map(rc_packet.ch2,  min_control_val, max_control_val, min_control_val, max_control_val);
-  value_servo3  = map(rc_packet.ch3,  min_control_val, max_control_val, min_control_val, max_control_val);
-  value_servo4  = map(rc_packet.ch4,  min_control_val, max_control_val, min_control_val, max_control_val);
-  value_servo5  = map(rc_packet.ch5,  min_control_val, max_control_val, min_control_val, max_control_val);
-  value_servo6  = map(rc_packet.ch6,  min_control_val, max_control_val, min_control_val, max_control_val);
-  value_servo7  = map(rc_packet.ch7,  min_control_val, max_control_val, min_control_val, max_control_val);
-  value_servo8  = map(rc_packet.ch8,  min_control_val, max_control_val, min_control_val, max_control_val);
-  value_servo9  = map(rc_packet.ch9,  min_control_val, max_control_val, min_control_val, max_control_val);
-  value_servo10 = map(rc_packet.ch10, min_control_val, max_control_val, min_control_val, max_control_val);
-  value_servo11 = map(rc_packet.ch11, min_control_val, max_control_val, min_control_val, max_control_val);
-  value_servo12 = map(rc_packet.ch12, min_control_val, max_control_val, min_control_val, max_control_val);
+  value_servo1  = map(rc_packet.ch_servo1,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo2  = map(rc_packet.ch_servo2,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo3  = map(rc_packet.ch_servo3,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo4  = map(rc_packet.ch_servo4,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo5  = map(rc_packet.ch_servo5,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo6  = map(rc_packet.ch_servo6,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo7  = map(rc_packet.ch_servo7,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo8  = map(rc_packet.ch_servo8,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo9  = map(rc_packet.ch_servo9,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo10 = map(rc_packet.ch_servo10, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo11 = map(rc_packet.ch_servo11, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo12 = map(rc_packet.ch_servo12, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
   
   servo1.writeMicroseconds(value_servo1);
   servo2.writeMicroseconds(value_servo2);
@@ -165,7 +165,7 @@ void outputServo()
   servo11.writeMicroseconds(value_servo11);
   servo12.writeMicroseconds(value_servo12);
 
-//  Serial.println(rc_packet.ch1); //print value ​​on a serial monitor 
+//  Serial.println(rc_packet.ch_servo1); //print value ​​on a serial monitor 
 }
 
 //************************************************************************************************************************************************************************
@@ -178,8 +178,8 @@ void setup()
 //  Serial.begin(9600); //print value ​​on a serial monitor
 //  printf_begin();     //print the radio debug info
 
-  pinMode(pin_LED, OUTPUT);
-  pinMode(pin_RX_battery, INPUT);
+  pinMode(PIN_LED, OUTPUT);
+  pinMode(PIN_RX_BATTERY, INPUT);
 
   fail_safe();
   attachServoPins();
@@ -262,7 +262,7 @@ void RX_batt_check()
   {
     adcTime = millis();
     
-    telemetry_packet.RX_batt_A1 = map(analogRead(pin_RX_battery), 0, 1023, 0, 255);
+    telemetry_packet.RX_batt_A1 = map(analogRead(PIN_RX_BATTERY), 0, 1023, 0, 255);
   }
   
   detect = telemetry_packet.RX_batt_A1 <= (255 / BATTERY_VOLTAGE) * MONITORED_VOLTAGE;
@@ -279,7 +279,7 @@ void RX_batt_check()
     {
       ledState = HIGH;
     }   
-    digitalWrite(pin_LED, ledState);
+    digitalWrite(PIN_LED, ledState);
   } 
 //  Serial.println(telemetry_packet.RX_batt_A1); //print value ​​on a serial monitor
 }
@@ -301,7 +301,7 @@ void RF_off_check()
     {
       ledState = HIGH;
     }   
-    digitalWrite(pin_LED, ledState);
+    digitalWrite(PIN_LED, ledState);
   }
 }
  

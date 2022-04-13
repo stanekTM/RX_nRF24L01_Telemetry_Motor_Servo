@@ -91,11 +91,11 @@ RF24 radio(PIN_CE, PIN_CSN);
 //************************************************************************************************************************************************************************
 struct rc_packet_size
 {
-  unsigned int CHANNEL_MOTOR_A;
-  unsigned int CHANNEL_MOTOR_B;
-  unsigned int CHANNEL_SERVO_1; //unused channel, only adding byte array TX 5ch
-  unsigned int CHANNEL_SERVO_2; //unused channel, only adding byte array TX 5ch
-  unsigned int CHANNEL_SERVO_3; //unused channel, only adding byte array TX 5ch
+  unsigned int ch_motorA;
+  unsigned int ch_motorB;
+  unsigned int ch_servo1; //unused channel, only adding byte array TX 5ch
+  unsigned int ch_servo2; //unused channel, only adding byte array TX 5ch
+  unsigned int ch_servo3; //unused channel, only adding byte array TX 5ch
 };
 rc_packet_size rc_packet; //create a variable with the above structure
 
@@ -104,9 +104,9 @@ rc_packet_size rc_packet; //create a variable with the above structure
 //************************************************************************************************************************************************************************
 struct telemetry_packet_size
 {
-  uint8_t RSSI;     // not used yet
-  float RX_BATT_A1;
-  float RX_BATT_A2; // not used yet
+  uint8_t rssi;     // not used yet
+  float RX_batt_A1;
+  float RX_batt_A2; // not used yet
 };
 telemetry_packet_size telemetry_packet;
 
@@ -115,8 +115,8 @@ telemetry_packet_size telemetry_packet;
 //************************************************************************************************************************************************************************
 void fail_safe()
 {
-  rc_packet.CHANNEL_MOTOR_A = MID_CONTROL_VAL;
-  rc_packet.CHANNEL_MOTOR_B = MID_CONTROL_VAL;
+  rc_packet.ch_motorA = MID_CONTROL_VAL;
+  rc_packet.ch_motorB = MID_CONTROL_VAL;
 }
 
 //************************************************************************************************************************************************************************
@@ -124,47 +124,46 @@ void fail_safe()
 //************************************************************************************************************************************************************************
 void outputPWM()
 {
-/*
- * The base frequency for pins 3, 9, 10, 11 is 31250Hz.
- * The base frequency for pins 5, 6         is 62500Hz.
- * 
- * The divisors available on pins 5, 6, 9, 10 are: 1, 8, 64, 256, and 1024.
- * The divisors available on pins 3, 11       are: 1, 8, 32, 64, 128, 256, and 1024.
- * 
- * Pins 5, 6  are paired on timer0, functions delay(), millis(), micros() and delayMicroseconds()
- * D5   pwm 976Hz(default), timer0, 8-bit
- * D6   pwm 976Hz(default), timer0, 8-bit
- * 
- * Pins 9, 10 are paired on timer1, Servo library
- * D9   pwm 488Hz(default), timer1, 16-bit
- * D10  pwm 488Hz(default), timer1, 16-bit
- * 
- * Pins 3, 11 are paired on timer2, ServoTimer2 library
- * D3   pwm 488Hz(default), timer2, 8-bit
- * D11  pwm 488Hz(default), timer2, 8-bit, SPI MOSI hardware
-*/
-
+ /*
+  * The base frequency for pins 3, 9, 10, 11 is 31250Hz.
+  * The base frequency for pins 5, 6         is 62500Hz.
+  * 
+  * The divisors available on pins 5, 6, 9, 10 are: 1, 8, 64, 256, and 1024.
+  * The divisors available on pins 3, 11       are: 1, 8, 32, 64, 128, 256, and 1024.
+  * 
+  * Pins 5, 6  are paired on timer0, functions delay(), millis(), micros() and delayMicroseconds()
+  * D5   pwm 976Hz(default), timer0, 8-bit
+  * D6   pwm 976Hz(default), timer0, 8-bit
+  * 
+  * Pins 9, 10 are paired on timer1, Servo library
+  * D9   pwm 488Hz(default), timer1, 16-bit
+  * D10  pwm 488Hz(default), timer1, 16-bit
+  * 
+  * Pins 3, 11 are paired on timer2, ServoTimer2 library
+  * D3   pwm 488Hz(default), timer2, 8-bit
+  * D11  pwm 488Hz(default), timer2, 8-bit, SPI MOSI hardware
+  */
+   
   //motorA PWM frequency pin D9 or pin D10
   //1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
-  setPWMPrescaler(PIN_PWM_1_MOTOR_A, PWM_MOTOR_A);  
-
+  setPWMPrescaler(PIN_PWM_1_MOTOR_A, PWM_MOTOR_A);
+   
   //motorB PWM frequency pin D3 or pin D11
   //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
   setPWMPrescaler(PIN_PWM_3_MOTOR_B, PWM_MOTOR_B);
   
-  //--------------------------------------------------------------------------------------------
   int value_motorA = 0, value_motorB = 0;
-
+  
   //motorA -------------------------------------------------------------------------------------
-  if (rc_packet.CHANNEL_MOTOR_A < MID_CONTROL_VAL - DEAD_ZONE)
+  if (rc_packet.ch_motorA < MID_CONTROL_VAL - DEAD_ZONE)
   {
-    value_motorA = map(rc_packet.CHANNEL_MOTOR_A, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_A, MAXIMUM_MOTOR_A);
+    value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_A, MAXIMUM_MOTOR_A);
     analogWrite(PIN_PWM_1_MOTOR_A, value_motorA);
     digitalWrite(PIN_PWM_2_MOTOR_A, LOW);
   }
-  else if (rc_packet.CHANNEL_MOTOR_A > MID_CONTROL_VAL + DEAD_ZONE)
+  else if (rc_packet.ch_motorA > MID_CONTROL_VAL + DEAD_ZONE)
   {
-    value_motorA = map(rc_packet.CHANNEL_MOTOR_A, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_A, MAXIMUM_MOTOR_A);
+    value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_A, MAXIMUM_MOTOR_A);
     analogWrite(PIN_PWM_2_MOTOR_A, value_motorA); 
     digitalWrite(PIN_PWM_1_MOTOR_A, LOW);
   }
@@ -173,19 +172,19 @@ void outputPWM()
     analogWrite(PIN_PWM_1_MOTOR_A, BRAKE_MOTOR_A);
     analogWrite(PIN_PWM_2_MOTOR_A, BRAKE_MOTOR_A);
   }
-
-//  Serial.println(rc_packet.CHANNEL_MOTOR_A); //print value ​​on a serial monitor
+  
+  //Serial.println(rc_packet.ch_motorA); //print value ​​on a serial monitor
   
   //motorB -------------------------------------------------------------------------------------
-  if (rc_packet.CHANNEL_MOTOR_B < MID_CONTROL_VAL - DEAD_ZONE)
+  if (rc_packet.ch_motorB < MID_CONTROL_VAL - DEAD_ZONE)
   {
-    value_motorB = map(rc_packet.CHANNEL_MOTOR_B, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_B, MAXIMUM_MOTOR_B);
+    value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_B, MAXIMUM_MOTOR_B);
     analogWrite(PIN_PWM_3_MOTOR_B, value_motorB);
     digitalWrite(PIN_PWM_4_MOTOR_B, LOW);
   }
-  else if (rc_packet.CHANNEL_MOTOR_B > MID_CONTROL_VAL + DEAD_ZONE)
+  else if (rc_packet.ch_motorB > MID_CONTROL_VAL + DEAD_ZONE)
   {
-    value_motorB = map(rc_packet.CHANNEL_MOTOR_B, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_B, MAXIMUM_MOTOR_B);
+    value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_B, MAXIMUM_MOTOR_B);
     analogWrite(PIN_PWM_4_MOTOR_B, value_motorB);
     digitalWrite(PIN_PWM_3_MOTOR_B, LOW);
   }
@@ -294,10 +293,10 @@ void RX_batt_check()
   {
     adcTime = millis();
 
-    telemetry_packet.RX_BATT_A1 = analogRead(PIN_RX_BATTERY) * (BATTERY_VOLTAGE / 1023);
+    telemetry_packet.RX_batt_A1 = analogRead(PIN_RX_BATTERY) * (BATTERY_VOLTAGE / 1023);
   }
 
-  detect = telemetry_packet.RX_BATT_A1 <= MONITORED_VOLTAGE;
+  detect = telemetry_packet.RX_batt_A1 <= MONITORED_VOLTAGE;
   
   if (millis() >= ledTime + 500)
   {
@@ -313,7 +312,7 @@ void RX_batt_check()
     }   
     digitalWrite(PIN_LED, ledState);
   }
-//  Serial.println(telemetry_packet.RX_BATT_A1); //print value ​​on a serial monitor
+//  Serial.println(telemetry_packet.RX_batt_A1); //print value ​​on a serial monitor
 }
 
 //************************************************************************************************************************************************************************
