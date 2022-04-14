@@ -22,7 +22,7 @@ const byte address[] = "jirka";
 //1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default), 8 = 7812Hz
 #define PWM_MOTOR_A  64
 
-//settings PWM motorB (pin D3 or D11)
+//settings PWM motorB (pin D3 or D11 are paired on timer2, ServoTimer2 library)
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
 #define PWM_MOTOR_B  256
 
@@ -185,15 +185,15 @@ void outputPWM()
   * The divisors available on pins 5, 6, 9, 10 are: 1, 8, 64, 256, and 1024.
   * The divisors available on pins 3, 11       are: 1, 8, 32, 64, 128, 256, and 1024.
   * 
-  * Pins 5, 6  are paired on timer0, functions delay(), millis(), micros() and delayMicroseconds()
+  * pin D5 or D6 are paired on timer0, functions delay(), millis(), micros() and delayMicroseconds()
   * D5   pwm 976Hz(default), timer0, 8-bit
   * D6   pwm 976Hz(default), timer0, 8-bit
   * 
-  * Pins 9, 10 are paired on timer1, Servo library
+  * pin D9 or D10 are paired on timer1, Servo library
   * D9   pwm 488Hz(default), timer1, 16-bit
   * D10  pwm 488Hz(default), timer1, 16-bit
   * 
-  * Pins 3, 11 are paired on timer2, ServoTimer2 library
+  * pin D3 or D11 are paired on timer2, ServoTimer2 library
   * D3   pwm 488Hz(default), timer2, 8-bit
   * D11  pwm 488Hz(default), timer2, 8-bit, SPI MOSI hardware
   */
