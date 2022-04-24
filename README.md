@@ -1,6 +1,6 @@
-# RC RX nRF24L01 2-12ch
+# RX_nRF24L01_Telemetry_Motor_Servo
 RC receiver nRF24L01 with ATmega328P/16Mhz, Arduino Nano or Pro Mini.
-Telemetry sends the monitored voltage RX to TX. 
+Telemetry sends the monitored voltage RX to TX.
 The motor driver IC is based on MX1208, MX1508, MX1515, MX1616L, TC1508S, SA8302 and others similar, using 4x pwm input control signals.
 The possibility of setting the brake is in the code.
 Other versions of the RX firmware include servo outputs.
@@ -12,8 +12,8 @@ The firmware will be used for cars, boats, tanks, robots and aircraft.
 * [**OpenAVRc**](https://github.com/stanekTM/OpenAVRc_Dev)
 * [**Multiprotocol**](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
 
-Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage. 
-If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF. 
+Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage.
+If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF.
 All versions of the code are based on this [scheme](https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OpenAVRc_Multi_2ch_A1_Motor/documents/Schema_Micro_RX_2ch_A1_Motor.PNG), but each version uses different pins.
 
 ## Example micro RX
