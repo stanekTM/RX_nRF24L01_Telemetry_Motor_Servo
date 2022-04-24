@@ -6,7 +6,7 @@ The possibility of setting the brake is in the code.
 Other versions of the RX firmware include servo outputs.
 The firmware will be used for cars, boats, tanks, robots and aircraft.
 
-This RC receiver works with RC transmitters
+**This RC receiver works with RC transmitters**
 * [**TX_nRF24L01_4ch_Telemetry_LCD**](https://github.com/stanekTM/TX_nRF24L01_4ch_Telemetry_LCD)
 * [**TX_nRF24L01_5ch_Telemetry_LED**](https://github.com/stanekTM/TX_nRF24L01_5ch_Telemetry_LED)
 * [**OpenAVRc**](https://github.com/stanekTM/OpenAVRc_Dev)
