@@ -53,7 +53,7 @@ void setPWMPrescaler(uint8_t pin, uint16_t prescale)
 { 
   byte mode;
   
-  if(pin==3 || pin==5 || pin==9 || pin==10 || pin==11)
+  if (pin==3 || pin==5 || pin==9 || pin==10 || pin==11)
   {
     switch (prescale)
     {
@@ -89,7 +89,7 @@ void setPWMPrescaler(uint8_t pin, uint16_t prescale)
     }
   }
   
-  if(pin==3 || pin==11)
+  if (pin==3 || pin==11)
   {
     TCCR0B = TCCR1B & 0b11111000 | mode;
   }
