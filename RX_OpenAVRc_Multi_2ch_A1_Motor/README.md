@@ -1,4 +1,4 @@
-## Micro RX 2ch (motor driver)
+# Micro RX 2ch (motor driver)
 RC receiver nRF24L01 with ATmega328P/16Mhz processor for smaller dimensions.
 It is possible to use Arduino Nano or Pro Mini. 
 Telemetry sends the monitored voltage RX to TX. 
@@ -22,7 +22,7 @@ If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the
 <img src="documents/Micro_RX_2ch_A1_Motor_5.jpg" width="276" />
 <img src="documents/Micro_RX_2ch_A1_Motor_6.jpg" width="416" />
 #
-### Function:
+## Function
 * MotorA = adjustable pwm/ch1
 * MotorB = adjustable pwm/ch2
 * Brake = on, off or adjustable effect 
@@ -31,31 +31,33 @@ If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the
 * TX transmitter off or signal loss = RX LED flash at a interval of 0.1s 
 * Fail-safe = MotorA and MotorB stopped
 
-### Arduino pins:
-* D9  - pwm1/MotorA
-* D10 - pwm2/MotorA
-* D3  - pwm3/MotorB
-* D11 - pwm4/MotorB
-#
-* D2  - LED
-* A7  - telemetry analog input RX battery
-#
-nRF24L01:
-* A0  - CE
-* A1  - CSN
-* A2  - SCK
-* A3  - MOSI
-* A4  - MISO
+## Arduino pins
+```
+D9  - pwm1/MotorA
+D10 - pwm2/MotorA
+D3  - pwm3/MotorB
+D11 - pwm4/MotorB
 
-### Used libraries:
+D2  - LED
+A7  - telemetry analog input RX battery
+
+nRF24L01:
+A0  - CE
+A1  - CSN
+A2  - SCK
+A3  - MOSI
+A4  - MISO
+```
+
+## Used libraries
 * <RF24.h>                      https://github.com/nRF24/RF24 v1.3.9 
 * <DigitalIO.h>                 https://github.com/greiman/DigitalIO
 * "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
 
-### Schema:
+## Schema
 ![schema](https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OpenAVRc_Multi_2ch_A1_Motor/documents/Schema_Micro_RX_2ch_A1_Motor.PNG)
 
-### Layout:
+## Layout
 ![layout](https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OpenAVRc_Multi_2ch_A1_Motor/documents/Layout_Micro_RX_2ch_A1_Motor.PNG)
 #
 Jiri StanekTM
