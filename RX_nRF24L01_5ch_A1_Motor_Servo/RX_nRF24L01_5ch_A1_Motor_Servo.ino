@@ -85,7 +85,7 @@ const byte address[] = "jirka";
 #define PIN_CE             A0
 #define PIN_CSN            A1
 
-//software SPI http://tmrh20.github.io/RF24/Arduino.html
+//software SPI https://nrf24.github.io/RF24/md_docs_arduino.html
 //----- SCK           16 - A2
 //----- MOSI          17 - A3
 //----- MISO          18 - A4
