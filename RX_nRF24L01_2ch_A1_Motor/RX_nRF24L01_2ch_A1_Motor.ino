@@ -108,9 +108,9 @@ rc_packet_size rc_packet; //create a variable with the above structure
 //************************************************************************************************************************************************************************
 struct telemetry_packet_size
 {
-  uint8_t rssi;     // not used yet
+  uint8_t rssi;     //not used yet
   float RX_batt_A1;
-  float RX_batt_A2; // not used yet
+  float RX_batt_A2; //not used yet
 };
 telemetry_packet_size telemetry_packet;
 
@@ -152,7 +152,7 @@ void outputPWM()
     analogWrite(PIN_PWM_2_MOTOR_A, BRAKE_MOTOR_A);
   }
   
-  //Serial.println(rc_packet.ch_motorA); //print value ​​on a serial monitor
+//  Serial.println(rc_packet.ch_motorA); //print value ​​on a serial monitor
   
   //motorB -------------------------------------------------------------------------------------
   if (rc_packet.ch_motorB < MID_CONTROL_VAL - DEAD_ZONE)
@@ -224,7 +224,6 @@ void loop()
 
 //  Serial.println("Radio details *****************");
 //  radio.printDetails(); //print the radio debug info
- 
 }
 
 //************************************************************************************************************************************************************************
@@ -291,6 +290,7 @@ void RX_batt_check()
     }   
     digitalWrite(PIN_LED, ledState);
   }
+  
 //  Serial.println(telemetry_packet.RX_batt_A1); //print value ​​on a serial monitor
 }
 
