@@ -46,9 +46,13 @@ A4  - MISO
 * "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
 
 ## Schema
+The schematic is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance)
+
 ![Schema_Micro_RX_2ch_A1_Motor](https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OpenAVRc_Multi_2ch_A1_Motor/documents/Schema_Micro_RX_2ch_A1_Motor.PNG)
 
 ## Layout
+The layout is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance)
+
 ![Layout_Micro_RX_2ch_A1_Motor](https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OpenAVRc_Multi_2ch_A1_Motor/documents/Layout_Micro_RX_2ch_A1_Motor.PNG)
 #
 Jiri StanekTM
