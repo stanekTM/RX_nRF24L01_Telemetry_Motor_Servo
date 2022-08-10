@@ -44,8 +44,6 @@ A4  - MISO
 ```
 
 ## Used libraries
-* <RF24.h>                      https://github.com/nRF24/RF24 v1.3.9 
-* <DigitalIO.h>                 https://github.com/greiman/DigitalIO
-* <Servo.h>        Arduino standard library
-#
-Jiri StanekTM
+* <RF24.h>      https://github.com/nRF24/RF24 v1.3.9 
+* <DigitalIO.h> https://github.com/greiman/DigitalIO
+* <Servo.h>     Arduino standard library
