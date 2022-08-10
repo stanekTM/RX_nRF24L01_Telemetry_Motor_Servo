@@ -61,6 +61,7 @@ The schematic is created by a custom version of the open source [PCB Elegance](h
 
 ## Layout
 The layout is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance)
+
 ![layout](https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OpenAVRc_Multi_2ch_A1_Motor/documents/Layout_Micro_RX_2ch_A1_Motor.PNG)
 #
 Jiri StanekTM
