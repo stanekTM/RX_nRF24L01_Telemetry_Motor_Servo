@@ -15,6 +15,8 @@ If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the
 #
 <a href="https://youtu.be/E0pgMNPuYU4"><img src="documents/youtube.PNG" width="640" /></a>
 
+The PCB is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance) and manufactured by [JLCPCB](https://jlcpcb.com)
+
 <img src="documents/Micro_RX_2ch_A1_Motor_0.jpg" width="276" /> <img src="documents/Micro_RX_2ch_A1_Motor_1.jpg" width="276" />
 <img src="documents/Micro_RX_2ch_A1_Motor_2.jpg" width="276" />
 <img src="documents/Micro_RX_2ch_A1_Motor_3.jpg" width="276" />
