@@ -133,18 +133,19 @@ void outputPWM()
   
   int value_motorA = 0, value_motorB = 0;
   
-  //motorA -------------------------------------------------------------------------------------
-  if (rc_packet.ch_motorA < MID_CONTROL_VAL - DEAD_ZONE)
-  {
-    value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_A, MAXIMUM_MOTOR_A);
-    analogWrite(PIN_PWM_1_MOTOR_A, value_motorA);
-    digitalWrite(PIN_PWM_2_MOTOR_A, LOW);
-  }
-  else if (rc_packet.ch_motorA > MID_CONTROL_VAL + DEAD_ZONE)
+  //forward motorA
+  if (rc_packet.ch_motorA > MID_CONTROL_VAL + DEAD_ZONE)
   {
     value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_A, MAXIMUM_MOTOR_A);
     analogWrite(PIN_PWM_2_MOTOR_A, value_motorA); 
     digitalWrite(PIN_PWM_1_MOTOR_A, LOW);
+  }
+  //back motorA
+  else if (rc_packet.ch_motorA < MID_CONTROL_VAL - DEAD_ZONE)
+  {
+    value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_A, MAXIMUM_MOTOR_A);
+    analogWrite(PIN_PWM_1_MOTOR_A, value_motorA);
+    digitalWrite(PIN_PWM_2_MOTOR_A, LOW);
   }
   else
   {
@@ -154,18 +155,19 @@ void outputPWM()
   
 //  Serial.println(rc_packet.ch_motorA); //print value ​​on a serial monitor
   
-  //motorB -------------------------------------------------------------------------------------
-  if (rc_packet.ch_motorB < MID_CONTROL_VAL - DEAD_ZONE)
-  {
-    value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_B, MAXIMUM_MOTOR_B);
-    analogWrite(PIN_PWM_3_MOTOR_B, value_motorB);
-    digitalWrite(PIN_PWM_4_MOTOR_B, LOW);
-  }
-  else if (rc_packet.ch_motorB > MID_CONTROL_VAL + DEAD_ZONE)
+  //forward motorB
+  if (rc_packet.ch_motorB > MID_CONTROL_VAL + DEAD_ZONE)
   {
     value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_B, MAXIMUM_MOTOR_B);
     analogWrite(PIN_PWM_4_MOTOR_B, value_motorB);
     digitalWrite(PIN_PWM_3_MOTOR_B, LOW);
+  }
+  //back motorB
+  else if (rc_packet.ch_motorB < MID_CONTROL_VAL - DEAD_ZONE)
+  {
+    value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_B, MAXIMUM_MOTOR_B);
+    analogWrite(PIN_PWM_3_MOTOR_B, value_motorB);
+    digitalWrite(PIN_PWM_4_MOTOR_B, LOW);
   }
   else
   {

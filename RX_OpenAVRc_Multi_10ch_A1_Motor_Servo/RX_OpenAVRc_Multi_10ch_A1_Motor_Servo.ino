@@ -156,13 +156,13 @@ int value_servo1 = 0, value_servo2 = 0, value_servo3 = 0, value_servo4 = 0, valu
 
 void outputServo()
 {
-  value_servo1 = map(rc_packet.ch_servo1,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  value_servo2 = map(rc_packet.ch_servo2,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  value_servo3 = map(rc_packet.ch_servo3,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  value_servo4 = map(rc_packet.ch_servo4,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  value_servo5 = map(rc_packet.ch_servo5,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  value_servo6 = map(rc_packet.ch_servo6,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  value_servo7 = map(rc_packet.ch_servo7,  MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo1 = map(rc_packet.ch_servo1, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo2 = map(rc_packet.ch_servo2, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo3 = map(rc_packet.ch_servo3, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo4 = map(rc_packet.ch_servo4, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo5 = map(rc_packet.ch_servo5, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo6 = map(rc_packet.ch_servo6, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
+  value_servo7 = map(rc_packet.ch_servo7, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
   value_servo8 = map(rc_packet.ch_servo8, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
   
   servo1.writeMicroseconds(value_servo1);
@@ -187,18 +187,19 @@ void outputPWM()
   
   int value_motorA = 0, value_motorB = 0;
   
-  //motorA --------------------------------------------------------------------------------------
-  if (rc_packet.ch_motorA < MID_CONTROL_VAL - DEAD_ZONE)
+  //forward motorA
+  if (rc_packet.ch_motorA > MID_CONTROL_VAL + DEAD_ZONE)
   {
-    value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_A, 255);
-    analogWrite(PIN_PWM_1_MOTOR_A, value_motorA);
-    digitalWrite(PIN_PWM_2_MOTOR_A, LOW);
-  }
-  else if (rc_packet.ch_motorA > MID_CONTROL_VAL + DEAD_ZONE)
-  {
-    value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_A, 255);
+    value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_A, MAXIMUM_MOTOR_A);
     analogWrite(PIN_PWM_2_MOTOR_A, value_motorA); 
     digitalWrite(PIN_PWM_1_MOTOR_A, LOW);
+  }
+  //back motorA
+  else if (rc_packet.ch_motorA < MID_CONTROL_VAL - DEAD_ZONE)
+  {
+    value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_A, MAXIMUM_MOTOR_A);
+    analogWrite(PIN_PWM_1_MOTOR_A, value_motorA);
+    digitalWrite(PIN_PWM_2_MOTOR_A, LOW);
   }
   else
   {
@@ -208,18 +209,19 @@ void outputPWM()
   
 //  Serial.println(rc_packet.ch_motorA); //print value ​​on a serial monitor
   
-  //motorB --------------------------------------------------------------------------------------
-  if (rc_packet.ch_motorB < MID_CONTROL_VAL - DEAD_ZONE)
+  //forward motorB
+  if (rc_packet.ch_motorB > MID_CONTROL_VAL + DEAD_ZONE)
   {
-    value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_B, 255);
-    analogWrite(PIN_PWM_3_MOTOR_B, value_motorB);
-    digitalWrite(PIN_PWM_4_MOTOR_B, LOW);
-  }
-  else if (rc_packet.ch_motorB > MID_CONTROL_VAL + DEAD_ZONE)
-  {
-    value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_B, 255);
+    value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_B, MAXIMUM_MOTOR_B);
     analogWrite(PIN_PWM_4_MOTOR_B, value_motorB);
     digitalWrite(PIN_PWM_3_MOTOR_B, LOW);
+  }
+  //back motorB
+  else if (rc_packet.ch_motorB < MID_CONTROL_VAL - DEAD_ZONE)
+  {
+    value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_B, MAXIMUM_MOTOR_B);
+    analogWrite(PIN_PWM_3_MOTOR_B, value_motorB);
+    digitalWrite(PIN_PWM_4_MOTOR_B, LOW);
   }
   else
   {
