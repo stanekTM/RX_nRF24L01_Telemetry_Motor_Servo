@@ -33,6 +33,10 @@ const byte address[] = "jirka";
 #define ACCELERATE_MOTOR_A  0
 #define ACCELERATE_MOTOR_B  0
 
+//setting the maximum engine power. Suitable for TX transmitters without endpoint setting (0-255)
+#define MAXIMUM_MOTOR_A  255
+#define MAXIMUM_MOTOR_B  255
+
 //brake setting, adjustment (0-255), no brake 0, max brake 255
 #define BRAKE_MOTOR_A  0
 #define BRAKE_MOTOR_B  0
@@ -130,6 +134,7 @@ void outputPWM()
   if (rc_packet.ch_motorA > MID_CONTROL_VAL + DEAD_ZONE)
   {
     value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_A, MAXIMUM_MOTOR_A);
+    value_motorA = constrain(value_motorA, ACCELERATE_MOTOR_A, MAXIMUM_MOTOR_A);
     analogWrite(PIN_PWM_2_MOTOR_A, value_motorA); 
     digitalWrite(PIN_PWM_1_MOTOR_A, LOW);
   }
@@ -137,6 +142,7 @@ void outputPWM()
   else if (rc_packet.ch_motorA < MID_CONTROL_VAL - DEAD_ZONE)
   {
     value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_A, MAXIMUM_MOTOR_A);
+    value_motorA = constrain(value_motorA, ACCELERATE_MOTOR_A, MAXIMUM_MOTOR_A);
     analogWrite(PIN_PWM_1_MOTOR_A, value_motorA);
     digitalWrite(PIN_PWM_2_MOTOR_A, LOW);
   }
@@ -145,13 +151,14 @@ void outputPWM()
     analogWrite(PIN_PWM_1_MOTOR_A, BRAKE_MOTOR_A);
     analogWrite(PIN_PWM_2_MOTOR_A, BRAKE_MOTOR_A);
   }
-  
-//  Serial.println(rc_packet.ch_motorA); //print value ​​on a serial monitor
-  
+//  Serial.println(value_motorA); //print value ​​on a serial monitor
+
+
   //forward motorB
   if (rc_packet.ch_motorB > MID_CONTROL_VAL + DEAD_ZONE)
   {
     value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_B, MAXIMUM_MOTOR_B);
+    value_motorB = constrain(value_motorB, ACCELERATE_MOTOR_B, MAXIMUM_MOTOR_B);
     analogWrite(PIN_PWM_4_MOTOR_B, value_motorB);
     digitalWrite(PIN_PWM_3_MOTOR_B, LOW);
   }
@@ -159,6 +166,7 @@ void outputPWM()
   else if (rc_packet.ch_motorB < MID_CONTROL_VAL - DEAD_ZONE)
   {
     value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_B, MAXIMUM_MOTOR_B);
+    value_motorB = constrain(value_motorB, ACCELERATE_MOTOR_B, MAXIMUM_MOTOR_B);
     analogWrite(PIN_PWM_3_MOTOR_B, value_motorB);
     digitalWrite(PIN_PWM_4_MOTOR_B, LOW);
   }
@@ -167,6 +175,7 @@ void outputPWM()
     analogWrite(PIN_PWM_3_MOTOR_B, BRAKE_MOTOR_B);
     analogWrite(PIN_PWM_4_MOTOR_B, BRAKE_MOTOR_B);
   }
+//  Serial.println(value_motorB); //print value ​​on a serial monitor
 }
 
 //************************************************************************************************************************************************************************
@@ -194,7 +203,6 @@ void setup()
   radio.setAutoAck(true);          //ensure autoACK is enabled (default true)
   radio.enableAckPayload();        //enable Ack dynamic payloads. This only works on pipes 0&1 by default
   radio.enableDynamicPayloads();   //enable dynamic payloads on all pipes
-  
   radio.setRetries(5, 5);          //set the number and delay of retries on failed submit (max. 15 x 250us delay (blocking !), max. 15 retries)
   
   radio.setChannel(RADIO_CHANNEL); //which RF channel to communicate on (0-125, 2.4Ghz + 76 = 2.476Ghz)
@@ -285,7 +293,6 @@ void RX_batt_check()
     }   
     digitalWrite(PIN_LED, ledState);
   }
-  
 //  Serial.println(telemetry_packet.RX_batt_A1); //print value ​​on a serial monitor
 }
 
