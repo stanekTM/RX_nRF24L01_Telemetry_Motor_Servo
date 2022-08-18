@@ -33,7 +33,7 @@ const byte address[] = "jirka";
 #define ACCELERATE_MOTOR_A  0
 #define ACCELERATE_MOTOR_B  0
 
-//setting the maximum engine power. Suitable for TX transmitters without endpoint setting (0-255)
+//setting the maximum motor power. Suitable for TX transmitters without endpoint setting (0-255)
 #define MAX_MOTOR_A  255
 #define MAX_MOTOR_B  255
 
