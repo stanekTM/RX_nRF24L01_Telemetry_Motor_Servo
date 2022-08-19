@@ -1,4 +1,4 @@
-# RX_nRF24L01_Telemetry_Motor_Servo
+# RX nRF24L01 (telemetry, motor, servo, mix tank, arcade driver)
 RC receiver nRF24L01 with ATmega328P/16Mhz, Arduino Nano or Pro Mini.
 Telemetry sends the monitored voltage RX to TX.
 
