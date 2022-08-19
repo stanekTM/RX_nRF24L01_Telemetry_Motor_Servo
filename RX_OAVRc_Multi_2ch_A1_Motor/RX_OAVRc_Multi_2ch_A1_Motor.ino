@@ -17,18 +17,6 @@ const byte address[] = "jirka";
 //RF communication channel settings (0-125, 2.4Ghz + 76 = 2.476Ghz)
 #define RADIO_CHANNEL  76
 
-//settings PWM (pin D5 or D6 are paired on timer0/8-bit, functions delay, millis, micros and delayMicroseconds)
-//1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default), 8 = 7812Hz
-//#define PWM_MOTOR_A  64
-
-//settings PWM (pin D9 or D10 are paired on timer1/16-bit, Servo library)
-//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
-#define PWM_MOTOR_A  256
-
-//settings PWM (pin D3 or D11 are paired on timer2/8-bit, ServoTimer2 library)
-//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
-#define PWM_MOTOR_B  256
-
 //setting the reaction of the motor to be rotated after the lever has been moved (0-255)
 #define ACCELERATE_MOTOR_A  0
 #define ACCELERATE_MOTOR_B  0
@@ -52,6 +40,18 @@ const byte address[] = "jirka";
 #define MIN_CONTROL_VAL  1000
 #define MID_CONTROL_VAL  1500
 #define MAX_CONTROL_VAL  2000
+
+//settings PWM (pin D5 or D6 are paired on timer0/8-bit, functions delay, millis, micros and delayMicroseconds)
+//1024 = 61Hz, 256 = 244Hz, 64 = 976Hz(default), 8 = 7812Hz
+//#define PWM_MOTOR_A  64
+
+//settings PWM (pin D9 or D10 are paired on timer1/16-bit, Servo library)
+//1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
+#define PWM_MOTOR_A  256
+
+//settings PWM (pin D3 or D11 are paired on timer2/8-bit, ServoTimer2 library)
+//1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
+#define PWM_MOTOR_B  256
 
 //free pins
 //pin                      0
