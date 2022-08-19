@@ -17,7 +17,7 @@ const byte address[] = "jirka";
 //RF communication channel settings (0-125, 2.4Ghz + 76 = 2.476Ghz)
 #define RADIO_CHANNEL  76
 
-//setting the reaction of the motor to be rotated after the lever has been moved. Settings (0-255)
+//setting the reaction of the motor to be rotated after the lever has been moved (0-255)
 #define ACCELERATE_MOTOR_A  0
 #define ACCELERATE_MOTOR_B  0
 
@@ -28,7 +28,7 @@ const byte address[] = "jirka";
 #define MAX_BACK_MOTOR_A  255
 #define MAX_BACK_MOTOR_B  255
 
-//brake setting, no brake 0, max brake 255. Settings (0-255)
+//brake setting, adjustment (0-255), no brake 0, max brake 255
 #define BRAKE_MOTOR_A  0
 #define BRAKE_MOTOR_B  0
 
