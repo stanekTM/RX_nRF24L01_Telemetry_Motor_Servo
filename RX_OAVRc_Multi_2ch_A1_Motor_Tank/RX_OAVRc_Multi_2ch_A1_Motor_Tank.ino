@@ -70,10 +70,10 @@ const byte address[] = "jirka";
 //pin                      A6
  
 //pwm pins for motor
-#define PIN_PWM_09_MOTOR_A  9
-#define PIN_PWM_10_MOTOR_A  10
-#define PIN_PWM_03_MOTOR_B  3
-#define PIN_PWM_11_MOTOR_B  11 //MOSI
+#define PIN_PWM_1_MOTOR_A  9
+#define PIN_PWM_2_MOTOR_A  10
+#define PIN_PWM_3_MOTOR_B  3
+#define PIN_PWM_4_MOTOR_B  11 //MOSI
 
 //LED RX battery and RF on/off
 #define PIN_LED            2
@@ -128,8 +128,8 @@ void fail_safe()
 //************************************************************************************************************************************************************************
 void outputPWM()
 {
-  setPWMPrescaler(PIN_PWM_09_MOTOR_A, PWM_MOTOR_A);
-  setPWMPrescaler(PIN_PWM_03_MOTOR_B, PWM_MOTOR_B);
+  setPWMPrescaler(PIN_PWM_1_MOTOR_A, PWM_MOTOR_A);
+  setPWMPrescaler(PIN_PWM_3_MOTOR_B, PWM_MOTOR_B);
   
   int value_motorA = 0, value_motorB = 0;
   int ch1 = 0, ch2 = 0;
@@ -149,8 +149,8 @@ void outputPWM()
   {
     value_motorA = map(mix2, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL - calc_mix, ACCELERATE_MOTOR_A, MAX_FORW_MOTOR_A);
     value_motorA = constrain(value_motorA, ACCELERATE_MOTOR_A, MAX_FORW_MOTOR_A);
-    analogWrite(PIN_PWM_10_MOTOR_A, value_motorA);
-    digitalWrite(PIN_PWM_09_MOTOR_A, LOW);
+    analogWrite(PIN_PWM_2_MOTOR_A, value_motorA);
+    digitalWrite(PIN_PWM_1_MOTOR_A, LOW);
     //Serial.println(value_motorA); //print value ​​on a serial monitor
   }
   //back motorA
@@ -158,14 +158,14 @@ void outputPWM()
   {
     value_motorA = map(mix2, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL + calc_mix, ACCELERATE_MOTOR_A, MAX_BACK_MOTOR_A);
     value_motorA = constrain(value_motorA, ACCELERATE_MOTOR_A, MAX_BACK_MOTOR_A);
-    analogWrite(PIN_PWM_09_MOTOR_A, value_motorA);
-    digitalWrite(PIN_PWM_10_MOTOR_A, LOW);
+    analogWrite(PIN_PWM_1_MOTOR_A, value_motorA);
+    digitalWrite(PIN_PWM_2_MOTOR_A, LOW);
     //Serial.println(value_motorA); //print value ​​on a serial monitor
   }
   else
   {
-    analogWrite(PIN_PWM_09_MOTOR_A, BRAKE_MOTOR_A);
-    analogWrite(PIN_PWM_10_MOTOR_A, BRAKE_MOTOR_A);
+    analogWrite(PIN_PWM_1_MOTOR_A, BRAKE_MOTOR_A);
+    analogWrite(PIN_PWM_2_MOTOR_A, BRAKE_MOTOR_A);
   }
 //  Serial.println(value_motorA); //print value ​​on a serial monitor
   
@@ -175,8 +175,8 @@ void outputPWM()
   {
     value_motorB = map(mix1, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL - calc_mix, ACCELERATE_MOTOR_B, MAX_FORW_MOTOR_B);
     value_motorB = constrain(value_motorB, ACCELERATE_MOTOR_B, MAX_FORW_MOTOR_B);
-    analogWrite(PIN_PWM_11_MOTOR_B, value_motorB);
-    digitalWrite(PIN_PWM_03_MOTOR_B, LOW);
+    analogWrite(PIN_PWM_4_MOTOR_B, value_motorB);
+    digitalWrite(PIN_PWM_3_MOTOR_B, LOW);
     //Serial.println(value_motorB); //print value ​​on a serial monitor
   }
   //back motorB
@@ -184,14 +184,14 @@ void outputPWM()
   {
     value_motorB = map(mix1, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL + calc_mix, ACCELERATE_MOTOR_B, MAX_BACK_MOTOR_B);
     value_motorB = constrain(value_motorB, ACCELERATE_MOTOR_B, MAX_BACK_MOTOR_B);
-    analogWrite(PIN_PWM_03_MOTOR_B, value_motorB);
-    digitalWrite(PIN_PWM_11_MOTOR_B, LOW);
+    analogWrite(PIN_PWM_3_MOTOR_B, value_motorB);
+    digitalWrite(PIN_PWM_4_MOTOR_B, LOW);
     //Serial.println(value_motorB); //print value ​​on a serial monitor
   }
   else
   {
-    analogWrite(PIN_PWM_03_MOTOR_B, BRAKE_MOTOR_B);
-    analogWrite(PIN_PWM_11_MOTOR_B, BRAKE_MOTOR_B);
+    analogWrite(PIN_PWM_3_MOTOR_B, BRAKE_MOTOR_B);
+    analogWrite(PIN_PWM_4_MOTOR_B, BRAKE_MOTOR_B);
   }
 //  Serial.println(value_motorB); //print value ​​on a serial monitor
 }
@@ -206,10 +206,10 @@ void setup()
   Serial.begin(9600); //print value ​​on a serial monitor
 //  printf_begin();     //print the radio debug info
 
-  pinMode(PIN_PWM_09_MOTOR_A, OUTPUT);
-  pinMode(PIN_PWM_10_MOTOR_A, OUTPUT);
-  pinMode(PIN_PWM_03_MOTOR_B, OUTPUT);
-  pinMode(PIN_PWM_11_MOTOR_B, OUTPUT);
+  pinMode(PIN_PWM_1_MOTOR_A, OUTPUT);
+  pinMode(PIN_PWM_2_MOTOR_A, OUTPUT);
+  pinMode(PIN_PWM_3_MOTOR_B, OUTPUT);
+  pinMode(PIN_PWM_4_MOTOR_B, OUTPUT);
   
   pinMode(PIN_LED, OUTPUT);
   pinMode(PIN_RX_BATTERY, INPUT);
