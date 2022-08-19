@@ -17,7 +17,7 @@ const byte address[] = "jirka";
 //RF communication channel settings (0-125, 2.4Ghz + 76 = 2.476Ghz)
 #define RADIO_CHANNEL  76
 
-//setting the reaction of the motor to be rotated after the lever has been moved (0-255)
+//setting the reaction of the motor to be rotated after the lever has been moved. Settings (0-255)
 #define ACCELERATE_MOTOR_A  0
 #define ACCELERATE_MOTOR_B  0
 
@@ -28,7 +28,7 @@ const byte address[] = "jirka";
 #define MAX_BACK_MOTOR_A  255
 #define MAX_BACK_MOTOR_B  255
 
-//brake setting, adjustment (0-255), no brake 0, max brake 255
+//brake setting, no brake 0, max brake 255. Settings (0-255)
 #define BRAKE_MOTOR_A  0
 #define BRAKE_MOTOR_B  0
 
@@ -138,25 +138,25 @@ void outputPWM()
   
   ch1 = rc_packet.ch_motorA / 2;
   ch2 = rc_packet.ch_motorB / 2;
-  mix1 = ch1 + ch2;
-  mix2 = ch1 - ch2 + 1500;
+  mix1 = ch1 - ch2 + 1500;
+  mix2 = ch1 + ch2;
   
 //  Serial.println(mix1); //print value ​​on a serial monitor
   
   
   //forward motorA
-  if (mix2 > MID_CONTROL_VAL + DEAD_ZONE)
+  if (mix1 > MID_CONTROL_VAL + DEAD_ZONE)
   {
-    value_motorA = map(mix2, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL - calc_mix, ACCELERATE_MOTOR_A, MAX_FORW_MOTOR_A);
+    value_motorA = map(mix1, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL - calc_mix, ACCELERATE_MOTOR_A, MAX_FORW_MOTOR_A);
     value_motorA = constrain(value_motorA, ACCELERATE_MOTOR_A, MAX_FORW_MOTOR_A);
     analogWrite(PIN_PWM_2_MOTOR_A, value_motorA);
     digitalWrite(PIN_PWM_1_MOTOR_A, LOW);
     //Serial.println(value_motorA); //print value ​​on a serial monitor
   }
   //back motorA
-  else if (mix2 < MID_CONTROL_VAL - DEAD_ZONE)
+  else if (mix1 < MID_CONTROL_VAL - DEAD_ZONE)
   {
-    value_motorA = map(mix2, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL + calc_mix, ACCELERATE_MOTOR_A, MAX_BACK_MOTOR_A);
+    value_motorA = map(mix1, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL + calc_mix, ACCELERATE_MOTOR_A, MAX_BACK_MOTOR_A);
     value_motorA = constrain(value_motorA, ACCELERATE_MOTOR_A, MAX_BACK_MOTOR_A);
     analogWrite(PIN_PWM_1_MOTOR_A, value_motorA);
     digitalWrite(PIN_PWM_2_MOTOR_A, LOW);
@@ -171,18 +171,18 @@ void outputPWM()
   
   
   //forward motorB
-  if (mix1 > MID_CONTROL_VAL + DEAD_ZONE)
+  if (mix2 > MID_CONTROL_VAL + DEAD_ZONE)
   {
-    value_motorB = map(mix1, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL - calc_mix, ACCELERATE_MOTOR_B, MAX_FORW_MOTOR_B);
+    value_motorB = map(mix2, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL - calc_mix, ACCELERATE_MOTOR_B, MAX_FORW_MOTOR_B);
     value_motorB = constrain(value_motorB, ACCELERATE_MOTOR_B, MAX_FORW_MOTOR_B);
     analogWrite(PIN_PWM_4_MOTOR_B, value_motorB);
     digitalWrite(PIN_PWM_3_MOTOR_B, LOW);
     //Serial.println(value_motorB); //print value ​​on a serial monitor
   }
   //back motorB
-  else if (mix1 < MID_CONTROL_VAL - DEAD_ZONE)
+  else if (mix2 < MID_CONTROL_VAL - DEAD_ZONE)
   {
-    value_motorB = map(mix1, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL + calc_mix, ACCELERATE_MOTOR_B, MAX_BACK_MOTOR_B);
+    value_motorB = map(mix2, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL + calc_mix, ACCELERATE_MOTOR_B, MAX_BACK_MOTOR_B);
     value_motorB = constrain(value_motorB, ACCELERATE_MOTOR_B, MAX_BACK_MOTOR_B);
     analogWrite(PIN_PWM_3_MOTOR_B, value_motorB);
     digitalWrite(PIN_PWM_4_MOTOR_B, LOW);
