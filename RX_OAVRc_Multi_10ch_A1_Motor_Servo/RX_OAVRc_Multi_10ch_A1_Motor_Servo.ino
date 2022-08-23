@@ -246,7 +246,7 @@ uint8_t invert_address = ~address[5]; //invert bits for writing so that telemetr
 
 void setup()
 {
-//  Serial.begin(9600); //print value ​​on a serial monitor
+//  Serial.begin(9600); //print value on a serial monitor
 //  printf_begin();     //print the radio debug info
 
   pinMode(PIN_PWM_1_MOTOR_A, OUTPUT);
