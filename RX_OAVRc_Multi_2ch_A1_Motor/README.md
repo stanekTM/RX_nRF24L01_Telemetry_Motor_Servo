@@ -12,17 +12,6 @@ This RC receiver works with RC transmitters [OpenAVRc](https://github.com/stanek
 
 Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage. 
 If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF.
-#
-<a href="https://youtu.be/E0pgMNPuYU4"><img src="documents/youtube.PNG" width="640" /></a>
-
-The PCB is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance) and manufactured by [JLCPCB](https://jlcpcb.com)
-
-<img src="documents/Micro_RX_2ch_A1_Motor_0.jpg" width="276" /> <img src="documents/Micro_RX_2ch_A1_Motor_1.jpg" width="276" />
-<img src="documents/Micro_RX_2ch_A1_Motor_2.jpg" width="276" />
-<img src="documents/Micro_RX_2ch_A1_Motor_3.jpg" width="276" />
-<img src="documents/Micro_RX_2ch_A1_Motor_4.jpg" width="276" />
-<img src="documents/Micro_RX_2ch_A1_Motor_5.jpg" width="276" />
-<img src="documents/Micro_RX_2ch_A1_Motor_6.jpg" width="416" />
 
 ## Function
 * MotorA = adjustable pwm/ch1
