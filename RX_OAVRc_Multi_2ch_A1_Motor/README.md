@@ -46,7 +46,7 @@ A4  - MISO
 * "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
 
 ## Example micro RX
-<a href="https://youtu.be/E0pgMNPuYU4"><img src="/documents/youtube.PNG" width="640"></a>
+<a href="https://youtu.be/E0pgMNPuYU4"><img src="documents/youtube.PNG" width="640"></a>
 
 The PCB is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance) and manufactured by [JLCPCB](https://jlcpcb.com)
 
