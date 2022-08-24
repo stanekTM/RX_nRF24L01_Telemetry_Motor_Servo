@@ -1,4 +1,4 @@
-# RX 12ch (servo driver)
+# RX 12ch (servo driver, telemetry)
 RC receiver nRF24L01 with ATmega328P/16Mhz, Arduino Nano or Pro Mini.
 Telemetry sends the monitored voltage RX to TX. 
 It contains 12 channels servo outputs.
