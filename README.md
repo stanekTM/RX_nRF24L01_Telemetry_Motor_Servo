@@ -24,7 +24,7 @@ All versions of the code are based on this [scheme](https://raw.githubuserconten
 * <Servo.h>        Arduino standard library
 
 ## Example micro RX
-<a href="https://youtu.be/E0pgMNPuYU4"><img src="youtube.PNG" width="640"></a>
+<a href="https://youtu.be/E0pgMNPuYU4"><img src="RX_OAVRc_Multi_2ch_A1_Motor/documents/youtube.PNG" width="640"></a>
 
 The PCB is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance) and manufactured by [JLCPCB](https://jlcpcb.com)
 
