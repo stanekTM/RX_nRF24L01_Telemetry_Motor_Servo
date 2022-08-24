@@ -46,7 +46,7 @@ A4  - MISO
 * "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
 
 ## Example micro RX
-<a href="https://youtu.be/E0pgMNPuYU4"><img src="stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/youtube.PNG" width="640"></a>
+<a href="https://youtu.be/E0pgMNPuYU4"><img src="https://github.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/blob/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/youtube.PNG" width="640"></a>
 
 The PCB is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance) and manufactured by [JLCPCB](https://jlcpcb.com)
 
