@@ -1,6 +1,5 @@
 # RX 2ch (mix tank-arcade motor driver, telemetry)
-RC receiver nRF24L01 with ATmega328P/16Mhz.
-It is possible to use Arduino Nano or Pro Mini.
+RC receiver nRF24L01 with ATmega328P/16Mhz, Arduino Nano or Pro Mini.
 Telemetry sends the monitored voltage RX to TX.
 The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and others similar, using 4x PWM input control signals.
 The possibility of setting the brake is in the code.
