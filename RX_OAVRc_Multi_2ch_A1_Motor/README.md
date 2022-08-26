@@ -56,7 +56,7 @@ The PCB is created by a custom version of the open source [PCB Elegance](https:/
 <img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/micro_rx_6.jpg" width="415">
 
 ## An example of a tank-arcade mixer for OpenAVRc and OpenTX
-<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/mixer.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/servos.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/tank_arcade.jpg" width="415">
+<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/mixer.bmp" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/servos.bmp" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/tank_arcade.jpg" width="415">
 
 ## Schema
 The schematic is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance)
