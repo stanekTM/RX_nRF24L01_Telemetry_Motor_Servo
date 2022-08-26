@@ -50,20 +50,20 @@ A4  - MISO
 
 The PCB is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance) and manufactured by [JLCPCB](https://jlcpcb.com)
 
-<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/Micro_RX_2ch_A1_Motor_0.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/Micro_RX_2ch_A1_Motor_1.jpg" width="415">
-<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/Micro_RX_2ch_A1_Motor_2.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/Micro_RX_2ch_A1_Motor_3.jpg" width="415">
-<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/Micro_RX_2ch_A1_Motor_4.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/Micro_RX_2ch_A1_Motor_5.jpg" width="415">
-<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/Micro_RX_2ch_A1_Motor_6.jpg" width="415">
+<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/micro_rx_0.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/micro_rx_1.jpg" width="415">
+<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/micro_rx_2.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/micro_rx_3.jpg" width="415">
+<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/micro_rx_4.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/micro_rx_5.jpg" width="415">
+<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/micro_rx_6.jpg" width="415">
 
 ## An example of a tank-arcade mixer for OpenAVRc and OpenTX
-<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/documents/rx_prototype_mix_tank_arcade_1.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/documents/rx_prototype_mix_tank_arcade_2.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/documents/rx_prototype_mix_tank_arcade_3.jpg" width="415">
+<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/mixer.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/servos.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/tank_arcade.jpg" width="415">
 
 ## Schema
 The schematic is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance)
 
-![schema](https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/Schema_Micro_RX_2ch_A1_Motor.PNG)
+![schema](https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/schema_micro_rx.PNG)
 
 ## Layout
 The layout is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance)
 
-![layout](https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/Layout_Micro_RX_2ch_A1_Motor.PNG)
+![layout](https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/RX_OAVRc_Multi_2ch_A1_Motor/documents/layout_micro_rx.PNG)
