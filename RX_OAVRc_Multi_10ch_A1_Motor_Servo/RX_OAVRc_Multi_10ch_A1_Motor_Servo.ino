@@ -19,8 +19,8 @@ const byte address[] = "jirka";
 #define RADIO_CHANNEL  76
 
 //setting the reaction of the motor to be rotated after the lever has been moved. Settings (0-255)
-#define ACCELERATE_MOTOR_A  90
-#define ACCELERATE_MOTOR_B  40
+#define ACCELERATE_MOTOR_A  0
+#define ACCELERATE_MOTOR_B  0
 
 //setting the maximum motor power. Suitable for TX transmitters without endpoint setting. Settings (0-255)
 #define MAX_MOTOR_A  255
@@ -48,11 +48,11 @@ const byte address[] = "jirka";
 
 //settings PWM (pin D9 or D10 are paired on timer1/16-bit, Servo library)
 //1024 = 30Hz, 256 = 122Hz, 64 = 488Hz(default), 8 = 3906Hz
-//#define PWM_MOTOR_A  64
+//#define PWM_MOTOR_A  256
 
 //settings PWM (pin D3 or D11 are paired on timer2/8-bit, ServoTimer2 library)
 //1024 = 30Hz, 256 = 122Hz, 128 = 244Hz, 64 = 488Hz(default), 32 = 976Hz, 8 = 3906Hz
-#define PWM_MOTOR_B  32
+#define PWM_MOTOR_B  256
 
 //free pins
 //pin                      0
