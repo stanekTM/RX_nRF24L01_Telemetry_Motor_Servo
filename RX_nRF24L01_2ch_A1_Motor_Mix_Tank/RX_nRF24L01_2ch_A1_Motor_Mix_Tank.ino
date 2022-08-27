@@ -29,8 +29,8 @@ const byte address[] = "jirka";
 #define MAX_BACK_MOTOR_B  255
 
 //brake setting, no brake 0, max brake 255. Settings (0-255)
-#define BRAKE_MOTOR_A  0
-#define BRAKE_MOTOR_B  0
+#define BRAKE_MOTOR_A  255
+#define BRAKE_MOTOR_B  255
 
 //LED alarm battery voltage setting
 #define BATTERY_VOLTAGE    4.2
