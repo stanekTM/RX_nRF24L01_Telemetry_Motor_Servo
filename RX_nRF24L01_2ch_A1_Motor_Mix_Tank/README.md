@@ -12,8 +12,8 @@ Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage.
 If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF.
 
 ## Function
-* MotorA = adjustable pwm/ch1
-* MotorB = adjustable pwm/ch2
+* MotorA = adjustable pwm/ch1 - mix tank-arcade
+* MotorB = adjustable pwm/ch2 - mix tank-arcade
 * Brake = on, off or adjustable effect
 * Normal mode = LED RX is lit
 * Battery voltage 1S LiPo (4.2V) < monitored voltage = RX LED flash at a interval of 0.5s
