@@ -36,6 +36,5 @@ The PCB is created by a custom version of the open source [PCB Elegance](https:/
 ## RX prototype (motor-servo driver, telemetry)
 <img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/documents/rx_prototype_motor_servo_1.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/documents/rx_prototype_motor_servo_2.jpg" width="415">
 
-## RX prototype (mix tank-arcade motor driver, telemetry)
-[code](https://github.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/tree/master/RX_nRF24L01_2ch_A1_Motor_Mix_Tank)
+## RX prototype [(mix tank-arcade motor driver, telemetry)](https://github.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/tree/master/RX_nRF24L01_2ch_A1_Motor_Mix_Tank)
 <img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/documents/rx_prototype_mix_tank_arcade_1.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/documents/rx_prototype_mix_tank_arcade_2.jpg" width="415">
