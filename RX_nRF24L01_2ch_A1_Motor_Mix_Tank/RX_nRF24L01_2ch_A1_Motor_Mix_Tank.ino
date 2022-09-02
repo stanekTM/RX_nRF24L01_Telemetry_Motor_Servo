@@ -22,7 +22,7 @@ const byte address[] = "jirka";
 #define ACCELERATE_MOTOR_B  0
 
 //setting the maximum motor power in individual modes. Suitable, for example, when the motors
-//outputs are not the same and it is necessary to achieve straight driving. Settings (0-255)
+//powers are not the same and it is necessary to achieve straight driving. Settings (0-255)
 #define MAX_FORW_MOTOR_A  255
 #define MAX_FORW_MOTOR_B  255
 #define MAX_BACK_MOTOR_A  255
