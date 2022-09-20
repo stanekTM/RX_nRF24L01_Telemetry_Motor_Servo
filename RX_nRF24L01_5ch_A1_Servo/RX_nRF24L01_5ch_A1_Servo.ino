@@ -81,7 +81,7 @@ rc_packet_size rc_packet; //create a variable with the above structure
 //************************************************************************************************************************************************************************
 struct telemetry_packet_size
 {
-  uint8_t rssi;     //not used yet
+  byte rssi;        //not used yet
   float RX_batt_A1;
   float RX_batt_A2; //not used yet
 };
@@ -100,7 +100,7 @@ void fail_safe()
 }
 
 //************************************************************************************************************************************************************************
-//create servo object ****************************************************************************************************************************************************
+//attach servo pins ******************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
 Servo servo1, servo2, servo3, servo4, servo5;
 
@@ -113,6 +113,9 @@ void attachServoPins()
   servo5.attach(PIN_SERVO_5);
 }
 
+//************************************************************************************************************************************************************************
+//servo outputs **********************************************************************************************************************************************************
+//************************************************************************************************************************************************************************
 int value_servo1 = 0, value_servo2 = 0, value_servo3 = 0, value_servo4 = 0, value_servo5 = 0;
 
 void outputServo()
@@ -128,26 +131,26 @@ void outputServo()
   servo3.writeMicroseconds(value_servo3);
   servo4.writeMicroseconds(value_servo4);
   servo5.writeMicroseconds(value_servo5);
-
-//  Serial.println(rc_packet.ch_servo1); //print value ​​on a serial monitor 
+  
+  //Serial.println(rc_packet.ch_servo1); //print value ​​on a serial monitor
 }
 
 //************************************************************************************************************************************************************************
 //initial main settings **************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
-uint8_t invert_address = ~address[5]; //invert bits for writing so that telemetry packets have a different address
+//const byte invert_address = ~address[5]; //invert bits for writing so that telemetry packets have a different address
 
 void setup()
 {
-//  Serial.begin(9600); //print value ​​on a serial monitor
-//  printf_begin();     //print the radio debug info
-
+  //Serial.begin(9600); //print value ​​on a serial monitor
+  //printf_begin();     //print the radio debug info
+  
   pinMode(PIN_LED, OUTPUT);
   pinMode(PIN_RX_BATTERY, INPUT);
   
   fail_safe();
   attachServoPins();
-
+  
   //define the radio communication
   radio.begin();  
   radio.setAutoAck(true);          //ensure autoACK is enabled (default true)
@@ -159,7 +162,7 @@ void setup()
   radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm)
   
-  radio.openWritingPipe(invert_address); //open the writing pipe0 (RX_ADDR_P0 + TX_ADDR)
+  //radio.openWritingPipe(invert_address); //open the writing pipe0 (RX_ADDR_P0 + TX_ADDR)
   radio.openReadingPipe(1, address);     //open the reading pipe1 (RX_ADDR_P1) and then call "startListening"
   
   radio.startListening(); //set the module as receiver. Start listening on the pipes opened for reading
@@ -172,11 +175,10 @@ void loop()
 {
   receive_time();
   send_and_receive_data();
-
   outputServo();
-
-//  Serial.println("Radio details *****************");
-//  radio.printDetails(); //print the radio debug info
+  
+  //Serial.println("Radio details *****************");
+  //radio.printDetails(); //print the radio debug info
 }
 
 //************************************************************************************************************************************************************************
@@ -196,18 +198,18 @@ void receive_time()
 //************************************************************************************************************************************************************************
 //send and receive data **************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
+byte pipe;
+
 void send_and_receive_data()
 {
-  byte pipeNo;
-  
-  if (radio.available(&pipeNo))
+  if (radio.available(&pipe))
   {
-    radio.writeAckPayload(pipeNo, &telemetry_packet, sizeof(telemetry_packet_size));
+    radio.writeAckPayload(pipe, &telemetry_packet, sizeof(telemetry_packet_size));
    
     radio.read(&rc_packet, sizeof(rc_packet_size));
     
-    lastRxTime = millis(); //at this moment we have received the data
     RX_batt_check();
+    lastRxTime = millis(); //at this moment we have received the data
   }
 }
 
@@ -215,18 +217,18 @@ void send_and_receive_data()
 //reading adc RX battery. After receiving RF data, the monitored RX battery is activated *********************************************************************************
 //when RX BATTERY_VOLTAGE < MONITORED_VOLTAGE = LED alarm RX flash at a interval of 0.5s. Battery OK = LED RX is lit *****************************************************
 //************************************************************************************************************************************************************************
-unsigned long ledTime = 0, adcTime = 0;
-int ledState, detect;
+unsigned long adcTime = 0, ledTime = 0;
+bool detect, ledState;
 
 void RX_batt_check()
 {
   if (millis() >= adcTime + 1000) //delay adc reading RX battery
   {
     adcTime = millis();
-
+    
     telemetry_packet.RX_batt_A1 = analogRead(PIN_RX_BATTERY) * (BATTERY_VOLTAGE / 1023);
   }
-
+  
   detect = telemetry_packet.RX_batt_A1 <= MONITORED_VOLTAGE;
   
   if (millis() >= ledTime + 500)
@@ -240,10 +242,10 @@ void RX_batt_check()
     else
     {
       ledState = HIGH;
-    }   
+    }
     digitalWrite(PIN_LED, ledState);
   }
-//  Serial.println(telemetry_packet.RX_batt_A1); //print value ​​on a serial monitor
+  //Serial.println(telemetry_packet.RX_batt_A1); //print value ​​on a serial monitor
 }
 
 //************************************************************************************************************************************************************************
@@ -262,7 +264,7 @@ void RF_off_check()
     else
     {
       ledState = HIGH;
-    }   
+    }
     digitalWrite(PIN_LED, ledState);
   }
 }
