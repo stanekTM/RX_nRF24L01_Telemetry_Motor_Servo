@@ -88,7 +88,7 @@ rc_packet_size rc_packet; //create a variable with the above structure
 //************************************************************************************************************************************************************************
 struct telemetry_packet_size
 {
-  byte rssi;       //not used yet
+  byte rssi;       //0-255 for OpenAVRc and OpenTX Multiprotocol telemetry
   byte RX_batt_A1; //0-255 for OpenAVRc and OpenTX Multiprotocol telemetry
   byte RX_batt_A2; //0-255 for OpenAVRc and OpenTX Multiprotocol telemetry (not used yet)
 };
@@ -234,19 +234,32 @@ void last_rx_time()
 //************************************************************************************************************************************************************************
 //send and receive data **************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
+int packet_state;
+byte telemetry_counter = 0;
 byte pipe;
 
 void send_and_receive_data()
 {
-  if (radio.available(&pipe))
+  if (radio.available(&pipe)) //is there a payload? Get the pipe number that recieved it
   {
     radio.writeAckPayload(pipe, &telemetry_packet, sizeof(telemetry_packet_size));
     
     radio.read(&rc_packet, sizeof(rc_packet_size));
     
+    //calculate RSSI based on past 254 expected telemetry packets. Cannot use full second count because telemetry_counter is not large enough
+    packet_state++;
+    
+    if (packet_state > 254)
+    {
+      telemetry_packet.rssi = telemetry_counter;
+      telemetry_counter = 0;
+      packet_state = 0;
+    }
+    
     RX_batt_check();
     rx_time = millis(); //at this moment we have received the data
   }
+  telemetry_counter++;
 }
 
 //************************************************************************************************************************************************************************
