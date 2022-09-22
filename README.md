@@ -1,6 +1,6 @@
 # RX nRF24L01 (motor-servo driver, telemetry)
 RC receiver nRF24L01 with ATmega328P/16Mhz, Arduino Nano or Pro Mini.
-Telemetry sends the monitored voltage RX to TX.
+Telemetry sends the monitored voltage A1 and RSSI to TX.
 
 The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and others similar, which uses 4x PWM input control signals.
 The option to adjust the brake is included in the code.
