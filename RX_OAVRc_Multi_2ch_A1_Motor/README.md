@@ -1,7 +1,7 @@
 # RX 2ch (motor driver, telemetry)
 RC receiver nRF24L01 with ATmega328P/16Mhz processor for smaller dimensions.
 It is possible to use Arduino Nano or Pro Mini. 
-Telemetry sends the monitored voltage RX to TX. 
+Telemetry sends the monitored voltage RX, RSSI to TX. 
 It includes CMT2150A transponder for laps timing and motor driver.
 The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and others similar, using 4x PWM input control signals.
 The possibility of setting the brake is in the code.
