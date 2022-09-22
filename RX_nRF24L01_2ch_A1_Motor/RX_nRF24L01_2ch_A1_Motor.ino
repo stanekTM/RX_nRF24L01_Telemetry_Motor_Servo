@@ -128,7 +128,7 @@ void fail_safe()
 //************************************************************************************************************************************************************************
 int value_motorA = 0, value_motorB = 0;
 
-void outputPWM()
+void output_PWM()
 {
   setPWMPrescaler(PIN_PWM_1_MOTOR_A, PWM_MOTOR_A);
   setPWMPrescaler(PIN_PWM_3_MOTOR_B, PWM_MOTOR_B);
@@ -222,9 +222,9 @@ void setup()
 //************************************************************************************************************************************************************************
 void loop()
 {
-  receive_time();
+  last_rx_time();
   send_and_receive_data();
-  outputPWM();
+  output_PWM();
   
   //Serial.println("Radio details *****************");
   //radio.printDetails(); //print the radio debug info
@@ -233,11 +233,11 @@ void loop()
 //************************************************************************************************************************************************************************
 //get time after losing RF data or turning off the TX, reset data and the LED flashing ***********************************************************************************
 //************************************************************************************************************************************************************************
-unsigned long lastRxTime = 0;
+unsigned long rx_time = 0;
 
-void receive_time()
+void last_rx_time()
 {
-  if(millis() >= lastRxTime + 1000) //1s
+  if(millis() >= rx_time + 1000) //1s
   {
     fail_safe();
     RF_off_check();
@@ -258,7 +258,7 @@ void send_and_receive_data()
     radio.read(&rc_packet, sizeof(rc_packet_size));
     
     RX_batt_check();
-    lastRxTime = millis(); //at this moment we have received the data
+    rx_time = millis(); //at this moment we have received the data
   }
 }
 
@@ -266,33 +266,33 @@ void send_and_receive_data()
 //reading adc RX battery. After receiving RF data, the monitored RX battery is activated *********************************************************************************
 //when RX BATTERY_VOLTAGE < MONITORED_VOLTAGE = LED alarm RX flash at a interval of 0.5s. Battery OK = LED RX is lit *****************************************************
 //************************************************************************************************************************************************************************
-unsigned long adcTime = 0, ledTime = 0;
-bool detect, ledState;
+unsigned long adc_time = 0, led_time = 0;
+bool batt_detect, led_state;
 
 void RX_batt_check()
 {
-  if (millis() >= adcTime + 1000) //delay adc reading RX battery
+  if (millis() >= adc_time + 1000) //delay adc reading RX battery
   {
-    adcTime = millis();
+    adc_time = millis();
 
     telemetry_packet.RX_batt_A1 = analogRead(PIN_RX_BATTERY) * (BATTERY_VOLTAGE / 1023);
   }
   
-  detect = telemetry_packet.RX_batt_A1 <= MONITORED_VOLTAGE;
+  batt_detect = telemetry_packet.RX_batt_A1 <= MONITORED_VOLTAGE;
   
-  if (millis() >= ledTime + 500)
+  if (millis() >= led_time + 500)
   {
-    ledTime = millis();
+    led_time = millis();
     
-    if (ledState >= !detect + HIGH)
+    if (led_state >= !batt_detect + HIGH)
     {
-      ledState = LOW;
+      led_state = LOW;
     }
     else
     {
-      ledState = HIGH;
+      led_state = HIGH;
     }
-    digitalWrite(PIN_LED, ledState);
+    digitalWrite(PIN_LED, led_state);
   }
   //Serial.println(telemetry_packet.RX_batt_A1); //print value ​​on a serial monitor
 }
@@ -302,19 +302,19 @@ void RX_batt_check()
 //************************************************************************************************************************************************************************
 void RF_off_check()
 {
-  if (millis() >= ledTime + 100)
+  if (millis() >= led_time + 100)
   {
-    ledTime = millis();
+    led_time = millis();
     
-    if (ledState)
+    if (led_state)
     {
-      ledState = LOW;
+      led_state = LOW;
     }
     else
     {
-      ledState = HIGH;
+      led_state = HIGH;
     }
-    digitalWrite(PIN_LED, ledState);
+    digitalWrite(PIN_LED, led_state);
   }
 }
  
