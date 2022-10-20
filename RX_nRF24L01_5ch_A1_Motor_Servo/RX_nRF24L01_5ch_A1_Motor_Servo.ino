@@ -5,7 +5,7 @@
 //and for the TX Telemetry LED transmitter https://github.com/stanekTM/TX_5ch_nRF24L01_Telemetry_LED
 //************************************************************************************************************************************************************************
 
-#include <RF24.h>         //https://github.com/nRF24/RF24 v1.3.9
+#include <RF24.h>         //https://github.com/nRF24/RF24
 //#include <printf.h>       //print the radio debug info
 #include <DigitalIO.h>    //https://github.com/greiman/DigitalIO
 #include <Servo.h>        //Arduino standard library
@@ -285,13 +285,11 @@ void last_rx_time()
 //************************************************************************************************************************************************************************
 //send and receive data **************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
-byte pipe;
-
 void send_and_receive_data()
 {
-  if (radio.available(&pipe))
+  if (radio.available())
   {
-    radio.writeAckPayload(pipe, &telemetry_packet, sizeof(telemetry_packet_size));
+    radio.writeAckPayload(1, &telemetry_packet, sizeof(telemetry_packet_size));
    
     radio.read(&rc_packet, sizeof(rc_packet_size));
     
