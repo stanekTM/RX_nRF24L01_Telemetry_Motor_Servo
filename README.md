@@ -19,7 +19,7 @@ If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the
 All versions of the code are based on this [scheme](https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/documents/micro_rx_schema.PNG), but each version uses different pins.
 
 ## Used libraries
-* <RF24.h>                      https://github.com/nRF24/RF24 v1.3.9
+* <RF24.h>                      https://github.com/nRF24/RF24
 * <DigitalIO.h>                 https://github.com/greiman/DigitalIO
 * "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
 * <Servo.h>        Arduino standard library
