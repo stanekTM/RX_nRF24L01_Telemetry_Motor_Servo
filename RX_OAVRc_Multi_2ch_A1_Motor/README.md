@@ -41,7 +41,7 @@ A4  - MISO
 ```
 
 ## Used libraries
-* <RF24.h>                      https://github.com/nRF24/RF24 v1.3.9 
+* <RF24.h>                      https://github.com/nRF24/RF24
 * <DigitalIO.h>                 https://github.com/greiman/DigitalIO
 * "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
 
