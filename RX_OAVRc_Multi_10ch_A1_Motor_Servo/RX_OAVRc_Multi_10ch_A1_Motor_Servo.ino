@@ -315,7 +315,7 @@ byte telemetry_counter = 0;
 
 void send_and_receive_data()
 {
-  if (radio.available()) //is there a payload? Get the pipe number that recieved it
+  if (radio.available())
   {
     radio.writeAckPayload(1, &telemetry_packet, sizeof(telemetry_packet_size));
     
