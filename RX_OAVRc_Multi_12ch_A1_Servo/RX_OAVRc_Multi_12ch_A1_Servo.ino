@@ -234,8 +234,8 @@ void last_rx_time()
 //************************************************************************************************************************************************************************
 //send and receive data **************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
-int packet_state;
 byte telemetry_counter = 0;
+unsigned int packet_state = 0;
 
 void send_and_receive_data()
 {
@@ -245,20 +245,23 @@ void send_and_receive_data()
     
     radio.read(&rc_packet, sizeof(rc_packet_size));
     
-    //calculate RSSI based on past 254 expected telemetry packets. Cannot use full second count because telemetry_counter is not large enough
-    packet_state++;
-    
-    if (packet_state > 254)
-    {
-      telemetry_packet.rssi = telemetry_counter;
-      telemetry_counter = 0;
-      packet_state = 0;
-    }
-    
     RX_batt_check();
     rx_time = millis(); //at this moment we have received the data
   }
-  telemetry_counter++;
+  
+  if (radio.available())
+  {
+    telemetry_counter++;
+  }
+  
+  packet_state++;
+  
+  if (packet_state > 11200)
+  {
+    telemetry_packet.rssi = telemetry_counter;
+    telemetry_counter = 0;
+    packet_state = 0;
+  }
 }
 
 //************************************************************************************************************************************************************************
