@@ -21,12 +21,12 @@
 
 #if defined __AVR_ATmega32U4__
 
-/**
+/*
  * Divides a given PWM pin frequency by a divisor.
  *
  * Arduino Leonardo AtMega 32u4 specific
  *
- * Sets the Prescaler (Divisor) for a given PWM pin. The resulting frequency 
+ * Sets the Prescaler (Divisor) for a given PWM pin. The resulting frequency
  * is equal to the base frequency divided by the given divisor:
  *   - Base frequencies:
  *      o The base frequency for pins 3 and 11    is 64,500 Hz.
@@ -50,7 +50,7 @@
  */
 
 void setPWMPrescaler(uint8_t pin, uint16_t prescale)
-{ 
+{
   byte mode;
   
   if (pin==3 || pin==5 || pin==9 || pin==10 || pin==11)
@@ -64,7 +64,6 @@ void setPWMPrescaler(uint8_t pin, uint16_t prescale)
       case 1024: mode = 0b101; break;
       default: return;
     }
-    
   }
   else if (pin==6 || pin==13)
   {
@@ -109,7 +108,7 @@ void setPWMPrescaler(uint8_t pin, uint16_t prescale)
 
 #else
 
-/**
+/*
  * Divides a given PWM pin frequency by a divisor.
  * 
  * Sets the Prescaler (Divisor) for a given PWM pin. The resulting frequency 
@@ -140,6 +139,7 @@ void setPWMPrescaler(uint8_t pin, uint16_t prescale)
  *
  *   http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1235060559/0#4
  */
+ 
 void setPWMPrescaler(uint8_t pin, uint16_t prescale)
 {
   byte mode;
@@ -155,7 +155,6 @@ void setPWMPrescaler(uint8_t pin, uint16_t prescale)
       case 1024: mode = 0b101; break;
       default: return;
     }
-    
   }
   else if (pin == 3 || pin == 11)
   {
