@@ -173,15 +173,15 @@ void setPWMPrescaler(uint8_t pin, uint16_t prescale)
   
   if (pin==5 || pin==6)
   {
-    TCCR0B = TCCR0B & 0b11111000 | mode;
+    TCCR0B = (TCCR0B & 0b11111000) | mode;
   }
   else if (pin==9 || pin==10)
   {
-    TCCR1B = TCCR1B & 0b11111000 | mode;
+    TCCR1B = (TCCR1B & 0b11111000) | mode;
   }
   else if (pin==3 || pin==11)
   {
-    TCCR2B = TCCR2B & 0b11111000 | mode;
+    TCCR2B = (TCCR2B & 0b11111000) | mode;
   }
 }
 
