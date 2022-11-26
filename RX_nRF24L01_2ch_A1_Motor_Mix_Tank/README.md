@@ -39,9 +39,8 @@ A4  - MISO
 ```
 
 ## Used libraries
-* <RF24.h>                      https://github.com/nRF24/RF24
-* <DigitalIO.h>                 https://github.com/greiman/DigitalIO
-* "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
+* <RF24.h>      https://github.com/nRF24/RF24
+* <DigitalIO.h> https://github.com/greiman/DigitalIO
 
 ## RX prototype (mix tank-arcade motor driver, telemetry)
 <img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/documents/rx_prototype_mix_tank_arcade_1.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/documents/rx_prototype_mix_tank_arcade_2.jpg" width="415">
