@@ -41,9 +41,8 @@ A4  - MISO
 ```
 
 ## Used libraries
-* <RF24.h>                      https://github.com/nRF24/RF24
-* <DigitalIO.h>                 https://github.com/greiman/DigitalIO
-* "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
+* <RF24.h>      https://github.com/nRF24/RF24
+* <DigitalIO.h> https://github.com/greiman/DigitalIO
 
 ## Example micro RX
 <a href="https://youtu.be/E0pgMNPuYU4"><img src="https://github.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/blob/master/documents/micro_rx_youtube.PNG" width="640"></a>
