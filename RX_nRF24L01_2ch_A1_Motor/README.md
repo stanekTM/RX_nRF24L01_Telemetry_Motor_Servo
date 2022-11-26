@@ -41,9 +41,8 @@ A4  - MISO
 ```
 
 ## Used libraries
-* <RF24.h>                      https://github.com/nRF24/RF24
-* <DigitalIO.h>                 https://github.com/greiman/DigitalIO
-* "PWMFrequency.h" used locally https://github.com/TheDIYGuy999/PWMFrequency
+* <RF24.h>      https://github.com/nRF24/RF24
+* <DigitalIO.h> https://github.com/greiman/DigitalIO
 
 ## Example micro RX
 The PCB is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance) and manufactured by [JLCPCB](https://jlcpcb.com)
