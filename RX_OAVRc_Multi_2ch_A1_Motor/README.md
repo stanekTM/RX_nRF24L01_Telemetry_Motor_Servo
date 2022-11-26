@@ -59,6 +59,8 @@ The PCB is created by a custom version of the open source [PCB Elegance](https:/
 <img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/documents/example_mixer_1.bmp" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/documents/example_mixer_2.bmp" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/master/documents/rx_prototype_mix_tank_arcade_3.jpg" width="415">
 <a href="https://youtu.be/AYgY5UkVnUM"><img src="https://github.com/stanekTM/RX_nRF24L01_Telemetry_Motor_Servo/blob/master/documents/rx_prototype_mix_tank_arcade_youtube.PNG" width="415"></a>
 
+<a href="[https://youtu.be/AYgY5UkVnUM](https://youtu.be/AYgY5UkVnUM)">
+
 ## Schema
 The schematic is created by a custom version of the open source [PCB Elegance](https://github.com/stanekTM/PCB_Elegance)
 
