@@ -7,7 +7,7 @@ The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and other
 The possibility of setting the brake is in the code.
 The firmware will be used for micro cars, boats, tanks and robots.
 
-This RC receiver works with RC transmitters [OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) or 
+This RC receiver works with RC transmitters [OpenAVRc](https://github.com/Ingwie/OpenAVRc_Dev) or 
 [Multiprotocol](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
 
 Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage. 
