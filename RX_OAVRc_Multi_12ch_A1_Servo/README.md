@@ -5,7 +5,7 @@ It contains 12 channels servo outputs.
 This is the maximum of the Arduino RX receiver of the "Servo" library on the Atmega328P processor.
 The firmware will be used for cars, boats, tanks, robots and aircraft.
 
-This RC receiver works with RC transmitters [OpenAVRc](https://github.com/stanekTM/OpenAVRc_Dev) or 
+This RC receiver works with RC transmitters [OpenAVRc](https://github.com/Ingwie/OpenAVRc_Dev) or 
 [Multiprotocol](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
 
 Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage. 
