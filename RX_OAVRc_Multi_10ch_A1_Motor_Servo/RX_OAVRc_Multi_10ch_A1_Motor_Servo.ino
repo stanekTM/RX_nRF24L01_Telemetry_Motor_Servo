@@ -1,7 +1,7 @@
 
 //************************************************************************************************************************************************************************
 //Communication nRF24L01P "Stanek". Fixed RF channel, fixed address.
-//Support for OpenAVRc transmitter https://github.com/stanekTM/OpenAVRc_Dev
+//Support for OpenAVRc transmitter https://github.com/Ingwie/OpenAVRc_Dev
 //and for the Multiprotocol TX modul https://github.com/stanekTM/DIY-Multiprotocol-TX-Module
 //************************************************************************************************************************************************************************
 
