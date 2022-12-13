@@ -98,16 +98,16 @@ RF24 radio(PIN_CE, PIN_CSN);
 //************************************************************************************************************************************************************************
 struct rc_packet_size
 {
-  unsigned int ch_motorA;
-  unsigned int ch_motorB;
-  unsigned int ch_servo1;
-  unsigned int ch_servo2;
-  unsigned int ch_servo3;
-  unsigned int ch_servo4;
-  unsigned int ch_servo5;
-  unsigned int ch_servo6;
-  unsigned int ch_servo7;
-  unsigned int ch_servo8;
+  unsigned int ch_motorA = MID_CONTROL_VAL;
+  unsigned int ch_motorB = MID_CONTROL_VAL;
+  unsigned int ch_servo1 = MID_CONTROL_VAL;
+  unsigned int ch_servo2 = MID_CONTROL_VAL;
+  unsigned int ch_servo3 = MID_CONTROL_VAL;
+  unsigned int ch_servo4 = MID_CONTROL_VAL;
+  unsigned int ch_servo5 = MID_CONTROL_VAL;
+  unsigned int ch_servo6 = MID_CONTROL_VAL;
+  unsigned int ch_servo7 = MID_CONTROL_VAL;
+  unsigned int ch_servo8 = MID_CONTROL_VAL;
 };
 rc_packet_size rc_packet; //create a variable with the above structure
 
@@ -159,27 +159,16 @@ void attach_servo_pins()
 //************************************************************************************************************************************************************************
 //servo outputs **********************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
-int value_servo1 = 0, value_servo2 = 0, value_servo3 = 0, value_servo4 = 0, value_servo5 = 0, value_servo6 = 0, value_servo7 = 0, value_servo8 = 0;
-
 void output_servo()
 {
-  value_servo1 = map(rc_packet.ch_servo1, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  value_servo2 = map(rc_packet.ch_servo2, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  value_servo3 = map(rc_packet.ch_servo3, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  value_servo4 = map(rc_packet.ch_servo4, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  value_servo5 = map(rc_packet.ch_servo5, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  value_servo6 = map(rc_packet.ch_servo6, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  value_servo7 = map(rc_packet.ch_servo7, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  value_servo8 = map(rc_packet.ch_servo8, MIN_CONTROL_VAL, MAX_CONTROL_VAL, MIN_CONTROL_VAL, MAX_CONTROL_VAL);
-  
-  servo1.writeMicroseconds(value_servo1);
-  servo2.writeMicroseconds(value_servo2);
-  servo3.writeMicroseconds(value_servo3);
-  servo4.writeMicroseconds(value_servo4);
-  servo5.writeMicroseconds(value_servo5);
-  servo6.writeMicroseconds(value_servo6);
-  servo7.writeMicroseconds(value_servo7);
-  servo8.writeMicroseconds(value_servo8);
+  servo1.writeMicroseconds(rc_packet.ch_servo1);
+  servo2.writeMicroseconds(rc_packet.ch_servo2);
+  servo3.writeMicroseconds(rc_packet.ch_servo3);
+  servo4.writeMicroseconds(rc_packet.ch_servo4);
+  servo5.writeMicroseconds(rc_packet.ch_servo5);
+  servo6.writeMicroseconds(rc_packet.ch_servo6);
+  servo7.writeMicroseconds(rc_packet.ch_servo7);
+  servo8.writeMicroseconds(rc_packet.ch_servo8);
   
   //Serial.println(rc_packet.ch_servo1); //print value ​​on a serial monitor
 }
