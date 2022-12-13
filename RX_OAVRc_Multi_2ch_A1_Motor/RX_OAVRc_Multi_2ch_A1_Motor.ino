@@ -95,8 +95,8 @@ RF24 radio(PIN_CE, PIN_CSN);
 //************************************************************************************************************************************************************************
 struct rc_packet_size
 {
-  unsigned int ch_motorA;
-  unsigned int ch_motorB;
+  unsigned int ch_motorA = MID_CONTROL_VAL;
+  unsigned int ch_motorB = MID_CONTROL_VAL;
 };
 rc_packet_size rc_packet; //create a variable with the above structure
 

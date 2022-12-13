@@ -68,11 +68,11 @@ RF24 radio(PIN_CE, PIN_CSN);
 //************************************************************************************************************************************************************************
 struct rc_packet_size
 {
-  unsigned int ch_servo1;
-  unsigned int ch_servo2;
-  unsigned int ch_servo3;
-  unsigned int ch_servo4;
-  unsigned int ch_servo5;
+  unsigned int ch_servo1 = MID_CONTROL_VAL;
+  unsigned int ch_servo2 = MID_CONTROL_VAL;
+  unsigned int ch_servo3 = MID_CONTROL_VAL;
+  unsigned int ch_servo4 = MID_CONTROL_VAL;
+  unsigned int ch_servo5 = MID_CONTROL_VAL;
 };
 rc_packet_size rc_packet; //create a variable with the above structure
 

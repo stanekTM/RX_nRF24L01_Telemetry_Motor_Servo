@@ -95,11 +95,11 @@ RF24 radio(PIN_CE, PIN_CSN);
 //************************************************************************************************************************************************************************
 struct rc_packet_size
 {
-  unsigned int ch_motorA;
-  unsigned int ch_motorB;
-  unsigned int ch_servo1; //unused channel, only adding byte array TX 5ch
-  unsigned int ch_servo2; //unused channel, only adding byte array TX 5ch
-  unsigned int ch_servo3; //unused channel, only adding byte array TX 5ch
+  unsigned int ch_motorA = MID_CONTROL_VAL;
+  unsigned int ch_motorB = MID_CONTROL_VAL;
+  unsigned int ch_servo1 = MID_CONTROL_VAL; //unused channel, only adding byte array TX 5ch
+  unsigned int ch_servo2 = MID_CONTROL_VAL; //unused channel, only adding byte array TX 5ch
+  unsigned int ch_servo3 = MID_CONTROL_VAL; //unused channel, only adding byte array TX 5ch
 };
 rc_packet_size rc_packet; //create a variable with the above structure
 
