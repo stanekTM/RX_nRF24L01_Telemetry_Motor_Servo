@@ -286,7 +286,7 @@ unsigned long rx_time = 0;
 
 void last_rx_time()
 {
-  if(millis() >= rx_time + 1000) //1s
+  if(millis() - rx_time > 1000) //1s
   {
     fail_safe();
     RF_off_check();
@@ -335,7 +335,7 @@ bool batt_detect, led_state;
 
 void RX_batt_check()
 {
-  if (millis() >= adc_time + 1000) //delay adc reading RX battery
+  if (millis() - adc_time > 1000) //delay adc reading RX battery
   {
     adc_time = millis();
     
@@ -344,7 +344,7 @@ void RX_batt_check()
   
   batt_detect = telemetry_packet.RX_batt_A1 <= (255 / BATTERY_VOLTAGE) * MONITORED_VOLTAGE;
    
-  if (millis() >= led_time + 500)
+  if (millis() - led_time > 500)
   {
     led_time = millis();
     
@@ -366,7 +366,7 @@ void RX_batt_check()
 //************************************************************************************************************************************************************************
 void RF_off_check()
 {
-  if (millis() >= led_time + 100)
+  if (millis() - led_time > 100)
   {
     led_time = millis();
     
