@@ -188,7 +188,7 @@ unsigned long rx_time = 0;
 
 void last_rx_time()
 {
-  if(millis() - rx_time > 1000) //1s
+  if (millis() - rx_time > 1000) //1s
   {
     fail_safe(); 
     RF_off_check();
