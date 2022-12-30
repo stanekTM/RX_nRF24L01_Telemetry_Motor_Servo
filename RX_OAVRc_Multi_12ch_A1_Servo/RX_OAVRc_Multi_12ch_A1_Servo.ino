@@ -152,7 +152,7 @@ void output_servo()
   servo11.writeMicroseconds(rc_packet.ch_servo11);
   servo12.writeMicroseconds(rc_packet.ch_servo12);
   
-  //Serial.println(rc_packet.ch_servo1); //print value ​​on a serial monitor 
+  //Serial.println(rc_packet.ch_servo1); //print value on a serial monitor 
 }
 
 //************************************************************************************************************************************************************************
@@ -205,7 +205,7 @@ unsigned long rx_time = 0;
 
 void last_rx_time()
 {
-  if(millis() - rx_time > 1000) //1s
+  if (millis() - rx_time > 1000) //1s
   {
     fail_safe();
     RF_off_check();
@@ -237,7 +237,7 @@ void send_and_receive_data()
   
   packet_state++;
   
-  if (packet_state > 11200)
+  if (packet_state > 10000)
   {
     telemetry_packet.rssi = telemetry_counter;
     telemetry_counter = 0;
@@ -277,7 +277,7 @@ void RX_batt_check()
     }
     digitalWrite(PIN_LED, led_state);
   }
-  //Serial.println(telemetry_packet.RX_batt_A1); //print value ​​on a serial monitor
+  //Serial.println(telemetry_packet.RX_batt_A1); //print value on a serial monitor
 }
 
 //************************************************************************************************************************************************************************
