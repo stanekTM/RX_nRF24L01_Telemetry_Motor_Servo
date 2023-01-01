@@ -81,7 +81,7 @@ struct rc_packet_size
   unsigned int ch_servo11 = MID_CONTROL_VAL;
   unsigned int ch_servo12 = MID_CONTROL_VAL;
 };
-rc_packet_size rc_packet; //create a variable with the above structure
+rc_packet_size rc_packet;
 
 //************************************************************************************************************************************************************************
 //this struct defines data, which are embedded inside the ACK payload ****************************************************************************************************
@@ -171,18 +171,15 @@ void setup()
   
   //define the radio communication
   radio.begin();
-  radio.setAutoAck(true);          //ensure autoACK is enabled (default true)
-  radio.enableAckPayload();        //enable Ack dynamic payloads. This only works on pipes 0&1 by default
-  radio.enableDynamicPayloads();   //enable dynamic payloads on all pipes
-  radio.setRetries(5, 5);          //set the number and delay of retries on failed submit (max. 15 x 250us delay (blocking !), max. 15 retries)
-  
-  radio.setChannel(RADIO_CHANNEL); //which RF channel to communicate on (0-125, 2.4Ghz + 76 = 2.476Ghz)
-  radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
-  radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm)
-  
-  radio.openReadingPipe(1, address); //open the reading pipe1 (RX_ADDR_P1) and then call "startListening"
-  
-  radio.startListening(); //set the module as receiver. Start listening on the pipes opened for reading
+  radio.setAutoAck(true);
+  radio.enableAckPayload();
+  radio.enableDynamicPayloads();
+  radio.setRetries(5, 5);
+  radio.setChannel(RADIO_CHANNEL);
+  radio.setDataRate(RF24_250KBPS);   //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
+  radio.setPALevel(RF24_PA_MIN);     //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm)
+  radio.openReadingPipe(1, address);
+  radio.startListening();
 }
 
 //************************************************************************************************************************************************************************
@@ -190,7 +187,7 @@ void setup()
 //************************************************************************************************************************************************************************
 void loop()
 {
-  last_rx_time();
+  fail_safe_time();
   send_and_receive_data();
   output_servo();
   
@@ -201,11 +198,11 @@ void loop()
 //************************************************************************************************************************************************************************
 //get time after losing RF data or turning off the TX, reset data and the LED flashing ***********************************************************************************
 //************************************************************************************************************************************************************************
-unsigned long rx_time = 0;
+unsigned long fs_time = 0;
 
-void last_rx_time()
+void fail_safe_time()
 {
-  if (millis() - rx_time > 1000) //1s
+  if (millis() - fs_time > 1000) //1s
   {
     fail_safe();
     RF_off_check();
@@ -216,7 +213,7 @@ void last_rx_time()
 //send and receive data **************************************************************************************************************************************************
 //************************************************************************************************************************************************************************
 byte telemetry_counter = 0;
-unsigned int packet_state = 0;
+unsigned int packet_state;
 
 void send_and_receive_data()
 {
@@ -227,7 +224,7 @@ void send_and_receive_data()
     radio.read(&rc_packet, sizeof(rc_packet_size));
     
     RX_batt_check();
-    rx_time = millis(); //at this moment we have received the data
+    fs_time = millis();
   }
   
   if (radio.available())
@@ -235,9 +232,7 @@ void send_and_receive_data()
     telemetry_counter++;
   }
   
-  packet_state++;
-  
-  if (packet_state > 10000)
+  if (packet_state++ > 10000)
   {
     telemetry_packet.rssi = telemetry_counter;
     telemetry_counter = 0;
