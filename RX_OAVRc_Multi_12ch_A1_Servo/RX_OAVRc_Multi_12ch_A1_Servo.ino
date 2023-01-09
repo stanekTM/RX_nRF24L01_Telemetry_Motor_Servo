@@ -221,18 +221,15 @@ void send_and_receive_data()
   {
     radio.writeAckPayload(1, &telemetry_packet, sizeof(telemetry_packet_size));
     
+    telemetry_counter++;
+    
     radio.read(&rc_packet, sizeof(rc_packet_size));
     
     RX_batt_check();
     fs_time = millis();
   }
   
-  if (radio.available())
-  {
-    telemetry_counter++;
-  }
-  
-  if (packet_state++ > 10000)
+  if (packet_state++ > 3523) //3523 = 100% packets
   {
     telemetry_packet.rssi = telemetry_counter;
     telemetry_counter = 0;
