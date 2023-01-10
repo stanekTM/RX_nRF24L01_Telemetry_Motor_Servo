@@ -174,7 +174,7 @@ void setup()
   radio.setAutoAck(true);
   radio.enableAckPayload();
   radio.enableDynamicPayloads();
-  radio.setRetries(15, 15);
+  radio.setRetries(3, 1);
   radio.setChannel(RADIO_CHANNEL);
   radio.setDataRate(RF24_250KBPS);   //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);     //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm)
@@ -229,7 +229,7 @@ void send_and_receive_data()
     fs_time = millis();
   }
   
-  if (packet_state++ > 3523) //3523 = 100% packets
+  if (packet_state++ > 3520) //100% packets
   {
     telemetry_packet.rssi = telemetry_counter;
     telemetry_counter = 0;
