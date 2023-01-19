@@ -174,7 +174,7 @@ void setup()
   radio.setAutoAck(true);
   radio.enableAckPayload();
   radio.enableDynamicPayloads();
-  radio.setRetries(3, 1);
+  radio.setRetries(0, 0);
   radio.setChannel(RADIO_CHANNEL);
   radio.setDataRate(RF24_250KBPS);   //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);     //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm)
@@ -214,24 +214,61 @@ void fail_safe_time()
 //************************************************************************************************************************************************************************
 byte telemetry_counter = 0;
 unsigned int packet_state;
+unsigned long rssi_time = 0;
+unsigned long val_rssi_time;
 
 void send_and_receive_data()
 {
+  switch (sizeof(rc_packet_size))
+  {
+    case 4:  val_rssi_time = 3800; //2ch
+    break;
+    case 6:  val_rssi_time = 3800; //3ch
+    break;
+    case 8:  val_rssi_time = 3780; //4ch
+    break;
+    case 10: val_rssi_time = 3760; //5ch
+    break;
+    case 12: val_rssi_time = 3060; //6ch
+    break;
+    case 14: val_rssi_time = 3040; //7ch
+    break;
+    case 16: val_rssi_time = 3330; //8ch
+    break;
+    case 18: val_rssi_time = 3350; //9ch
+    break;
+    case 20: val_rssi_time = 3550; //10ch
+    break;
+    case 22: val_rssi_time = 3560; //11ch
+    break;
+    case 24: val_rssi_time = 3520; //12ch
+    break;
+  }
+  
   if (radio.available())
   {
     radio.writeAckPayload(1, &telemetry_packet, sizeof(telemetry_packet_size));
     
-    telemetry_counter++;
-    
     radio.read(&rc_packet, sizeof(rc_packet_size));
+    
+    telemetry_counter++;
     
     RX_batt_check();
     fs_time = millis();
   }
-  
-  if (packet_state++ > 3520) //100% packets
+  else
   {
-    telemetry_packet.rssi = telemetry_counter;
+    if (micros() - rssi_time > val_rssi_time)
+    {
+      rssi_time = micros();
+      packet_state++;
+    }
+  }
+  
+  if (packet_state > 254)
+  {
+    //telemetry_packet.rssi = telemetry_counter;
+    telemetry_packet.rssi = map(telemetry_counter, 0, 254, 0, 100);
     telemetry_counter = 0;
     packet_state = 0;
   }

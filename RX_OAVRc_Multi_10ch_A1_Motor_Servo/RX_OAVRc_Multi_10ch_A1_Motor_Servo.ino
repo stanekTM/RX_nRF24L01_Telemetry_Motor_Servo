@@ -254,7 +254,7 @@ void setup()
   radio.setAutoAck(true);
   radio.enableAckPayload();
   radio.enableDynamicPayloads();
-  radio.setRetries(3, 1);
+  radio.setRetries(0, 0);
   radio.setChannel(RADIO_CHANNEL);
   radio.setDataRate(RF24_250KBPS);   //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);     //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm)
@@ -295,6 +295,7 @@ void fail_safe_time()
 //************************************************************************************************************************************************************************
 byte telemetry_counter = 0;
 unsigned int packet_state;
+unsigned long rssi_time = 0;
 
 void send_and_receive_data()
 {
@@ -302,17 +303,26 @@ void send_and_receive_data()
   {
     radio.writeAckPayload(1, &telemetry_packet, sizeof(telemetry_packet_size));
     
-    telemetry_counter++;
-    
     radio.read(&rc_packet, sizeof(rc_packet_size));
+
+    telemetry_counter++;
     
     RX_batt_check();
     fs_time = millis();
   }
-  
-  if (packet_state++ > 3710) //100% packets
+  else
   {
-    telemetry_packet.rssi = telemetry_counter;
+    if (micros() - rssi_time > 3550)
+    {
+      rssi_time = micros();
+      packet_state++;
+    }
+  }
+  
+  if (packet_state > 254)
+  {
+    //telemetry_packet.rssi = telemetry_counter;
+    telemetry_packet.rssi = map(telemetry_counter, 0, 254, 0, 100);
     telemetry_counter = 0;
     packet_state = 0;
   }
