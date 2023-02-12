@@ -174,7 +174,7 @@ void setup()
   radio.setAutoAck(true);
   radio.enableAckPayload();
   radio.enableDynamicPayloads();
-  radio.setRetries(0, 0);
+  radio.setRetries(5, 5);
   radio.setChannel(RADIO_CHANNEL);
   radio.setDataRate(RF24_250KBPS);   //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
   radio.setPALevel(RF24_PA_MIN);     //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm)
@@ -214,34 +214,33 @@ void fail_safe_time()
 //************************************************************************************************************************************************************************
 byte telemetry_counter = 0;
 unsigned int packet_state;
-unsigned long rssi_time = 0;
-unsigned long val_rssi_time;
+unsigned int val_packet_state;
 
 void send_and_receive_data()
 {
   switch (sizeof(rc_packet_size))
   {
-    case 4:  val_rssi_time = 3800; //2ch
+    case 4:  val_packet_state = 8130; //2ch
     break;
-    case 6:  val_rssi_time = 3800; //3ch
+    case 6:  val_packet_state = 7360; //3ch
     break;
-    case 8:  val_rssi_time = 3780; //4ch
+    case 8:  val_packet_state = 6720; //4ch
     break;
-    case 10: val_rssi_time = 3760; //5ch
+    case 10: val_packet_state = 6180; //5ch
     break;
-    case 12: val_rssi_time = 3060; //6ch
+    case 12: val_packet_state = 5200; //6ch
     break;
-    case 14: val_rssi_time = 3040; //7ch
+    case 14: val_packet_state = 4970; //7ch
     break;
-    case 16: val_rssi_time = 3330; //8ch
+    case 16: val_packet_state = 4780; //8ch
     break;
-    case 18: val_rssi_time = 3350; //9ch
+    case 18: val_packet_state = 4610; //9ch
     break;
-    case 20: val_rssi_time = 3550; //10ch
+    case 20: val_packet_state = 4080; //10ch
     break;
-    case 22: val_rssi_time = 3560; //11ch
+    case 22: val_packet_state = 3960; //11ch
     break;
-    case 24: val_rssi_time = 3520; //12ch
+    case 24: val_packet_state = 3510; //12ch
     break;
   }
   
@@ -256,19 +255,16 @@ void send_and_receive_data()
     RX_batt_check();
     fs_time = millis();
   }
-  else
-  {
-    if (micros() - rssi_time > val_rssi_time)
-    {
-      rssi_time = micros();
-      packet_state++;
-    }
-  }
   
-  if (packet_state > 254)
+  if (packet_state++ > val_packet_state)
   {
-    //telemetry_packet.rssi = telemetry_counter;
-    telemetry_packet.rssi = map(telemetry_counter, 0, 254, 0, 100);
+    if (telemetry_counter < 10)                            telemetry_packet.rssi = 0;
+    if (telemetry_counter > 10 && telemetry_counter < 30)  telemetry_packet.rssi = 20;
+    if (telemetry_counter > 30 && telemetry_counter < 60)  telemetry_packet.rssi = 50;
+    if (telemetry_counter > 60 && telemetry_counter < 80)  telemetry_packet.rssi = 70;
+    if (telemetry_counter > 80 && telemetry_counter < 100) telemetry_packet.rssi = 90;
+    if (telemetry_counter > 100)                           telemetry_packet.rssi = 100;
+    
     telemetry_counter = 0;
     packet_state = 0;
   }
