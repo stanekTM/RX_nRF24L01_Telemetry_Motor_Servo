@@ -256,8 +256,8 @@ void setup()
   radio.enableDynamicPayloads();
   radio.setRetries(5, 5);
   radio.setChannel(RADIO_CHANNEL);
-  radio.setDataRate(RF24_250KBPS);   //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
-  radio.setPALevel(RF24_PA_MIN);     //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm)
+  radio.setDataRate(RF24_250KBPS);
+  radio.setPALevel(RF24_PA_MIN); //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm)
   radio.openReadingPipe(1, address);
   radio.startListening();
 }
@@ -313,7 +313,7 @@ void send_and_receive_data()
   if (packet_state++ > 4080)
   {
     if (telemetry_counter < 10)                            telemetry_packet.rssi = 0;
-    if (telemetry_counter > 10 && telemetry_counter < 30)  telemetry_packet.rssi = 20;
+    if (telemetry_counter > 10 && telemetry_counter < 30)  telemetry_packet.rssi = 10;
     if (telemetry_counter > 30 && telemetry_counter < 60)  telemetry_packet.rssi = 50;
     if (telemetry_counter > 60 && telemetry_counter < 80)  telemetry_packet.rssi = 70;
     if (telemetry_counter > 80 && telemetry_counter < 100) telemetry_packet.rssi = 90;

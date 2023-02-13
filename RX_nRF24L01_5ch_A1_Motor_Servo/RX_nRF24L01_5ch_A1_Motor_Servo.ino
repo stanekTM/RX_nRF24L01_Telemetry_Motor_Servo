@@ -244,8 +244,8 @@ void setup()
   radio.enableDynamicPayloads();
   radio.setRetries(5, 5);
   radio.setChannel(RADIO_CHANNEL);
-  radio.setDataRate(RF24_250KBPS); //RF24_250KBPS (fails for units without +), RF24_1MBPS, RF24_2MBPS
-  radio.setPALevel(RF24_PA_MIN);   //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm)
+  radio.setDataRate(RF24_250KBPS);
+  radio.setPALevel(RF24_PA_MIN); //RF24_PA_MIN (-18dBm), RF24_PA_LOW (-12dBm), RF24_PA_HIGH (-6dbm), RF24_PA_MAX (0dBm)
   //radio.openWritingPipe(invert_address);
   radio.openReadingPipe(1, address);
   radio.startListening();
