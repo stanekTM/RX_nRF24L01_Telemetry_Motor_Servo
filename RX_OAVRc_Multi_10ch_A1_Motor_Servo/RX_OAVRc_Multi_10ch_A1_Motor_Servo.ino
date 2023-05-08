@@ -23,8 +23,10 @@ const byte address[] = "jirka";
 #define ACCELERATE_MOTOR_B  0
 
 //setting the maximum motor power. Suitable for TX transmitters without endpoint setting. Settings (0-255)
-#define MAX_MOTOR_A  255
-#define MAX_MOTOR_B  255
+#define MAX_FORW_MOTOR_A  255
+#define MAX_BACK_MOTOR_A  255
+#define MAX_FORW_MOTOR_B  255
+#define MAX_BACK_MOTOR_B  255
 
 //brake setting, no brake 0, max brake 255. Settings (0-255)
 #define BRAKE_MOTOR_A  0
@@ -186,16 +188,16 @@ void output_PWM()
   //forward motorA
   if (rc_packet.ch_motorA > MID_CONTROL_VAL + DEAD_ZONE)
   {
-    value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_A, MAX_MOTOR_A);
-    value_motorA = constrain(value_motorA, ACCELERATE_MOTOR_A, MAX_MOTOR_A);
+    value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_A, MAX_FORW_MOTOR_A);
+    value_motorA = constrain(value_motorA, ACCELERATE_MOTOR_A, MAX_FORW_MOTOR_A);
     analogWrite(PIN_PWM_2_MOTOR_A, value_motorA); 
     digitalWrite(PIN_PWM_1_MOTOR_A, LOW);
   }
   //back motorA
   else if (rc_packet.ch_motorA < MID_CONTROL_VAL - DEAD_ZONE)
   {
-    value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_A, MAX_MOTOR_A);
-    value_motorA = constrain(value_motorA, ACCELERATE_MOTOR_A, MAX_MOTOR_A);
+    value_motorA = map(rc_packet.ch_motorA, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_A, MAX_BACK_MOTOR_A);
+    value_motorA = constrain(value_motorA, ACCELERATE_MOTOR_A, MAX_BACK_MOTOR_A);
     analogWrite(PIN_PWM_1_MOTOR_A, value_motorA);
     digitalWrite(PIN_PWM_2_MOTOR_A, LOW);
   }
@@ -209,16 +211,16 @@ void output_PWM()
   //forward motorB
   if (rc_packet.ch_motorB > MID_CONTROL_VAL + DEAD_ZONE)
   {
-    value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_B, MAX_MOTOR_B);
-    value_motorB = constrain(value_motorB, ACCELERATE_MOTOR_B, MAX_MOTOR_B);
+    value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL + DEAD_ZONE, MAX_CONTROL_VAL, ACCELERATE_MOTOR_B, MAX_FORW_MOTOR_B);
+    value_motorB = constrain(value_motorB, ACCELERATE_MOTOR_B, MAX_FORW_MOTOR_B);
     analogWrite(PIN_PWM_4_MOTOR_B, value_motorB);
     digitalWrite(PIN_PWM_3_MOTOR_B, LOW);
   }
   //back motorB
   else if (rc_packet.ch_motorB < MID_CONTROL_VAL - DEAD_ZONE)
   {
-    value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_B, MAX_MOTOR_B);
-    value_motorB = constrain(value_motorB, ACCELERATE_MOTOR_B, MAX_MOTOR_B);
+    value_motorB = map(rc_packet.ch_motorB, MID_CONTROL_VAL - DEAD_ZONE, MIN_CONTROL_VAL, ACCELERATE_MOTOR_B, MAX_BACK_MOTOR_B);
+    value_motorB = constrain(value_motorB, ACCELERATE_MOTOR_B, MAX_BACK_MOTOR_B);
     analogWrite(PIN_PWM_3_MOTOR_B, value_motorB);
     digitalWrite(PIN_PWM_4_MOTOR_B, LOW);
   }
