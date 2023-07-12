@@ -281,7 +281,7 @@ void RX_batt_check()
   {
     led_time = millis();
     
-    if (led_state >= !batt_detect + HIGH)
+    if (led_state == batt_detect)
     {
       led_state = LOW;
     }
