@@ -187,9 +187,9 @@ void setup()
 //*********************************************************************************************************************
 void loop()
 {
+  output_servo();
   fail_safe_time();
   send_and_receive_data();
-  output_servo();
   
   //Serial.println("Radio details *****************");
   //radio.printDetails(); //print the radio debug info
