@@ -265,34 +265,42 @@ void send_and_receive_data()
 //When RX BATTERY_VOLTAGE < MONITORED_VOLTAGE = LED alarm RX flash at a interval of 0.5s ******************************
 //*********************************************************************************************************************
 unsigned long adc_time = 0, led_time = 0;
-bool batt_detect, led_state;
+bool low_batt_detect = 0, previous_state_batt, batt_led_state = 1, RF_led_state;
 
 void RX_batt_check()
 {
   if (millis() - adc_time > 1000) //delay adc reading RX battery
   {
     adc_time = millis();
-
-    telemetry_packet.RX_batt_A1 = analogRead(PIN_RX_BATTERY) * (BATTERY_VOLTAGE / 1023);
-  }
-  
-  batt_detect = telemetry_packet.RX_batt_A1 <= MONITORED_VOLTAGE;
-  
-  if (millis() - led_time > 500)
-  {
-    led_time = millis();
     
-    if (led_state == batt_detect)
-    {
-      led_state = LOW;
-    }
-    else
-    {
-      led_state = HIGH;
-    }
-    digitalWrite(PIN_LED, led_state);
+    telemetry_packet.RX_batt_A1 = analogRead(PIN_RX_BATTERY) * (BATTERY_VOLTAGE / 1023);
+    
+    low_batt_detect = telemetry_packet.RX_batt_A1 <= MONITORED_VOLTAGE;
   }
-  //Serial.println(telemetry_packet.RX_batt_A1);
+  
+  digitalWrite(PIN_LED, batt_led_state);
+  
+  if (low_batt_detect)
+  {
+    previous_state_batt = 1;
+    
+    if (millis() - led_time > 500)
+    {
+      led_time = millis();
+      
+      if (batt_led_state)
+      {
+        batt_led_state = 0;
+      }
+      else
+      {
+        batt_led_state = 1;
+      }
+    }
+  }
+  low_batt_detect = previous_state_batt;
+  
+  //Serial.println(low_batt_detect);
 }
 
 //*********************************************************************************************************************
@@ -301,19 +309,20 @@ void RX_batt_check()
 //*********************************************************************************************************************
 void RF_off_check()
 {
+  digitalWrite(PIN_LED, RF_led_state);
+  
   if (millis() - led_time > 100)
   {
     led_time = millis();
     
-    if (led_state)
+    if (RF_led_state)
     {
-      led_state = LOW;
+      RF_led_state = 0;
     }
     else
     {
-      led_state = HIGH;
+      RF_led_state = 1;
     }
-    digitalWrite(PIN_LED, led_state);
   }
 }
  
