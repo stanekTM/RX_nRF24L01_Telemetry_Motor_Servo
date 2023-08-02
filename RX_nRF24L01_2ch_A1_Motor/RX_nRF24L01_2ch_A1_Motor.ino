@@ -132,9 +132,6 @@ int value_motorA = 0, value_motorB = 0;
 
 void output_PWM()
 {
-  setPWMPrescaler(PIN_PWM_1_MOTOR_A, PWM_MOTOR_A);
-  setPWMPrescaler(PIN_PWM_3_MOTOR_B, PWM_MOTOR_B);
-  
   //forward motorA
   if (rc_packet.ch_motorA > MID_CONTROL_VAL + DEAD_ZONE)
   {
@@ -202,6 +199,10 @@ void setup()
   
   fail_safe();
   
+  //frequency setting
+  setPWMPrescaler(PIN_PWM_1_MOTOR_A, PWM_MOTOR_A);
+  setPWMPrescaler(PIN_PWM_3_MOTOR_B, PWM_MOTOR_B);
+  
   //define the radio communication
   radio.begin();
   radio.setAutoAck(true);
@@ -221,9 +222,9 @@ void setup()
 //*********************************************************************************************************************
 void loop()
 {
+  output_PWM();
   fail_safe_time();
   send_and_receive_data();
-  output_PWM();
   
   //Serial.println("Radio details *****************");
   //radio.printDetails(); //print the radio debug info

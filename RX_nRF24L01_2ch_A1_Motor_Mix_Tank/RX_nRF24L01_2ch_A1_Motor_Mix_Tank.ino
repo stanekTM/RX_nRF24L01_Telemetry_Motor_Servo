@@ -136,9 +136,6 @@ int calc_mix = 258;
 
 void output_PWM()
 {
-  setPWMPrescaler(PIN_PWM_1_MOTOR_A, PWM_MOTOR_A);
-  setPWMPrescaler(PIN_PWM_3_MOTOR_B, PWM_MOTOR_B);
-  
   ch1 = rc_packet.ch_motorA / 2;
   ch2 = rc_packet.ch_motorB / 2;
   mix1 = ch1 - ch2 + 1500;
@@ -217,6 +214,10 @@ void setup()
   
   fail_safe();
   
+  //frequency setting
+  setPWMPrescaler(PIN_PWM_1_MOTOR_A, PWM_MOTOR_A);
+  setPWMPrescaler(PIN_PWM_3_MOTOR_B, PWM_MOTOR_B);
+  
   //define the radio communication
   radio.begin();
   radio.setAutoAck(true);
@@ -236,9 +237,9 @@ void setup()
 //*********************************************************************************************************************
 void loop()
 {
+  output_PWM();
   fail_safe_time();
   send_and_receive_data();
-  output_PWM();
   
   //Serial.println("Radio details *****************");
   //radio.printDetails(); //print the radio debug info
