@@ -107,9 +107,9 @@ rc_packet_size rc_packet;
 //*********************************************************************************************************************
 struct telemetry_packet_size
 {
-  byte rssi;       //0-255 for OpenAVRc and OpenTX Multiprotocol telemetry
-  byte RX_batt_A1; //0-255 for OpenAVRc and OpenTX Multiprotocol telemetry
-  byte RX_batt_A2; //0-255 for OpenAVRc and OpenTX Multiprotocol telemetry (not used yet)
+  byte rssi;    //0-255 for OpenAVRc and OpenTX Multiprotocol telemetry
+  byte batt_A1; //0-255 for OpenAVRc and OpenTX Multiprotocol telemetry
+  byte batt_A2; //0-255 for OpenAVRc and OpenTX Multiprotocol telemetry (not used yet)
 };
 telemetry_packet_size telemetry_packet;
 
@@ -285,9 +285,9 @@ void battery_check()
   {
     adc_time = millis();
     
-    telemetry_packet.RX_batt_A1 = map(analogRead(PIN_BATTERY), 0, 1023, 0, 255);
+    telemetry_packet.batt_A1 = map(analogRead(PIN_BATTERY), 0, 1023, 0, 255);
     
-    low_batt_detect = telemetry_packet.RX_batt_A1 <= (255 / BATTERY_VOLTAGE) * MONITORED_VOLTAGE;
+    low_batt_detect = telemetry_packet.batt_A1 <= (255 / BATTERY_VOLTAGE) * MONITORED_VOLTAGE;
   }
   
   digitalWrite(PIN_LED, batt_led_state);

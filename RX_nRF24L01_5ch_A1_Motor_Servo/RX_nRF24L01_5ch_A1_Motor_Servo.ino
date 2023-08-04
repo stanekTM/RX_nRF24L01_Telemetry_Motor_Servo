@@ -113,7 +113,7 @@ rc_packet_size rc_packet;
 //*********************************************************************************************************************
 struct telemetry_packet_size
 {
-  byte rssi;        //not used yet
+  byte rssi;     //not used yet
   float batt_A1;
   float batt_A2; //not used yet
 };
