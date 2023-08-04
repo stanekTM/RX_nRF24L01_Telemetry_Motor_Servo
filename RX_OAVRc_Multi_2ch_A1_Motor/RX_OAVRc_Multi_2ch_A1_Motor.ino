@@ -74,11 +74,11 @@ const byte address[] = "jirka";
 #define PIN_PWM_3_MOTOR_B  3
 #define PIN_PWM_4_MOTOR_B  11 //MOSI
 
-//LED RX battery and RF on/off
+//LED battery and RF on/off
 #define PIN_LED            2
 
-//input RX battery
-#define PIN_RX_BATTERY     A7
+//input battery
+#define PIN_BATTERY        A7
 
 //pins for nRF24L01
 #define PIN_CE             A0
@@ -190,7 +190,7 @@ void setup()
   pinMode(PIN_PWM_4_MOTOR_B, OUTPUT);
   
   pinMode(PIN_LED, OUTPUT);
-  pinMode(PIN_RX_BATTERY, INPUT);
+  pinMode(PIN_BATTERY, INPUT);
   
   fail_safe();
   
@@ -254,7 +254,7 @@ void send_and_receive_data()
 
     telemetry_counter++;
     
-    RX_batt_check();
+    battery_check();
     fs_time = millis();
   }
   
@@ -273,19 +273,19 @@ void send_and_receive_data()
 }
 
 //*********************************************************************************************************************
-//reading adc RX battery. After receiving RF data, the monitored RX battery is activated. Battery OK = LED RX is lit **
-//When RX BATTERY_VOLTAGE < MONITORED_VOLTAGE = LED alarm RX flash at a interval of 0.5s ******************************
+//reading adc battery. After receiving RF data, the monitored battery is activated. Battery OK = LED is lit ***********
+//When BATTERY_VOLTAGE < MONITORED_VOLTAGE = LED alarm flash at a interval of 0.5s ************************************
 //*********************************************************************************************************************
 unsigned long adc_time = 0, led_time = 0;
 bool low_batt_detect = 0, previous_state_batt, batt_led_state = 1, RF_led_state;
 
-void RX_batt_check()
+void battery_check()
 {
-  if (millis() - adc_time > 1000) //delay adc reading RX battery
+  if (millis() - adc_time > 1000) //delay adc reading battery
   {
     adc_time = millis();
     
-    telemetry_packet.RX_batt_A1 = map(analogRead(PIN_RX_BATTERY), 0, 1023, 0, 255);
+    telemetry_packet.RX_batt_A1 = map(analogRead(PIN_BATTERY), 0, 1023, 0, 255);
     
     low_batt_detect = telemetry_packet.RX_batt_A1 <= (255 / BATTERY_VOLTAGE) * MONITORED_VOLTAGE;
   }
@@ -316,8 +316,8 @@ void RX_batt_check()
 }
 
 //*********************************************************************************************************************
-//when RX is switched on and TX is switched off, or after the loss of RF data = LED RX flash at a interval of 0.1s ****
-//Normal mode = LED RX is lit *****************************************************************************************
+//when RX is switched on and TX is switched off, or after the loss of RF data = LED flash at a interval of 0.1s *******
+//Normal mode = LED is lit ********************************************************************************************
 //*********************************************************************************************************************
 void RF_off_check()
 {
