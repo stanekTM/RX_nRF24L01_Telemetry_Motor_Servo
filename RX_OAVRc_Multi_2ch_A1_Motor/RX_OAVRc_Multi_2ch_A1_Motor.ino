@@ -300,14 +300,7 @@ void battery_check()
     {
       led_time = millis();
       
-      if (batt_led_state)
-      {
-        batt_led_state = 0;
-      }
-      else
-      {
-        batt_led_state = 1;
-      }
+      batt_led_state = !batt_led_state;
     }
   }
   low_batt_detect = previous_state_batt;
@@ -327,14 +320,7 @@ void RF_off_check()
   {
     led_time = millis();
     
-    if (RF_led_state)
-    {
-      RF_led_state = 0;
-    }
-    else
-    {
-      RF_led_state = 1;
-    }
+    RF_led_state = !RF_led_state;
   }
 }
  
