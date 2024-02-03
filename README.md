@@ -9,10 +9,10 @@ Other versions of the RX firmware include servo outputs.
 The firmware will be used for cars, boats, tanks, robots and aircraft.
 
 **This RC receiver works with RC transmitters**
-* [**TX_nRF24L01_4ch_Telemetry_LCD**](https://github.com/stanekTM/TX_nRF24L01_4ch_Telemetry_LCD)
+* [**TX_nRF24_2ch_Oled**](https://github.com/stanekTM/TX_nRF24_2ch_Oled)
 * [**TX_nRF24L01_5ch_Telemetry_LED**](https://github.com/stanekTM/TX_nRF24L01_5ch_Telemetry_LED)
 * [**OpenAVRc**](https://github.com/Ingwie/OpenAVRc_Dev)
-* [**Multiprotocol**](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
+* [**Multiprotocol**](https://github.com/stanekTM/TX_Stanek_Protocol) from my fork.
 
 Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage.
 If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF.
