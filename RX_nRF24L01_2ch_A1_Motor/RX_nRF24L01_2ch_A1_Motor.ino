@@ -1,8 +1,8 @@
 
 //*********************************************************************************************************************
 //Communication nRF24L01P. Fixed RF channel, fixed address.
-//Support for TX Telemetry LCD transmitter https://github.com/stanekTM/TX_nRF24L01_4ch_Telemetry_LCD
-//and for the TX Telemetry LED transmitter https://github.com/stanekTM/TX_nRF24L01_5ch_Telemetry_LED
+//Support transmitter with OLED screen and telemetry https://github.com/stanekTM/TX_nRF24_2ch_OLED
+//and transmitter with LED indication and telemetry https://github.com/stanekTM/TX_nRF24_5ch_LED
 //*********************************************************************************************************************
 
 #include <RF24.h>         //https://github.com/nRF24/RF24
