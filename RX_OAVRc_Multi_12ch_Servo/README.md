@@ -6,7 +6,7 @@ This is the maximum of the Arduino RX receiver of the "Servo" library on the Atm
 The firmware will be used for cars, boats, tanks, robots and aircraft.
 
 This RC receiver works with RC transmitters [OpenAVRc](https://github.com/Ingwie/OpenAVRc_Dev) or 
-[Multiprotocol](https://github.com/stanekTM/DIY-Multiprotocol-TX-Module) from my fork.
+[Multiprotocol](https://github.com/stanekTM/TX_FW_Multi_Stanek) from my fork.
 
 Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage. 
 If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF.
