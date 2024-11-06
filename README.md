@@ -8,7 +8,7 @@ The hardware includes a low-cost nRF24L01+ transceiver and an ATmega328P process
 The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and others similar, which uses 4x PWM input control signals.
 The option to adjust the brake is included in the code.
 
-**Works with RC transmitters**
+**Works with RC transmitters:**
 * [**TX_nRF24_2ch_OLED**](https://github.com/stanekTM/TX_nRF24_2ch_OLED)
 * [**TX_nRF24_5ch_LED**](https://github.com/stanekTM/TX_nRF24_5ch_LED)
 * [**OpenAVRc**](https://github.com/Ingwie/OpenAVRc_Dev)
