@@ -2,7 +2,9 @@
 RC receiver nRF24L01 with ATmega328P/16Mhz.
 Telemetry sends the monitored voltage A1 and RSSI to TX.
 
+The hardware includes a low-cost nRF24L01+ transceiver and an ATmega328P processor.
 The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and others similar, which uses 4x PWM input control signals.
+
 The option to adjust the brake is included in the code.
 
 Other versions of the RX firmware include servo outputs.
@@ -14,8 +16,6 @@ The firmware will be used for cars, boats, tanks, robots and aircraft.
 * [**OpenAVRc**](https://github.com/Ingwie/OpenAVRc_Dev)
 * [**Multiprotocol**](https://github.com/stanekTM/TX_FW_Multi_Stanek) from my fork.
 
-Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage.
-If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF.
 All versions of the code are based on this [scheme](https://raw.githubusercontent.com/stanekTM/RX_nRF24_Motor_Servo/master/documents/micro_rx_schema.PNG), but each version uses different pins.
 
 ## Used libraries
