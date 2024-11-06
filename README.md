@@ -7,7 +7,7 @@ The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and other
 
 The option to adjust the brake is included in the code.
 
-Other versions of the RX firmware include servo outputs.
+Other versions of the RC receiver firmware include servo outputs.
 The firmware will be used for cars, boats, tanks, robots and aircraft.
 
 **This RC receiver works with RC transmitters**
