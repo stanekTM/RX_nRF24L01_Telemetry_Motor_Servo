@@ -37,5 +37,5 @@ A4  - MISO
 * <RF24.h>      https://github.com/nRF24/RF24
 * <DigitalIO.h> https://github.com/greiman/DigitalIO
 
-## RX prototype (mix tank-arcade motor driver, telemetry)
-<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24_Motor_Servo/master/documents/rx_prototype_mix_tank_arcade_1.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24_Motor_Servo/master/documents/rx_prototype_mix_tank_arcade_2.jpg" width="415">
+## RC receiver prototype (mix tank-arcade motor driver, telemetry)
+<img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24_Motor_Servo/master/documents/rx_prototype_mix_tank_arcade_1.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24_Motor_Servo/master/documents/rx_prototype_mix_tank_arcade_2.jpg" width="415"><a href="https://youtu.be/AYgY5UkVnUM"><img src="https://github.com/stanekTM/RX_nRF24_Motor_Servo/blob/master/documents/rx_prototype_mix_tank_arcade_youtube.PNG" width="415"></a>
