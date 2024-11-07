@@ -9,10 +9,11 @@ Includes nRF24L01+ transceiver and ATmega328P processor.
 
 ## Arduino pins
 ```
-D10 - servo 9
-D11 - servo 10
-D12 - servo 11
-D13 - servo 12
+D9  - servo 1
+D10 - servo 2
+D11 - servo 3
+D12 - servo 4
+D13 - servo 5
 
 A5  - LED
 A7  - telemetry analog input RX battery
