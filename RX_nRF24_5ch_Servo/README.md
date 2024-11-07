@@ -18,7 +18,7 @@ D13 - servo 5
 A5  - LED
 A7  - telemetry analog input RX battery
 
-nRF24L01:
+nRF24L01+ software SPI:
 A0  - CE
 A1  - CSN
 A2  - SCK
