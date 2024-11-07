@@ -30,7 +30,7 @@ The option to adjust the brake is included in the code.
 <img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24_Motor_Servo/master/documents/micro_rx_5.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24_Motor_Servo/master/documents/micro_rx_6.jpg" width="415">
 <img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24_Motor_Servo/master/documents/micro_rx_7.jpg" width="415">
 
-## RC receiver prototype [(motor-servo driver, telemetry)](youtube.be/jPN5YdQ-3K0)
+## RC receiver prototype [(motor-servo driver, telemetry)](https://youtu.be/jPN5YdQ-3K0?si=AT5yUzox_M3fIWEb)
 <img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24_Motor_Servo/master/documents/rx_prototype_motor_servo_1.jpg" width="415"><img src="https://raw.githubusercontent.com/stanekTM/RX_nRF24_Motor_Servo/master/documents/rx_prototype_motor_servo_2.jpg" width="415">
 
 ## RC receiver prototype [(mix tank-arcade motor driver, telemetry)](https://github.com/stanekTM/RX_nRF24_Motor_Servo/tree/master/RX_nRF24_2ch_Motor_Mix_Tank)
