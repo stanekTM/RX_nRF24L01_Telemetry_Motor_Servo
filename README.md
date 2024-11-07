@@ -2,11 +2,11 @@
 RC receiver with fixed RF channel and fixed address.
 Telemetry sends measured voltage and "fake" RSSI (the nRF24L01+ transceiver does not contain real RSSI and is only a rough measurement of lost packets).
 
-Firmware versions for cars, ships, tanks, robots and planes.
-
 The hardware includes nRF24L01+ transceiver and ATmega328P processor.
 The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and others similar, which uses 4x PWM input control signals.
 The option to adjust the brake is included in the code.
+
+The firmware will be used for cars, boats, tanks, robots and aircraft.
 
 **Works with RC transmitters:**
 * [**TX_nRF24_2ch_OLED**](https://github.com/stanekTM/TX_nRF24_2ch_OLED)
