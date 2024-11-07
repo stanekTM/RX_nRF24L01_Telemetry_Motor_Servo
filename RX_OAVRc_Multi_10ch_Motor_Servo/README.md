@@ -14,7 +14,7 @@ Works with RC transmitters [**OpenAVRc**](https://github.com/Ingwie/OpenAVRc_Dev
 * Normal mode = LED RX is lit
 * Battery voltage 1S LiPo (4.2V) < monitored voltage = RX, TX LEDs flash at a interval of 0.5s
 * TX transmitter off or signal loss = RX LED flash at a interval of 0.1s 
-* Fail-safe = MotorA and MotorB stopped, servos 1 -> 3 set to neutral or individually set in code
+* Fail-safe = MotorA and MotorB stopped, servos 1 -> 8 set to neutral or individually set in code
 
 ## Arduino pins
 ```
