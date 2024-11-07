@@ -1,15 +1,9 @@
-# RX 2ch (mix tank-arcade motor driver, telemetry)
-RC receiver nRF24L01 with ATmega328P/16Mhz, Arduino Nano or Pro Mini.
-Telemetry sends the monitored voltage RX to TX.
-The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and others similar, using 4x PWM input control signals.
-The possibility of setting the brake is in the code.
-The firmware will be used for micro boats, tanks and robots.
+# RC receiver 2ch (mix tank-arcade motor driver, telemetry)
+Includes nRF24L01+ transceiver and ATmega328P processor.
+The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and others similar, which uses 4x PWM input control signals.
+The option to adjust the brake is included in the code.
 
-This RC receiver works with RC transmitters [TX_nRF24_2ch_OLED](https://github.com/stanekTM/TX_nRF24_2ch_OLED) or
-[TX_nRF24_5ch_LED](https://github.com/stanekTM/TX_nRF24_5ch_LED) from my fork.
-
-Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage.
-If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF.
+The firmware will be used for boats, tanks and robots.
 
 ## Function
 * MotorA = adjustable pwm/ch1 - mix tank-arcade
@@ -30,9 +24,10 @@ D11 - pwm4/MotorB
 D2  - LED
 A7  - telemetry analog input RX battery
 
-nRF24L01:
+nRF24L01+:
 A0  - CE
 A1  - CSN
+software SPI:
 A2  - SCK
 A3  - MOSI
 A4  - MISO
