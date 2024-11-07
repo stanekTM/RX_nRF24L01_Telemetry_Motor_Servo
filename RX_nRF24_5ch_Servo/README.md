@@ -1,5 +1,5 @@
 # RC receiver 5ch (servo driver, telemetry)
-RC receiver nRF24L01+ and ATmega328P processor.
+Includes nRF24L01+ transceiver and ATmega328P processor.
 
 ## Function
 * Normal mode = LED RX is lit
