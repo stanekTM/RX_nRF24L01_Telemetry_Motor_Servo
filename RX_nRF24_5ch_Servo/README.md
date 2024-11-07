@@ -9,7 +9,7 @@ Works with RC transmitters [**TX_nRF24_2ch_OLED**](https://github.com/stanekTM/T
 * Normal mode = LED RX is lit
 * Battery voltage 1S LiPo (4.2V) < monitored voltage = RX LED flash at a interval of 0.5s
 * TX transmitter off or signal loss = RX LED flash at a interval of 0.1s
-* Fail-safe = servos 1 -> 12 set to neutral or individually set in code
+* Fail-safe = servos 1 -> 5 set to neutral or individually set in code
 
 ## Arduino pins
 ```
