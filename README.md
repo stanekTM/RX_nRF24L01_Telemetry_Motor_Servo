@@ -4,7 +4,7 @@ Telemetry sends measured voltage and "fake" RSSI (the nRF24L01+ transceiver does
 
 Firmware versions for cars, ships, tanks, robots and planes.
 
-The hardware includes a low-cost nRF24L01+ transceiver and an ATmega328P processor.
+The hardware includes nRF24L01+ transceiver and ATmega328P processor.
 The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and others similar, which uses 4x PWM input control signals.
 The option to adjust the brake is included in the code.
 
