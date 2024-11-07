@@ -1,7 +1,11 @@
-# RC receiver 5ch (motor-servo driver, telemetry)
+# RC receiver 10ch (motor-servo driver, telemetry)
 Includes nRF24L01+ transceiver and ATmega328P processor.
 The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and others similar, which uses 4x PWM input control signals.
 The option to adjust the brake is included in the code.
+
+The firmware will be used for cars, boats, tanks, robots and aircraft.
+
+Works with RC transmitters [**OpenAVRc**](https://github.com/Ingwie/OpenAVRc_Dev) or [**Multiprotocol**](https://github.com/stanekTM/TX_FW_Multi_Stanek) from my fork.
 
 ## Function
 * MotorA = adjustable pwm/ch1
@@ -14,9 +18,14 @@ The option to adjust the brake is included in the code.
 
 ## Arduino pins
 ```
-D10 - servo 1
-D12 - servo 2
-D13 - servo 3
+D2  - servo 1
+D4  - servo 2
+D7  - servo 3
+D8  - servo 4
+D9  - servo 5
+D10 - servo 6
+D12 - servo 7
+D13 - servo 8
 
 D5  - pwm1/MotorA
 D6  - pwm2/MotorA
