@@ -1,17 +1,12 @@
-# RX 2ch (motor driver, telemetry)
-RC receiver nRF24L01 with ATmega328P/16Mhz processor for smaller dimensions.
-It is possible to use Arduino Nano or Pro Mini. 
-Telemetry sends the monitored voltage A1 and RSSI to TX. 
+# RC receiver 2ch (motor driver, telemetry)
+Includes nRF24L01+ transceiver and ATmega328P processor.
+The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and others similar, which uses 4x PWM input control signals.
+The option to adjust the brake is included in the code.
 It includes CMT2150A transponder for laps timing and motor driver.
-The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and others similar, using 4x PWM input control signals.
-The possibility of setting the brake is in the code.
-The firmware will be used for micro cars, boats, tanks and robots.
 
-This RC receiver works with RC transmitters [OpenAVRc](https://github.com/Ingwie/OpenAVRc_Dev) or 
-[Multiprotocol](https://github.com/stanekTM/TX_FW_Multi_Stanek) from my fork.
+The firmware will be used for micro cars, boats and tanks.
 
-Note: I use (Arduino) ATmega328P 5V/16Mhz and supply VCC only with 3.3V voltage. 
-If you supply the VCC directly with a LiPo 1S cell, except for the nRF24L01, the analog voltage measurement will not work due to the VREF.
+Works with RC transmitters [**OpenAVRc**](https://github.com/Ingwie/OpenAVRc_Dev) or [**Multiprotocol**](https://github.com/stanekTM/TX_FW_Multi_Stanek) from my fork.
 
 ## Function
 * MotorA = adjustable pwm/ch1
