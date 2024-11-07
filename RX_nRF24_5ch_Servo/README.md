@@ -1,6 +1,10 @@
 # RC receiver 5ch (servo driver, telemetry)
 Includes nRF24L01+ transceiver and ATmega328P processor.
 
+The firmware will be used for cars, boats, tanks, robots and aircraft.
+
+Works with RC transmitters [**TX_nRF24_2ch_OLED**](https://github.com/stanekTM/TX_nRF24_2ch_OLED) or [**TX_nRF24_5ch_LED**](https://github.com/stanekTM/TX_nRF24_5ch_LED) from my fork.
+
 ## Function
 * Normal mode = LED RX is lit
 * Battery voltage 1S LiPo (4.2V) < monitored voltage = RX LED flash at a interval of 0.5s
