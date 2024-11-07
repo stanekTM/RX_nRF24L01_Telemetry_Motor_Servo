@@ -24,9 +24,10 @@ D11 - pwm4/MotorB
 D2  - LED
 A7  - telemetry analog input RX battery
 
-nRF24L01:
+nRF24L01+:
 A0  - CE
 A1  - CSN
+software SPI:
 A2  - SCK
 A3  - MOSI
 A4  - MISO
