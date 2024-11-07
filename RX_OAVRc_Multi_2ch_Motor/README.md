@@ -4,7 +4,7 @@ The motor driver IC is based on MX1208, MX1508, MX1515, MX1616, MX1919 and other
 The option to adjust the brake is included in the code.
 The PCB also includes a CMT2150A transponder for a custom RF lap reader.
 
-The firmware will be used for micro cars.
+The firmware will be used for cars.
 
 Works with RC transmitters [**OpenAVRc**](https://github.com/Ingwie/OpenAVRc_Dev) or [**Multiprotocol**](https://github.com/stanekTM/TX_FW_Multi_Stanek) from my fork.
 
